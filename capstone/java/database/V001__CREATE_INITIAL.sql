@@ -1,16 +1,20 @@
 BEGIN;
 
+DROP TABLE IF EXISTS monthly_sched_items, monthly_schedule, baseline_sched_items, mods_changes, contract, project, phase_items;
+
+DROP SEQUENCE IF EXISTS primary_sequence;
+
 CREATE SEQUENCE  IF NOT EXISTS primary_sequence START WITH 10000 INCREMENT BY 1;
 
 CREATE TABLE phase_items (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     phase VARCHAR(20),
     item_description VARCHAR(50),
     CONSTRAINT phase_items_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE project (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     project_name VARCHAR(50),
     contract_id INTEGER,
     date_received date,
@@ -23,13 +27,13 @@ CREATE TABLE project (
 );
 
 CREATE TABLE contract (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     contract_name VARCHAR(50),
     CONSTRAINT contract_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE mods_changes (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     mod_co_name VARCHAR(20),
     project_id INTEGER,
     type VARCHAR(20),
@@ -44,7 +48,7 @@ CREATE TABLE mods_changes (
 );
 
 CREATE TABLE baseline_sched_items (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     project_id INTEGER,
     phase_item INTEGER,
     item_date date,
@@ -54,7 +58,7 @@ CREATE TABLE baseline_sched_items (
 );
 
 CREATE TABLE monthly_schedule (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     project_id INTEGER,
     month_year date,
     schedule_notes VARCHAR(255),
@@ -72,7 +76,7 @@ CREATE TABLE monthly_schedule (
 );
 
 CREATE TABLE monthly_sched_items (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     monthly_sched_id INTEGER,
     phase_item INTEGER,
     item_date date,

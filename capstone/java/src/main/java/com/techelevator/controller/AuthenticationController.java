@@ -21,6 +21,7 @@ import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -92,6 +93,12 @@ public class AuthenticationController {
                 userDao.changeUserStatus(status.getUsername(), status.getStatus());
             }
         }
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/getallusers")
+    public List<User> getAllUsers() {
+        return userDao.findAll();
     }
 
 

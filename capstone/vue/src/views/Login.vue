@@ -3,7 +3,7 @@
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
-        Invalid username and password!
+        Invalid Username and Password!
       </div>
       <div
         class="alert alert-success"
@@ -13,7 +13,7 @@
         Thank you for registering, please sign in.
       </div>
       <!-- <label for="username" class="sr-only">Username</label> -->
-      <v-container>
+      <v-container id="form-container">
         <v-row>
           <v-text-field
             type="text"
@@ -39,8 +39,22 @@
           />
         </v-row>
       </v-container>
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
+<!--      <div class="loginRegisterButtons">-->
+      <router-link :to="{ name: 'register' }">
+        <v-btn id="button"
+            color=#8c090e
+            elevation="2"
+            outlined
+        >Create New Account</v-btn>
+      </router-link>
+
+      <v-btn id="button"
+          color=#8c090e
+          elevation="2"
+          outlined
+          type="submit"
+      >Sign in</v-btn>
+<!--      </div>-->
     </form>
   </div>
 </template>
@@ -88,4 +102,14 @@
     border: 5px;
     color: blue;
   }
+
+  #form-container {
+    width: 40%
+  }
+
+  #button {
+    margin: 10px;
+  }
+
+  /*.loginRegisterButtons {}*/
 </style>

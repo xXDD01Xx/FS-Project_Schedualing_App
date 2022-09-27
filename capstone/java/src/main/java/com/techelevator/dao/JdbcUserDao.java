@@ -1,8 +1,6 @@
 package com.techelevator.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import com.techelevator.model.UserNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -37,21 +35,23 @@ public class JdbcUserDao implements UserDao {
         return userId;
     }
 
-	@Override
-	public User getUserById(int userId) {
-		String sql = "SELECT * FROM users WHERE user_id = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-		if (results.next()) {
-			return mapRowToUser(results);
-		} else {
-			throw new UserNotFoundException();
-		}
-	}
+    @Override
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        if (results.next()) {
+            return mapRowToUser(results);
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
 
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+        String sql = "SELECT u.user_id, u.username, u.password_hash, u.role, us.user_status_desc " +
+                "FROM users u " +
+                "JOIN user_status us ON u.user_status_id = us.user_status_id;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -75,12 +75,45 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean create(String username, String password, String role) {
-        String insertUserSql = "insert into users (username,password_hash,role) values (?,?,?)";
+    public boolean create(String username, String password, String role, String status) {
+        String insertUserSql = "insert into users (username,password_hash,role,user_status_id) " +
+                "values (?,?,?, " +
+                "(SELECT MAX(user_status.user_status_id) " +
+                "FROM user_status where " +
+                "user_status.user_status_desc = ?) )";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole) == 1;
+        return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole, status) == 1;
+    }
+
+    @Override
+    public boolean changeUserPassword(String username, String password) {
+        String updateUserSql = "UPDATE users SET password_hash = ? WHERE username = ?;";
+        String password_hash = new BCryptPasswordEncoder().encode(password);
+
+        return jdbcTemplate.update(updateUserSql, password_hash, username) == 1;
+    }
+
+    @Override
+    public boolean changeUserStatus(String username, String status) {
+        String updateUserSql = "UPDATE users SET user_status_id = " +
+                "(SELECT MAX(user_status.user_status_id) " +
+                "FROM user_status where " +
+                "user_status.user_status_desc = ?) " +
+                "WHERE users.username = ?;";
+
+        return jdbcTemplate.update(updateUserSql, status, username) == 1;
+    }
+
+    public HashSet<String> getUserStatusValues() {
+        String sql = "select user_status.user_status_desc from user_status;";
+        SqlRowSet statusRowSet = jdbcTemplate.queryForRowSet(sql);
+        HashSet<String> userStatusSet = new HashSet<>();
+        while (statusRowSet.next()) {
+            userStatusSet.add(statusRowSet.getString(1));
+        }
+        return userStatusSet;
     }
 
     private User mapRowToUser(SqlRowSet rs) {
@@ -90,6 +123,7 @@ public class JdbcUserDao implements UserDao {
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
+        user.setStatus(rs.getString("user_status_desc"));
         return user;
     }
 }

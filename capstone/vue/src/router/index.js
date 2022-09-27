@@ -5,6 +5,16 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import LandingPage from '../views/LandingPage.vue'
+import ChangePassword from '../views/ChangePassword.vue'
+import AddProject from '../views/AddProject.vue'
+import BaselineSchedule from '../views/BaselineSchedule.vue'
+import ChangeUserStatus from '../views/ChangeUserStatus.vue'
+import MasterSchedule from '../views/MasterSchedule.vue'
+import ModsChangeOrders from '../views/ModsChangeOrders.vue'
+import MonthlyUpdate from '../views/MonthlyUpdate.vue'
+import ReviewPendingUsers from '../views/ReviewPendingUsers.vue'
+import StatusReports from '../views/StatusReports.vue'
 
 Vue.use(Router)
 
@@ -23,10 +33,10 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'landingPage',
+      component: LandingPage,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -52,7 +62,86 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    }
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: Home,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/changePassword',
+      name: 'ChangePassword',
+      component: ChangePassword,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/addProject',
+      name: 'AddProject',
+      component: AddProject,
+      meta: {
+        requiresAuth: true
+      }
+    },{
+      path: '/baselineSchedule',
+      name: 'BaselineSchedule',
+      component: BaselineSchedule,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/changeUserStatus',
+      name: 'ChangeUserStatus',
+      component: ChangeUserStatus,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/master',
+      name: 'MasterSchedule',
+      component: MasterSchedule,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/mods-co',
+      name: 'ModsChangeOrders',
+      component: ModsChangeOrders,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/monthlyUpdate',
+      name: 'MonthlyUpdate',
+      component: MonthlyUpdate,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/reviewPendingUsers',
+      name: 'ReviewPendingUsers',
+      component: ReviewPendingUsers,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/statusReports',
+      name: 'StatusReports',
+      component: StatusReports,
+      meta: {
+        requiresAuth: true
+      }
+    },
   ]
 })
 

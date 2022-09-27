@@ -1,7 +1,5 @@
 INSERT INTO contract (
-    id,
     contract_name
-) VALUES (
-    1200,
-    'Ut pellentesque sapien...'
-);
+) VALUES 
+('Travis County CIP Program Management'),
+('Kyle CIP Program Management');

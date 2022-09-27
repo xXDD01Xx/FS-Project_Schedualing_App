@@ -1,10 +1,24 @@
 BEGIN;
 
-DROP TABLE IF EXISTS monthly_sched_items, monthly_schedule, baseline_sched_items, mods_changes, contract, project, phase_items;
+DROP TABLE IF EXISTS monthly_sched_items, monthly_schedule, baseline_sched_items, mods_changes, contract, project, phase_items, users;
 
 DROP SEQUENCE IF EXISTS primary_sequence;
 
 CREATE SEQUENCE  IF NOT EXISTS primary_sequence START WITH 10000 INCREMENT BY 1;
+
+CREATE TABLE users (
+	user_id SERIAL,
+	username varchar(50) NOT NULL UNIQUE,
+	password_hash varchar(200) NOT NULL,
+	role varchar(50) NOT NULL,
+	CONSTRAINT PK_user PRIMARY KEY (user_id),
+	user_status_id INTEGER REFERENCES user_status('user_status_id')
+);
+
+CREATE TABLE user_status(
+	user_status_id SERIAL,
+	user_status_desc varchar(20)
+)
 
 CREATE TABLE phase_items (
     id SERIAL NOT NULL,

@@ -104,10 +104,8 @@ public class JdbcUserDao implements UserDao {
         String sql = "select user_status.user_status_desc from user_status;";
         SqlRowSet statusRowSet = jdbcTemplate.queryForRowSet(sql);
         HashSet<String> userStatusSet = new HashSet<>();
-        int rowIndex = 0;
         while (statusRowSet.next()) {
             userStatusSet.add(statusRowSet.getString(1));
-//            rowIndex++;
         }
         return userStatusSet;
     }

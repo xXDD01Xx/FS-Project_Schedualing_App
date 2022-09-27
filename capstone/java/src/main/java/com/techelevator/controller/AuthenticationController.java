@@ -74,14 +74,16 @@ public class AuthenticationController {
         }
     }
 
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/updateuserstatus")
-    public void updateUserStatus(@RequestBody ChangeUserStatusDTO updateStatus) {
-        if (validate.validUserStatus(updateStatus.getStatus())) {
-            userDao.changeUserStatus(updateStatus.getUsername(), updateStatus.getStatus());
+    public void updateUserStatus(@RequestBody ChangeUserStatusDTO[] updateStatus) {
+        for (ChangeUserStatusDTO status : updateStatus) {
+            if (validate.validUserStatus(status.getStatus())) {
+                userDao.changeUserStatus(status.getUsername(), status.getStatus());
+            }
         }
     }
+
 
     /**
      * Object to return as body in JWT Authentication.

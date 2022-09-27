@@ -37,7 +37,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User getUserById(int userId) {
-        String sql = "SELECT * FROM users WHERE user_id = ?";
+        String sql = "SELECT * FROM users WHERE user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         if (results.next()) {
             return mapRowToUser(results);
@@ -49,7 +49,9 @@ public class JdbcUserDao implements UserDao {
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+        String sql = "SELECT u.user_id, u.username, u.password_hash, u.role, us.user_status_desc " +
+                "FROM users u " +
+                "JOIN user_status us ON u.user_status_id = us.user_status_id;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -117,6 +119,7 @@ public class JdbcUserDao implements UserDao {
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
+        user.setStatus(rs.getString("user_status_desc"));
         return user;
     }
 }

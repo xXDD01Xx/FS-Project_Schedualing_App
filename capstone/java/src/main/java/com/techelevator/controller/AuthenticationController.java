@@ -25,6 +25,7 @@ import java.security.Principal;
 @RestController
 @CrossOrigin
 public class AuthenticationController {
+    private final static String STATUS_ACTIVE_USER = "Active";
 
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -50,9 +51,13 @@ public class AuthenticationController {
 
         User user = userDao.findByUsername(loginDto.getUsername());
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-        return new ResponseEntity<>(new LoginResponse(jwt, user), httpHeaders, HttpStatus.OK);
+        if (user.getStatus().equals(STATUS_ACTIVE_USER)) {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+            return new ResponseEntity<>(new LoginResponse(jwt, user), httpHeaders, HttpStatus.OK);
+        } else {
+            throw new UserNotActiveException();
+        }
     }
 
     @ResponseStatus(HttpStatus.CREATED)

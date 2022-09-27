@@ -12,7 +12,6 @@
       >
         Thank you for registering, please sign in.
       </div>
-      <!-- <label for="username" class="sr-only">Username</label> -->
       <v-container id="form-container">
         <v-row>
           <v-text-field
@@ -25,8 +24,6 @@
             autofocus
             solo-inverted
         /></v-row>
-        <!-- <input type="text" placeholder="test"> -->
-        <!-- <label for="password" class="sr-only">Password</label> -->
         <v-row>
           <v-text-field
             type="password"
@@ -39,22 +36,20 @@
           />
         </v-row>
       </v-container>
-<!--      <div class="loginRegisterButtons">-->
       <router-link :to="{ name: 'register' }">
-        <v-btn id="button"
+        <v-btn class="button"
             color=#8c090e
             elevation="2"
             outlined
         >Create New Account</v-btn>
       </router-link>
 
-      <v-btn id="button"
+      <v-btn class="button"
           color=#8c090e
           elevation="2"
           outlined
           type="submit"
       >Sign in</v-btn>
-<!--      </div>-->
     </form>
   </div>
 </template>
@@ -82,7 +77,7 @@
             if (response.status == 200) {
               this.$store.commit("SET_AUTH_TOKEN", response.data.token);
               this.$store.commit("SET_USER", response.data.user);
-              this.$router.push("/");
+              this.$router.push({name: 'home'});
             }
           })
           .catch((error) => {
@@ -107,7 +102,7 @@
     width: 40%
   }
 
-  #button {
+  .button {
     margin: 10px;
   }
 

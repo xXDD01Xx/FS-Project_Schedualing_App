@@ -43,15 +43,53 @@
               solo-inverted
           />
         </v-row>
+        <!-- <v-radio-group
+        row
+        required
+        id="radio-buttons"
+        >
+          <v-radio-group>
+            <v-radio
+              name="role-radio"
+              label="User"
+              value="user"
+              v-model="user.role"
+              class="button"
+            ></v-radio>
+          </v-radio-group>
+          <v-radio-group>
+            <v-radio
+              name="role-radio"
+              label="Admin"
+              value="admin"
+              v-model="user.role"
+              class="button"
+            ></v-radio>
+          </v-radio-group>
+        </v-radio-group> -->
+        <div>
+          <input type="radio" 
+          name="user-radio" 
+          class="button" 
+          value="user"
+          v-model="user.role"> User
+          <input type="radio" 
+          name="admin-radio" 
+          class="button" 
+          value="admin"
+          v-model="user.role"
+          @click="check"
+          > Admin
+        </div>
       </v-container>
       <router-link :to="{ name: 'login' }">
-        <v-btn id="button"
+        <v-btn class="button"
             color=#8c090e
             elevation="2"
             outlined
            >Back to Login
         </v-btn></router-link>
-      <v-btn id="button"
+      <v-btn class="button"
           color=#8c090e
              elevation="2"
              outlined
@@ -75,12 +113,16 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+        status: 'Needs Approval'
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
     };
   },
   methods: {
+    check(){
+      console.log(this.user);
+    },
     register()
     {
       if (this.user.password != this.user.confirmPassword)
@@ -126,8 +168,13 @@ export default {
   width: 40%
 }
 
-#button {
+.button {
   margin: 10px;
+}
+
+#radio-buttons{
+  justify-content: center;
+  padding: 5px;
 }
 
 </style>

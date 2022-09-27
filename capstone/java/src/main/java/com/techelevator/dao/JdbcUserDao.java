@@ -1,8 +1,6 @@
 package com.techelevator.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import com.techelevator.model.UserNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -102,9 +100,16 @@ public class JdbcUserDao implements UserDao {
         return jdbcTemplate.update(updateUserSql, status, username) == 1;
     }
 
-    public String[] getUserStatusValues() {
+    public HashSet<String> getUserStatusValues() {
         String sql = "select user_status.user_status_desc from user_status;";
-        return jdbcTemplate.queryForObject(sql, String[].class);
+        SqlRowSet statusRowSet = jdbcTemplate.queryForRowSet(sql);
+        HashSet<String> userStatusSet = new HashSet<>();
+        int rowIndex = 0;
+        while (statusRowSet.next()) {
+            userStatusSet.add(statusRowSet.getString(1));
+//            rowIndex++;
+        }
+        return userStatusSet;
     }
 
     private User mapRowToUser(SqlRowSet rs) {

@@ -1,8 +1,6 @@
 package com.techelevator.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import com.techelevator.model.UserNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -37,16 +35,16 @@ public class JdbcUserDao implements UserDao {
         return userId;
     }
 
-	@Override
-	public User getUserById(int userId) {
-		String sql = "SELECT * FROM users WHERE user_id = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-		if (results.next()) {
-			return mapRowToUser(results);
-		} else {
-			throw new UserNotFoundException();
-		}
-	}
+    @Override
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        if (results.next()) {
+            return mapRowToUser(results);
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
 
     @Override
     public List<User> findAll() {
@@ -81,6 +79,37 @@ public class JdbcUserDao implements UserDao {
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
         return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole) == 1;
+    }
+
+    @Override
+    public boolean changeUserPassword(String username, String password) {
+        String updateUserSql = "UPDATE users SET password_hash = ? WHERE username = ?;";
+        String password_hash = new BCryptPasswordEncoder().encode(password);
+
+        return jdbcTemplate.update(updateUserSql, password_hash, username) == 1;
+    }
+
+    @Override
+    public boolean changeUserStatus(String username, String status) {
+        String updateUserSql = "UPDATE users SET user_status_id = " +
+                "(SELECT MAX(user_status.user_status_id) " +
+                "FROM user_status where " +
+                "user_status.user_status_desc = ?) " +
+                "WHERE users.username = ?;";
+
+        return jdbcTemplate.update(updateUserSql, status, username) == 1;
+    }
+
+    public HashSet<String> getUserStatusValues() {
+        String sql = "select user_status.user_status_desc from user_status;";
+        SqlRowSet statusRowSet = jdbcTemplate.queryForRowSet(sql);
+        HashSet<String> userStatusSet = new HashSet<>();
+        int rowIndex = 0;
+        while (statusRowSet.next()) {
+            userStatusSet.add(statusRowSet.getString(1));
+//            rowIndex++;
+        }
+        return userStatusSet;
     }
 
     private User mapRowToUser(SqlRowSet rs) {

@@ -20,6 +20,8 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 
+import java.security.Principal;
+
 @RestController
 @CrossOrigin
 public class AuthenticationController {
@@ -66,8 +68,10 @@ public class AuthenticationController {
 
     @PreAuthorize("isAuthenticated()")
     @PutMapping(value = "/changepassword")
-    public void changePassword(@RequestBody LoginDTO newPassword) {
-        userDao.changeUserPassword(newPassword.getUsername(), newPassword.getPassword());
+    public void changePassword(@RequestBody LoginDTO newPassword, Principal principal) {
+        if (principal.getName().equals(newPassword.getUsername())) {
+            userDao.changeUserPassword(newPassword.getUsername(), newPassword.getPassword());
+        }
     }
 
 

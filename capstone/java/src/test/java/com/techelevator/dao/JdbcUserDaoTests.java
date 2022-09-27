@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.User;
 import com.techelevator.model.UserNotFoundException;
+import com.techelevator.security.dao.JdbcUserDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

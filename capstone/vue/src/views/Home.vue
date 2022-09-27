@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div class="home">
-      <!-- <h1>Welcome, {{user.username}}</h1> -->
+      <h1>Welcome, {{user.username}}</h1>
       <p>You must be authenticated to see this</p>
     </div>
 
@@ -13,7 +13,7 @@ export default {
   name: "home",
   data(){
     return {
-      
+      user: this.$store.state.user
     }
   }
 };

@@ -20,6 +20,8 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 
+import java.security.Principal;
+
 @RestController
 @CrossOrigin
 public class AuthenticationController {
@@ -66,18 +68,22 @@ public class AuthenticationController {
 
     @PreAuthorize("isAuthenticated()")
     @PutMapping(value = "/changepassword")
-    public void changePassword(@RequestBody LoginDTO newPassword) {
-        userDao.changeUserPassword(newPassword.getUsername(), newPassword.getPassword());
+    public void changePassword(@RequestBody LoginDTO newPassword, Principal principal) {
+        if (principal.getName().equals(newPassword.getUsername())) {
+            userDao.changeUserPassword(newPassword.getUsername(), newPassword.getPassword());
+        }
     }
-
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/updateuserstatus")
-    public void updateUserStatus(@RequestBody ChangeUserStatusDTO updateStatus) {
-        if (validate.validUserStatus(updateStatus.getStatus())) {
-            userDao.changeUserStatus(updateStatus.getUsername(), updateStatus.getStatus());
+    public void updateUserStatus(@RequestBody ChangeUserStatusDTO[] updateStatus) {
+        for (ChangeUserStatusDTO status : updateStatus) {
+            if (validate.validUserStatus(status.getStatus())) {
+                userDao.changeUserStatus(status.getUsername(), status.getStatus());
+            }
         }
     }
+
 
     /**
      * Object to return as body in JWT Authentication.

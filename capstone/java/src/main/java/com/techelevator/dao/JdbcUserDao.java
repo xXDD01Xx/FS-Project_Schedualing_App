@@ -37,16 +37,16 @@ public class JdbcUserDao implements UserDao {
         return userId;
     }
 
-	@Override
-	public User getUserById(int userId) {
-		String sql = "SELECT * FROM users WHERE user_id = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-		if (results.next()) {
-			return mapRowToUser(results);
-		} else {
-			throw new UserNotFoundException();
-		}
-	}
+    @Override
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        if (results.next()) {
+            return mapRowToUser(results);
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
 
     @Override
     public List<User> findAll() {
@@ -81,6 +81,18 @@ public class JdbcUserDao implements UserDao {
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
         return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole) == 1;
+    }
+
+    @Override
+    public boolean changeUserPassword(String username, String password) {
+        String updateUserSql = "UPDATE users SET password_hash = ? WHERE username = ?;";
+        String password_hash = new BCryptPasswordEncoder().encode(password);
+        return jdbcTemplate.update(updateUserSql, password_hash, username) == 1;
+    }
+
+    @Override
+    public boolean changeUserStatus(String username, String status) {
+        return false;
     }
 
     private User mapRowToUser(SqlRowSet rs) {

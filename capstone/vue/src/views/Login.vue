@@ -22,6 +22,7 @@
         required
         autofocus
       />
+      <input type="text" placeholder="test">
       <label for="password" class="sr-only">Password</label>
       <input
         type="password"
@@ -74,3 +75,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.for-control{
+  border: 5px;
+  color: blue;
+}
+</style>

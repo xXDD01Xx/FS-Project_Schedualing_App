@@ -1,7 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.model.Project;
-import com.techelevator.security.dao.ProjectDAO;
+import com.techelevator.dao.ProjectDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

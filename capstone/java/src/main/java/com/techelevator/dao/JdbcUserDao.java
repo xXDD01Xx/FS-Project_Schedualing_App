@@ -87,12 +87,24 @@ public class JdbcUserDao implements UserDao {
     public boolean changeUserPassword(String username, String password) {
         String updateUserSql = "UPDATE users SET password_hash = ? WHERE username = ?;";
         String password_hash = new BCryptPasswordEncoder().encode(password);
+
         return jdbcTemplate.update(updateUserSql, password_hash, username) == 1;
     }
 
     @Override
     public boolean changeUserStatus(String username, String status) {
-        return false;
+        String updateUserSql = "UPDATE users SET user_status_id = " +
+                "(SELECT MAX(user_status.user_status_id) " +
+                "FROM user_status where " +
+                "user_status.user_status_desc = ?) " +
+                "WHERE users.username = ?;";
+
+        return jdbcTemplate.update(updateUserSql, status, username) == 1;
+    }
+
+    public String[] getUserStatusValues() {
+        String sql = "select user_status.user_status_desc from user_status;";
+        return jdbcTemplate.queryForObject(sql, String[].class);
     }
 
     private User mapRowToUser(SqlRowSet rs) {

@@ -43,30 +43,6 @@
               solo-inverted
           />
         </v-row>
-        <!-- <v-radio-group
-        row
-        required
-        id="radio-buttons"
-        >
-          <v-radio-group>
-            <v-radio
-              name="role-radio"
-              label="User"
-              value="user"
-              v-model="user.role"
-              class="button"
-            ></v-radio>
-          </v-radio-group>
-          <v-radio-group>
-            <v-radio
-              name="role-radio"
-              label="Admin"
-              value="admin"
-              v-model="user.role"
-              class="button"
-            ></v-radio>
-          </v-radio-group>
-        </v-radio-group> -->
         <div>
           <input type="radio" 
           name="user-radio" 

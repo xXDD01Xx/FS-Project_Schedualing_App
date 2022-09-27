@@ -49,6 +49,7 @@
           elevation="2"
           outlined
           type="submit"
+          @click="check"
       >Sign in</v-btn>
     </form>
   </div>
@@ -70,6 +71,9 @@
       };
     },
     methods: {
+      check(){
+        console.log(this.user)
+      },
       login() {
         authService
           .login(this.user)

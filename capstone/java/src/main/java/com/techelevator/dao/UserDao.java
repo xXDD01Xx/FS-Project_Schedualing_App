@@ -15,11 +15,13 @@ public interface UserDao {
 
     int findIdByUsername(String username);
 
-    boolean create(String username, String password, String role);
+    boolean create(String username, String password, String role, String status);
 
     boolean changeUserPassword(String username, String password);
 
     boolean changeUserStatus(String username, String status);
 
     Set<String> getUserStatusValues();
+
+
 }

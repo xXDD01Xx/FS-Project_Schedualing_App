@@ -22,14 +22,14 @@
           <tbody>
             <tr
               v-for="user in users"
-              :key="user"
+              :key="user.username"
             >
-              <td>{{user}}</td>
-              <td>active</td>
+              <td>{{user.username}}</td>
+              <td>{{user.status}}</td>
               <td><input type="radio" name="Approve User" class="button" 
-              value="approved" v-model="user.status"></td>
+              value="Active" v-model="user.status"></td>
               <td><input type="radio" name="Deny User" class="button"
-              value="denied" v-model="user.status"></td>
+              value="Denied" v-model="user.status"></td>
             </tr>
           </tbody>
         </template>
@@ -46,18 +46,33 @@
 </template>
 
 <script>
+import AuthService from '../services/AuthService'
 export default {
   data(){
     return {
-      users: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ]
+      users: []
     }
+  },
+  methods: {
+    submitAll(){
+      let u = this.users;
+      AuthService.saveChangeUserStatus(u).then(response => {
+        if (response.status == 201){
+          //
+        }else if (response.status == 400){
+          //
+        }
+      })
+    }
+  },
+  created(){
+    AuthService.getAllUsers().then(response => {
+      console.log(response.status)
+      if (response.status == 200 || response.status == 201){
+        this.users = response.data;
+        console.log(this.users)
+      }
+    })
   }
 
 }

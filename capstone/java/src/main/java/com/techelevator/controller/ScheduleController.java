@@ -18,12 +18,12 @@ public class ScheduleController {
     @Autowired
     ScheduleDao scheduleDao;
 
-    @RequestMapping(path = "/project/{id}/Description", method = RequestMethod.GET)
+    @RequestMapping(path = "/project/{id}/projectname", method = RequestMethod.GET)
     public Integer projectIdFromProjectName(@PathVariable String projectName) {
         return scheduleDao.projectIdFromProjectName(projectName);
     }
 
-    @RequestMapping(path = "/phase/{id}/Description", method = RequestMethod.GET)
+    @RequestMapping(path = "/phase/{id}/description", method = RequestMethod.GET)
     public Integer phaseIdFromPhaseDescription(@PathVariable String description) {
         return scheduleDao.phaseIdFromPhaseDescription(description);
     }

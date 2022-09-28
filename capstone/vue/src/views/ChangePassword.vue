@@ -3,7 +3,7 @@
     <router-link :to="{ path: '/home' }">
       <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
     </router-link>
-    <v-container id="form-container">
+    <v-container id="form-container" v-if="!showSuccess">
       <v-row>
         <v-text-field
           type="password"
@@ -26,17 +26,17 @@
           solo-inverted
         />
       </v-row>
+      <v-btn
+        class="button"
+        color="#8c090e"
+        elevation="2"
+        outlined
+        type="submit"
+        @click="updatePass"
+        >Update Password</v-btn
+      >
     </v-container>
-
-    <v-btn
-      class="button"
-      color="#8c090e"
-      elevation="2"
-      outlined
-      type="submit"
-      @click="updatePass"
-      >Update Password</v-btn
-    >
+    <v-alert type="success" v-if="showSuccess">Password changed!</v-alert>
   </v-app>
 </template>
 
@@ -54,15 +54,18 @@
           username: "",
           password: "",
         },
+        showSuccess: false,
       };
     },
     methods: {
       updatePass() {
-        this.user.username = this.$store.state.user;
+        this.user.username = this.$store.state.user[0];
         this.user.password = this.pass.password2;
         return authService.changePassword(this.user).then((response) => {
-          if (response.status === 201) {
-            console.log("Good stuff");
+          if (response.status === 200) {
+            this.showSuccess = true;
+          } else {
+            console.log(response);
           }
         });
       },

@@ -12,4 +12,12 @@ export default {
   changePassword(newPassword) {
     return axios.put("/changepassword", newPassword);
   },
+
+  getAllUsers(){
+    return axios.get("/getallusers")
+  },
+
+  saveChangeUserStatus(users){
+    return axios.put("/updateuserstatus", users)
+  }
 };

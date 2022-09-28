@@ -13,5 +13,4 @@ public interface ProjectDAO {
     void updateProject(Project project);
     void deleteProject(int id);
 
-
 }

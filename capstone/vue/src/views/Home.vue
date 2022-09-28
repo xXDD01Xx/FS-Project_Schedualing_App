@@ -4,7 +4,7 @@
       <v-container id="home-container" class="text-center">
       <h1>Welcome, {{user.username}}</h1>
           <div>
-            <h3>Schedule Management</h3>
+            <h3>Schedule</h3>
             <v-container id="master-container">
               <router-link class="text-decoration-none" :to="{path: '/master'}">
               <v-btn class="button"
@@ -14,6 +14,25 @@
               >Master Schedule</v-btn>
               </router-link>
             </v-container>
+          <v-container id="report-container">
+            <router-link class="text-decoration-none" :to="{path: '/statusReports'}">
+            <v-btn class="button"
+              color=#8c090e
+              elevation="2"
+              outlined
+            >Status Reports</v-btn>
+            </router-link>
+            <router-link class="text-decoration-none" :to="{path: '/viewProjects'}">
+              <v-btn class="button"
+                     color=#8c090e
+                     elevation="2"
+                     outlined
+              >View Projects</v-btn>
+            </router-link>
+          </v-container>
+          </div>
+          <div v-if="user.authorities[0].name !== 'ROLE_VIEW'">
+            <h3>Schedule Management</h3>
             <v-container id="schedule-container">
               <router-link class="text-decoration-none" :to="{path: '/baselineSchedule'}">
               <v-btn class="button"
@@ -39,22 +58,6 @@
             >Pending Modifications/Change Orders</v-btn>
              </router-link>
           </v-container>
-          <v-container id="report-container">
-            <router-link class="text-decoration-none" :to="{path: '/statusReports'}">
-            <v-btn class="button"
-              color=#8c090e
-              elevation="2"
-              outlined
-            >Status Reports</v-btn>
-            </router-link>
-            <router-link class="text-decoration-none" :to="{path: '/viewProjects'}">
-              <v-btn class="button"
-                     color=#8c090e
-                     elevation="2"
-                     outlined
-              >View Projects</v-btn>
-            </router-link>
-          </v-container>
           <v-container id="add-project-container">
             <router-link class="text-decoration-none" :to="{path: '/addProject'}">
             <v-btn class="button"
@@ -65,7 +68,7 @@
             </router-link>
           </v-container>
           </div>
-          <div v-if="user.authorities[0].name == 'ROLE_ADMIN'">
+          <div v-if="user.authorities[0].name === 'ROLE_ADMIN'">
             <h3>Admin Management</h3>
             <v-container id="admin-container">
               <router-link class="text-decoration-none" :to="{path: '/reviewPendingUsers'}">

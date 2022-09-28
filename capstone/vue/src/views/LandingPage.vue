@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-container id="landing-container">
+    <v-container id="landing-container" class="text-center">
       <router-link :to="{path: '/login'}">
         <v-btn class="button"
         color=#76a1c0

@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <div class="home">
+      <v-container id="home-container" class="text-center">
       <h1>Welcome, {{user.username}}</h1>
-      <v-container id="home-container">
           <div>
             <h3>Schedule Management</h3>
             <v-container id="master-container">
@@ -39,13 +39,20 @@
             >Pending Modifications/Change Orders</v-btn>
              </router-link>
           </v-container>
-          <v-container id="status-report-container">
+          <v-container id="report-container">
             <router-link class="text-decoration-none" :to="{path: '/statusReports'}">
             <v-btn class="button"
               color=#8c090e
               elevation="2"
               outlined
             >Status Reports</v-btn>
+            </router-link>
+            <router-link class="text-decoration-none" :to="{path: '/viewProjects'}">
+              <v-btn class="button"
+                     color=#8c090e
+                     elevation="2"
+                     outlined
+              >View Projects</v-btn>
             </router-link>
           </v-container>
           <v-container id="add-project-container">
@@ -98,6 +105,8 @@
 <script>
 export default {
   name: "home",
+  components: {},
+
   data(){
     return {
       user: this.$store.state.user

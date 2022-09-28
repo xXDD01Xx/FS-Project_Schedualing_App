@@ -15,6 +15,7 @@ import ModsChangeOrders from '../views/ModsChangeOrders.vue'
 import MonthlyUpdate from '../views/MonthlyUpdate.vue'
 import ReviewPendingUsers from '../views/ReviewPendingUsers.vue'
 import StatusReports from '../views/StatusReports.vue'
+import ViewProjects from "@/views/ViewProjects";
 
 Vue.use(Router)
 
@@ -138,6 +139,14 @@ const router = new Router({
       path: '/statusReports',
       name: 'StatusReports',
       component: StatusReports,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/viewProjects',
+      name: 'ViewProjects',
+      component: ViewProjects,
       meta: {
         requiresAuth: true
       }

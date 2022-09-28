@@ -67,7 +67,6 @@ export default {
     submitAll() {
       let u = this.users;
       AuthService.saveChangeUserStatus(u).then((response) => {
-        console.log(response.status)
         if (response.status == 200) {
           this.submitSuccess = true;
         } else if (response.status == 400) {

@@ -33,35 +33,49 @@ public class JdbcProjectDAO implements ProjectDAO {
 
     @Override
     public List<Project> listProjectsByContractId(int contractId) {
-        String sql = "SELECT *" +
-                "FROM project" +
+        String sql = "SELECT * " +
+                "FROM project " +
                 "WHERE contract_id = ?;";
         SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, contractId);
-        List<Project> projects = new ArrayList<>();
+        List<Project> project = new ArrayList<>();
         while (rs.next()) {
-            projects.add(mapRowToProject(rs));
+            project.add(mapRowToProject(rs));
         }
-        return projects;
+        return project;
     }
 
     @Override
     public Project listProject(int id) {
-        return null;
+        String sql = "SELECT * " +
+                "FROM project " +
+                "WHERE id = ?;";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, id);
+        Project project = new Project();
+        if (rs.next()) {
+            project = mapRowToProject(rs);
+        }
+        return project;
     }
 
     @Override
     public void addProject(Project project) {
-
+        String sql = "INSERT INTO project (id, project_name, contract_id, date_received, budget, last_modified, tasks_substantial, tasks_construction) VALUES (?,?,?,?,?,?,?,?) ";
+        jdbcTemplate.update(sql, project.getId(), project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getLastModified(), project.getTasksSubstantial(), project.getTasksConstruction());
     }
+
 
     @Override
     public void updateProject(Project project) {
-
+        String sql = "UPDATE project SET project_name = ?, contract_id= ?, date_received = ?, budget = ?, last_modified = ?, tasks_substantial = ?, tasks_construction = ? " +
+                "WHERE id = ?";
+        jdbcTemplate.update(sql, project.getId(), project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getLastModified(), project.getTasksSubstantial(), project.getTasksConstruction());
     }
+
 
     @Override
     public void deleteProject(int id) {
-
+        String sql = "DELETE FROM project WHERE id =?";
+        jdbcTemplate.update(sql, id);
     }
 
     private Project mapRowToProject(SqlRowSet rs) {

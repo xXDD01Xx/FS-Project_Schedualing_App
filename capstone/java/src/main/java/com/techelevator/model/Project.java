@@ -65,6 +65,9 @@ public class Project {
         this.lastModified = lastModified;
     }
 
+    public LocalDateTime getLastModified() {
+        return lastModified;
+    }
 
     public int getTasksSubstantial() {
         return tasksSubstantial;

@@ -3,89 +3,97 @@
     <v-container id="main-table">
       <v-simple-table>
         <template v-slot:default>
+          
           <thead>
             <tr class="trow">
-              <th class="text-left">
-                Name
-              </th>
-              <th class="text-left">
-                Status
-              </th>
-              <th class="text-left">
-                Approve User
-              </th>
-              <th class="text-left">
-                Deny User
-              </th>
+              <th class="text-left">Name</th>
+              <th class="text-left">Status</th>
+              <th class="text-left">Approve User</th>
+              <th class="text-left">Deny User</th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="user in users"
-              :key="user.username"
-            >
-              <td>{{user.username}}</td>
-              <td>{{user.status}}</td>
-              <td><input type="radio" name="Approve User" class="button" 
-              value="Active" v-model="user.status"></td>
-              <td><input type="radio" name="Deny User" class="button"
-              value="Denied" v-model="user.status"></td>
+            <tr v-for="user in users" :key="user.username">
+              <td>{{ user.username }}</td>
+              <td>{{ user.status }}</td>
+              <td>
+                <input
+                  type="radio"
+                  name="Approve User"
+                  class="button"
+                  value="Active"
+                  v-model="user.status"
+                />
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="Deny User"
+                  class="button"
+                  value="Not Approved"
+                  v-model="user.status"
+                />
+              </td>
             </tr>
           </tbody>
+          <v-btn class="button" @click="submitAll" color="#8c090e" elevation="2" outlined
+            >Submit</v-btn
+          >
+          <div v-if="submitError">{{submitErrorMessage}} </div>
+          <div v-if="submitSuccess">{{submitSuccessMessage}}</div>
         </template>
       </v-simple-table>
     </v-container>
-      <router-link :to="{path: '/home'}">
-      <v-btn class="button"
-              color=#8c090e
-              elevation="2"
-              outlined
-              >Home</v-btn>
+    <router-link :to="{ path: '/home' }">
+      <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
     </router-link>
   </v-app>
 </template>
 
 <script>
-import AuthService from '../services/AuthService'
+import AuthService from "../services/AuthService";
 export default {
-  data(){
+  data() {
     return {
-      users: []
-    }
+      users: [],
+      submitError: false,
+      submitSuccess: false,
+      submitErrorMessage: "Error",
+      submitSuccessMessage: "Success",
+      user: this.$store.state.user
+    };
   },
   methods: {
-    submitAll(){
+    submitAll() {
       let u = this.users;
-      AuthService.saveChangeUserStatus(u).then(response => {
-        if (response.status == 201){
-          //
-        }else if (response.status == 400){
-          //
+      AuthService.saveChangeUserStatus(u).then((response) => {
+        console.log(response.status)
+        if (response.status == 200) {
+          this.submitSuccess = true;
+        } else if (response.status == 400) {
+          this.submitError = true;
         }
-      })
-    }
+      });
+    },
   },
-  created(){
-    AuthService.getAllUsers().then(response => {
-      console.log(response.status)
-      if (response.status == 200 || response.status == 201){
-        this.users = response.data;
-        console.log(this.users)
+  created() {
+    AuthService.getAllUsers().then((response) => {
+      if (response.status == 200 || response.status == 201) {
+        this.users = response.data.filter(u => u.username !== this.user.username);
+        console.log(this.users);
       }
-    })
-  }
-
-}
+    });
+  },
+};
 </script>
 
 <style>
-#main-table{
+#main-table {
   max-width: 60%;
   padding: 10px;
 }
-.trow{
+.trow {
   border-right: 4px;
   border-top: 4px;
 }
-
 </style>

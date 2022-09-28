@@ -59,7 +59,7 @@
     },
     methods: {
       updatePass() {
-        this.user.username = this.$store.state.user[0];
+        this.user.username = this.$store.state.user.username;
         this.user.password = this.pass.password2;
         return authService.changePassword(this.user).then((response) => {
           if (response.status === 200) {

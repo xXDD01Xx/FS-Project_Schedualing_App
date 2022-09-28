@@ -16,7 +16,7 @@
       </router-link>
     </v-container>
     <v-container>
-      <v-img src="../assets/flag-logo.svg"/>
+      <!-- <v-img id="logo" src="../assets/flag-logo.svg"/> -->
     </v-container>
   </v-app>
 </template>
@@ -30,6 +30,11 @@ export default {
 <style scoped>
 #app{
   background: url('../assets/hero-1.jpeg') no-repeat center center fixed !important;
+  background-repeat: no-repeat;
   background-size: cover;
 }
+/* #logo {
+
+} */
+
 </style>

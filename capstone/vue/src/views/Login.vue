@@ -87,9 +87,13 @@
           .catch((error) => {
             const response = error.response;
 
-            if (response.status === 401 || response.status === 400) {
+            if (response.status === 401){
               this.invalidCredentials = true;
-              alert('Account must be Activated')
+              alert(response.data.message)
+            }
+            if(response.status === 400) {
+              this.invalidCredentials = true;
+              alert(response.data.message)
             }
           });
       },

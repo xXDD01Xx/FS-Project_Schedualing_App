@@ -21,7 +21,7 @@ public class JdbcProjectDAO implements ProjectDAO {
 
     @Override
     public List<Project> listAllProjects() {
-        String sql = "SELECT id,project_name,contract_id,date_received,budget,last_modified,tasks_substiantial,task_construction " +
+        String sql = "SELECT id,project_name,contract_id,date_received,budget,last_modified,tasks_substantial,tasks_construction " +
                 "FROM project";
         SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql);
         List<Project> projects = new ArrayList<>();
@@ -76,7 +76,7 @@ public class JdbcProjectDAO implements ProjectDAO {
             project.setLastModified(rs.getTimestamp("last_modified").toLocalDateTime());
         }
         project.setTasksSubstantial(rs.getInt("tasks_substantial"));
-        project.setTaskConstruction(rs.getInt("tasks_Construction"));
+        project.setTasksConstruction(rs.getInt("tasks_Construction"));
         return project;
     }
 }

@@ -14,7 +14,7 @@ public class Project {
     private BigDecimal budget;
     private LocalDateTime lastModified;
     private int tasksSubstantial;
-    private int taskConstruction;
+    private int tasksConstruction;
 
 
     public Project() {
@@ -74,16 +74,16 @@ public class Project {
         this.tasksSubstantial = tasksSubstantial;
     }
 
-    public int getTaskConstruction() {
-        return taskConstruction;
+    public int getTasksConstruction() {
+        return tasksConstruction;
     }
 
-    public void setTaskConstruction(int taskConstruction) {
-        this.taskConstruction = taskConstruction;
+    public void setTasksConstruction(int tasksConstruction) {
+        this.tasksConstruction = tasksConstruction;
     }
 
 
-    public Project(int id, String projectName, int contractId, LocalDate dateReceived, BigDecimal budget, LocalDateTime lastModified, int tasksSubstantial, int taskConstruction) {
+    public Project(int id, String projectName, int contractId, LocalDate dateReceived, BigDecimal budget, LocalDateTime lastModified, int tasksSubstantial, int tasksConstruction) {
         this.id = id;
         this.projectName = projectName;
         this.contractId = contractId;
@@ -91,7 +91,7 @@ public class Project {
         this.budget = budget;
         this.lastModified = lastModified;
         this.tasksSubstantial = tasksSubstantial;
-        this.taskConstruction = taskConstruction;
+        this.tasksConstruction = tasksConstruction;
 
     }
 
@@ -105,7 +105,7 @@ public class Project {
                 ", budget=" + budget +
                 ", lastModified=" + lastModified +
                 ", tasksSubstantial=" + tasksSubstantial +
-                ", taskConstruction=" + taskConstruction +
+                ", tasksConstruction=" + tasksConstruction +
                 '}';
     }
 }

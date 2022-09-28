@@ -8,8 +8,8 @@
           v-model="project.name"
           label="Project Name"
           required></v-text-field>
-        <v-select label="contract" v-model="contract" :items="contracts" item-text="contractName"
-        item-value="contractId"></v-select>
+        <v-select label="contractName" v-model="con" :items="contracts" item-text="contractName"
+        item-value="contractId" :reduce="contracts => contracts.contractId" ></v-select>
         <v-text-field
           v-model="project.dateReceived"
           type="date"
@@ -51,7 +51,7 @@ import ProjectService from '../services/ProjectService.js'
 export default {
   data() {
     return {
-      contract: {},
+      con: {},
       addProjectSuccess: false,
       addProjectSuccessMessage: 'Successfully Added Project',
       addProjectFailure: false,
@@ -70,9 +70,10 @@ export default {
   },
   methods: {
     saveProject(){
-      //this.project.contractId = this.setContractId()
+      // this.project.contractId = this.setContractId()
       // this.project.lastModified = new Date().getTimezoneOffset()
       console.log(this.project)
+      console.log(this.con)
       ProjectService.addProject(this.project).then(response => {
         if (response.status == 200 || response.status == 201){
           this.addProjectSuccess = true;
@@ -91,9 +92,10 @@ export default {
     },
     // setContractId(){
     //   const c = this.contracts.filter(contract => {
-    //     this.contract === contract.contractName
+    //     this.contract !== contract.contractName
     //   });
-    //   const id = c.contractId
+    //   console.log(c)
+    //   const id = c[0].contractId
     //   return id;
     // }
   },

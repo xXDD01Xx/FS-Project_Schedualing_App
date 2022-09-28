@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <router-link :to="{ path: '/home' }">
+    <router-link class="text-decoration-none" :to="{ path: '/home' }">
       <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
     </router-link>
     <v-container id="form-container" v-if="!showSuccess">

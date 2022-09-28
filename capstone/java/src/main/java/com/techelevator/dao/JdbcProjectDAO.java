@@ -6,6 +6,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -20,12 +21,27 @@ public class JdbcProjectDAO implements ProjectDAO {
 
     @Override
     public List<Project> listAllProjects() {
-        return null;
+        String sql = "SELECT id,project_name,contract_id,date_received,budget,last_modified,tasks_substiantial,task_construction " +
+                "FROM project";
+        SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql);
+        List<Project> projects = new ArrayList<>();
+        while (rs.next()) {
+            projects.add(mapRowToProject(rs));
+        }
+        return projects;
     }
 
     @Override
     public List<Project> listProjectsByContractId(int contractId) {
-        return null;
+        String sql = "SELECT *" +
+                "FROM project" +
+                "WHERE contract_id = ?;";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, contractId);
+        List<Project> projects = new ArrayList<>();
+        while (rs.next()) {
+            projects.add(mapRowToProject(rs));
+        }
+        return projects;
     }
 
     @Override
@@ -53,10 +69,16 @@ public class JdbcProjectDAO implements ProjectDAO {
         project.setId(rs.getInt("Id"));
         project.setProjectName(rs.getString("project_name"));
         project.setContractId(rs.getInt("contract_id"));
-        project.setDateReceived(rs.getTimestamp("date_Received"));
-        project.setLastModified(rs.getDate("last_modified"));
+        if (rs.getDate("date_received") != null) {
+            project.setDateReceived(rs.getDate("date_received").toLocalDate());
+        }
+        if (rs.getTimestamp("last_modified") != null) {
+            project.setLastModified(rs.getTimestamp("last_modified").toLocalDateTime());
+        }
         project.setTasksSubstantial(rs.getInt("tasks_substantial"));
         project.setTaskConstruction(rs.getInt("tasks_Construction"));
         return project;
     }
 }
+
+

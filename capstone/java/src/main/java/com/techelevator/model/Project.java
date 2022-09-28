@@ -9,13 +9,12 @@ public class Project {
     private int id;
     private String projectName;
     private int contractId;
-    private LocalDateTime dateReceived;
+    private LocalDate dateReceived;
 
     private BigDecimal budget;
     private LocalDateTime lastModified;
     private int tasksSubstantial;
     private int taskConstruction;
-    private BigDecimal contractProjectId;
 
 
     public Project() {
@@ -46,11 +45,11 @@ public class Project {
         this.contractId = contractId;
     }
 
-    public LocalDateTime getDateReceived() {
+    public LocalDate getDateReceived() {
         return dateReceived;
     }
 
-    public void setDateReceived(LocalDateTime dateReceived) {
+    public void setDateReceived(LocalDate dateReceived) {
         this.dateReceived = dateReceived;
     }
 
@@ -83,16 +82,8 @@ public class Project {
         this.taskConstruction = taskConstruction;
     }
 
-    public BigDecimal getContractProjectId() {
-        return contractProjectId;
-    }
 
-    public void setContractProjectId(BigDecimal contractProjectId) {
-        this.contractProjectId = contractProjectId;
-    }
-
-
-    public Project(int id, String projectName, int contractId, LocalDateTime dateReceived, BigDecimal budget, LocalDateTime lastModified, int tasksSubstantial, int taskConstruction, BigDecimal contractProjectId) {
+    public Project(int id, String projectName, int contractId, LocalDate dateReceived, BigDecimal budget, LocalDateTime lastModified, int tasksSubstantial, int taskConstruction) {
         this.id = id;
         this.projectName = projectName;
         this.contractId = contractId;
@@ -101,7 +92,7 @@ public class Project {
         this.lastModified = lastModified;
         this.tasksSubstantial = tasksSubstantial;
         this.taskConstruction = taskConstruction;
-        this.contractProjectId = contractProjectId;
+
     }
 
     @Override
@@ -115,7 +106,6 @@ public class Project {
                 ", lastModified=" + lastModified +
                 ", tasksSubstantial=" + tasksSubstantial +
                 ", taskConstruction=" + taskConstruction +
-                ", contractProjectId=" + contractProjectId +
                 '}';
     }
 }

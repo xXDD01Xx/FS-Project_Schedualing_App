@@ -6,6 +6,6 @@ export default {
     },
 
     addProject(project){
-        return axios.post("/projects/new", project)
+        return axios.post("/project/new", project)
     }
 }

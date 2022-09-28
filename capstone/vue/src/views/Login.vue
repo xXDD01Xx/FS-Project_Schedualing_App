@@ -36,7 +36,7 @@
           />
         </v-row>
       </v-container>
-      <router-link :to="{ name: 'register' }">
+      <router-link class="text-decoration-none" :to="{ name: 'register' }">
         <v-btn class="button"
             color=#8c090e
             elevation="2"
@@ -87,9 +87,13 @@
           .catch((error) => {
             const response = error.response;
 
-            if (response.status === 401 || response.status === 400) {
+            if (response.status === 401){
               this.invalidCredentials = true;
-              alert('Account must be Activated')
+              alert(response.data.message)
+            }
+            if(response.status === 400) {
+              this.invalidCredentials = true;
+              alert(response.data.message)
             }
           });
       },

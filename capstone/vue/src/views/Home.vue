@@ -1,12 +1,12 @@
 <template>
   <v-app>
     <div class="home">
+      <v-container id="home-container" class="text-center">
       <h1>Welcome, {{user.username}}</h1>
-      <v-container id="home-container">
           <div>
             <h3>Schedule Management</h3>
             <v-container id="master-container">
-              <router-link :to="{path: '/master'}">
+              <router-link class="text-decoration-none" :to="{path: '/master'}">
               <v-btn class="button"
               color=#8c090e
               elevation="2"
@@ -15,14 +15,14 @@
               </router-link>
             </v-container>
             <v-container id="schedule-container">
-              <router-link :to="{path: '/baselineSchedule'}">
+              <router-link class="text-decoration-none" :to="{path: '/baselineSchedule'}">
               <v-btn class="button"
               color=#8c090e
               elevation="2"
               outlined
               >Baseline Schedule</v-btn>
               </router-link>
-              <router-link :to="{path: '/monthlyUpdate'}">
+              <router-link class="text-decoration-none" :to="{path: '/monthlyUpdate'}">
               <v-btn class="button"
               color=#8c090e
               elevation="2"
@@ -31,7 +31,7 @@
               </router-link>
            </v-container>
            <v-container id="pending-mod-co-container">
-             <router-link :to="{path: '/mods-co'}">
+             <router-link class="text-decoration-none" :to="{path: '/mods-co'}">
              <v-btn class="button"
               color=#8c090e
               elevation="2"
@@ -39,17 +39,24 @@
             >Pending Modifications/Change Orders</v-btn>
              </router-link>
           </v-container>
-          <v-container id="status-report-container">
-            <router-link :to="{path: '/statusReports'}">
+          <v-container id="report-container">
+            <router-link class="text-decoration-none" :to="{path: '/statusReports'}">
             <v-btn class="button"
               color=#8c090e
               elevation="2"
               outlined
             >Status Reports</v-btn>
             </router-link>
+            <router-link class="text-decoration-none" :to="{path: '/viewProjects'}">
+              <v-btn class="button"
+                     color=#8c090e
+                     elevation="2"
+                     outlined
+              >View Projects</v-btn>
+            </router-link>
           </v-container>
           <v-container id="add-project-container">
-            <router-link :to="{path: '/addProject'}">
+            <router-link class="text-decoration-none" :to="{path: '/addProject'}">
             <v-btn class="button"
               color=#8c090e
               elevation="2"
@@ -61,14 +68,14 @@
           <div v-if="user.authorities[0].name == 'ROLE_ADMIN'">
             <h3>Admin Management</h3>
             <v-container id="admin-container">
-              <router-link :to="{path: '/reviewPendingUsers'}">
+              <router-link class="text-decoration-none" :to="{path: '/reviewPendingUsers'}">
               <v-btn class="button"
               color=#8c090e
               elevation="2"
               outlined
             >Review Pending Users</v-btn>
               </router-link>
-              <router-link :to="{path: '/changeUserStatus'}">
+              <router-link class="text-decoration-none" :to="{path: '/changeUserStatus'}">
             <v-btn class="button"
               color=#8c090e
               elevation="2"
@@ -80,7 +87,7 @@
           <div>
             <h3>Edit Account</h3>
             <v-container id="account-container">
-              <router-link :to="{path: '/changePassword'}">
+              <router-link class="text-decoration-none" :to="{path: '/changePassword'}">
               <v-btn class="button"
               color=#8c090e
               elevation="2"
@@ -98,6 +105,8 @@
 <script>
 export default {
   name: "home",
+  components: {},
+
   data(){
     return {
       user: this.$store.state.user

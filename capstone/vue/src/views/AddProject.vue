@@ -8,7 +8,8 @@
           v-model="project.name"
           label="Project Name"
           required></v-text-field>
-        <v-select label="contract" v-model="contract" :items="items"></v-select>
+        <v-select label="contract" v-model="contract" :items="contracts" item-text="contractName"
+        item-value="contractId"></v-select>
         <v-text-field
           v-model="project.dateReceived"
           type="date"
@@ -50,15 +51,13 @@ import ProjectService from '../services/ProjectService.js'
 export default {
   data() {
     return {
-      contract: '',
+      contract: {},
       addProjectSuccess: false,
       addProjectSuccessMessage: 'Successfully Added Project',
       addProjectFailure: false,
       addProjectFailureMessage: 'Something Went Wrong',
-      items: [
-        'Travis County CIP Program Management',
-        'Kyle CIP Program Management'
-      ],
+      contracts: [],
+      // items: [1,2,3,4,5],
       project: {
         name: '',
         dateReceived: '',
@@ -71,7 +70,7 @@ export default {
   },
   methods: {
     saveProject(){
-      this.setCOntractId()
+      //this.project.contractId = this.setContractId()
       // this.project.lastModified = new Date().getTimezoneOffset()
       console.log(this.project)
       ProjectService.addProject(this.project).then(response => {
@@ -90,20 +89,20 @@ export default {
         }
       })
     },
-    setCOntractId(){
-      if (this.contract == 'Travis County CIP Program Management'){
-        this.project.contractId = 1;
-      }else if (this.contract == 'Kyle CIP Program Management'){
-        this.project.contractId = 2;
-      }
-    },
-  },
-  computed: {
-    // now(){
-    //   return Date.now().getTimeZoneOffset()
+    // setContractId(){
+    //   const c = this.contracts.filter(contract => {
+    //     this.contract === contract.contractName
+    //   });
+    //   const id = c.contractId
+    //   return id;
     // }
+  },
+  created(){
+    ProjectService.getContracts().then((response) => {
+      this.contracts = response.data;
+      console.log(this.contracts)
+    })
   }
-
 }
 </script>
 

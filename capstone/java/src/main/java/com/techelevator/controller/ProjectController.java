@@ -24,7 +24,7 @@ public class ProjectController {
         return projectDAO.listAllProjects();
     }
 
-    @RequestMapping(path = "groups/{id}/projects", method = RequestMethod.GET)
+    @RequestMapping(path = "/groups/{id}/projects", method = RequestMethod.GET)
     public List<Project> listProjectsByContractId(@PathVariable int contractId) {
         return projectDAO.listProjectsByContractId(contractId);
     }
@@ -39,17 +39,17 @@ public class ProjectController {
         projectDAO.addProject(project);
     }
 
-    @RequestMapping(path = "project/update", method = RequestMethod.PUT)
+    @RequestMapping(path = "/project/update", method = RequestMethod.PUT)
     public void updateProject(@RequestBody Project project) {
         projectDAO.updateProject(project);
     }
 
-    @RequestMapping(path = "project/{id}/delete", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/project/{id}/delete", method = RequestMethod.DELETE)
     public void deleteProject(@PathVariable int id) {
         projectDAO.deleteProject(id);
     }
 
-    @GetMapping(path = "contracts")
+    @GetMapping(path = "/contracts")
     public List<ContractDTO> getContractList() {
         return projectDAO.getContractList();
     }

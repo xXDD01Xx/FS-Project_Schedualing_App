@@ -7,5 +7,9 @@ export default {
 
     addProject(project){
         return axios.post("/project/new", project)
+    },
+
+    getContracts(){
+        return axios.get("/contracts")
     }
 }

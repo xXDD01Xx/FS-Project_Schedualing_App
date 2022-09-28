@@ -1,5 +1,4 @@
 INSERT INTO project (
-    id,
     project_name,
     contract_id,
     date_received,
@@ -7,13 +6,27 @@ INSERT INTO project (
     last_modified,
     tasks_substantial,
     tasks_construction
-) VALUES (
-    1100,
-    'Cras sed interdum...',
-    33,
-    '2022-07-05 02:00:00',
-    10,
-    '2022-05-07 04:30:00',
-    74,
-    79
-);
+) VALUES 
+('Bitting School Rd @ Unnamed Trib. To Wilbarger Creek (GEC) COMPLETE', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Bullick- Hollow Rd @ FM2769 (GEC) COMPLETE', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Circle Dr/ Thomas Springs (GEC) (Better Builder)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Decker Lane / Hog Eye Rd Sidewalk COMPLETE', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Ed Acklin Rd @ Unnamed Trib. To Dry Creek COMPLETE', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Elroy Rd -Bicycle Safety (TxDOT Managed)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Fitzhugh Rd (GEC)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('FM 973 - Bicycle Safety (TxDOT Managed)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Grand Avenue Pkwy  (Better Builder) COMPLETE', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Great Divide @ Little  Barton Creek (Construction)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Gregg Lane @ Wilbarger Creek (GEC) (Better Builder)   COMPLETE', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Harold Green 130 to Austins Colony Blvd (GEC)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('North Walnut Creek PH 3B', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Old San Antonio Rd (CTRMA)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Old Lockhart Rd (CTRMA)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('South Pleasant Valley Rd (CTRMA)', 1, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Spicewood Springs Rd Low Water Crossing #1 Only (GEC) (Better Builder)', 2, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Springdale Rd Sidewalk (Better Builder)', 2, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Tom Sassman Rd @ Maha Creek (GEC)', 2, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Tumbleweed Trl @ Trib. To Lake Austin COMPLETE', 2, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Westminster Glen Sidewalk (GEC) COMPLETE', 2, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('William Cannon Extension (TxDOT Managed)', 2, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50),
+('Wyldwood Rd @ Slaughter Creek and Tributary (GEC) (Better Builder)', 2, '2022-01-01 00:00:00', 1000000, '2022-01-01 00:00:00', 20, 50);

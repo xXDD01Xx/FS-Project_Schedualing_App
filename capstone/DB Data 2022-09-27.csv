@@ -1,0 +1,59 @@
+"databasename","parentschema","parenttable","columnname","columnorder","datatype","columnsize","constrainttype","childschema","childtable","childcolumn"
+"project_schedule_db","public","baseline_sched_items","id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","baseline_sched_items","project_id",2,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","baseline_sched_items","phase_item",3,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","baseline_sched_items","item_date",4,"date",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","baseline_sched_items","project_baseline_id",5,"bigint",NULL,"FOREIGN KEY","public","project","id"
+"project_schedule_db","public","baseline_sched_items","baseline_items_id",6,"bigint",NULL,"FOREIGN KEY","public","phase_items","id"
+"project_schedule_db","public","contract","id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","contract","contract_name",2,"character varying",50,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","mod_co_name",2,"character varying",20,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","project_id",3,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","type",4,"character varying",20,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","court_date",5,"date",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","schedule_impacted",6,"boolean",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","budget_impacted",7,"boolean",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","why",8,"character varying",255,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","approved",9,"boolean",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","approv_datetm",10,"timestamp without time zone",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","mods_changes","project_mods_id",11,"bigint",NULL,"FOREIGN KEY","public","project","id"
+"project_schedule_db","public","monthly_sched_items","id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","monthly_sched_items","monthly_sched_id",2,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_sched_items","phase_item",3,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_sched_items","item_date",4,"date",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_sched_items","monthly_items_id",5,"bigint",NULL,"FOREIGN KEY","public","phase_items","id"
+"project_schedule_db","public","monthly_sched_items","monthly_sched_items_id",6,"bigint",NULL,"FOREIGN KEY","public","monthly_schedule","id"
+"project_schedule_db","public","monthly_schedule","id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","project_id",2,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","month_year",3,"date",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","schedule_notes",4,"character varying",255,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","pct_complete",5,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","same_prev_month",6,"boolean",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","why_one",7,"character varying",255,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","why_two",8,"character varying",255,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","why_three",9,"character varying",255,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","why_four",10,"character varying",255,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","why_five",11,"character varying",255,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","tasks_substantial",12,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","tasks_construction",13,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","monthly_schedule","project_monthly_id",14,"bigint",NULL,"FOREIGN KEY","public","project","id"
+"project_schedule_db","public","phase_items","id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","phase_items","phase",2,"character varying",20,NULL,NULL,NULL,NULL
+"project_schedule_db","public","phase_items","item_description",3,"character varying",50,NULL,NULL,NULL,NULL
+"project_schedule_db","public","project","id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","project","project_name",2,"character varying",50,NULL,NULL,NULL,NULL
+"project_schedule_db","public","project","contract_id",3,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","project","date_received",4,"date",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","project","budget",5,"bigint",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","project","last_modified",6,"timestamp without time zone",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","project","tasks_substantial",7,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","project","tasks_construction",8,"integer",NULL,NULL,NULL,NULL,NULL
+"project_schedule_db","public","project","contract_project_id",9,"bigint",NULL,"FOREIGN KEY","public","contract","id"
+"project_schedule_db","public","user_status","user_status_id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","user_status","user_status_desc",2,"character varying",20,NULL,NULL,NULL,NULL
+"project_schedule_db","public","users","user_id",1,"integer",NULL,"PRIMARY KEY",NULL,NULL,NULL
+"project_schedule_db","public","users","username",2,"character varying",50,"UNIQUE",NULL,NULL,NULL
+"project_schedule_db","public","users","password_hash",3,"character varying",200,NULL,NULL,NULL,NULL
+"project_schedule_db","public","users","role",4,"character varying",50,NULL,NULL,NULL,NULL
+"project_schedule_db","public","users","user_status_id",5,"integer",NULL,"FOREIGN KEY","public","user_status","user_status_id"

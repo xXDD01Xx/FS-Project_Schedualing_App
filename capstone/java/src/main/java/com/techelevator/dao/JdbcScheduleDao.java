@@ -46,7 +46,7 @@ public class JdbcScheduleDao implements ScheduleDao {
     @Override
     public void addToSchedule(Project project, Schedule schedule)
     {
-        String sql = "INSERT INTO "
+//        String sql = "INSERT INTO "
     }
 
     @Override
@@ -59,14 +59,13 @@ public class JdbcScheduleDao implements ScheduleDao {
     @Override
     public void deleteScheduleItem(int id)
     {
-        String sql = "DELETE FROM "
+//        String sql = "DELETE FROM "
     }
 
     private Schedule mapRowToSchedule(SqlRowSet rs) {
         Schedule schedule = new Schedule();
         schedule.setProjectId(rs.getInt("project_id"));
-        schedule.setProjectName(rs.getString(""));
-        schedule.getPhaseItems(rs.getPhaseItems(""));
+//        schedule.getPhaseItems(rs.getPhaseItems("phase_item"));
 
         return schedule;
     }

@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.ContractDTO;
 import com.techelevator.model.Project;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -71,6 +72,15 @@ public class JdbcProjectDAO implements ProjectDAO {
         jdbcTemplate.update(sql, project.getId(), project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getLastModified(), project.getTasksSubstantial(), project.getTasksConstruction());
     }
 
+    public List<ContractDTO> getContractList() {
+        String sql = "SELECT id, contract_name FROM contract;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        List<ContractDTO> output = new ArrayList<>();
+        while (results.next()) {
+            output.add(mapRowToContractDTO(results));
+        }
+        return output;
+    }
 
     @Override
     public void deleteProject(int id) {
@@ -92,6 +102,13 @@ public class JdbcProjectDAO implements ProjectDAO {
         project.setTasksSubstantial(rs.getInt("tasks_substantial"));
         project.setTasksConstruction(rs.getInt("tasks_Construction"));
         return project;
+    }
+
+    private ContractDTO mapRowToContractDTO(SqlRowSet rs) {
+        ContractDTO contractDTO = new ContractDTO();
+        contractDTO.setId(rs.getInt("id"));
+        contractDTO.setContractName(rs.getString("contract_name"));
+        return contractDTO;
     }
 }
 

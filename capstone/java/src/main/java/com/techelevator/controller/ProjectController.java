@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import com.techelevator.model.ContractDTO;
 import com.techelevator.model.Project;
 import com.techelevator.dao.ProjectDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,10 @@ public class ProjectController {
     @RequestMapping(path = "project/{id}/delete", method = RequestMethod.DELETE)
     public void deleteProject(@PathVariable int id) {
         projectDAO.deleteProject(id);
+    }
+
+    @GetMapping(path = "contracts")
+    public List<ContractDTO> getContractList() {
+        return projectDAO.getContractList();
     }
 }

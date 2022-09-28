@@ -36,7 +36,7 @@
           />
         </v-row>
       </v-container>
-      <router-link :to="{ name: 'register' }">
+      <router-link class="text-decoration-none" :to="{ name: 'register' }">
         <v-btn class="button"
             color=#8c090e
             elevation="2"

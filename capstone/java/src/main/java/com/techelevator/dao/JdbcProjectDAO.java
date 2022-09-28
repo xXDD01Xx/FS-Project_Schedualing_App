@@ -60,7 +60,7 @@ public class JdbcProjectDAO implements ProjectDAO {
 
     @Override
     public void addProject(Project project) {
-        String sql = "INSERT INTO project ( project_name, contract_id, date_received, budget, last_modified, tasks_substantial, tasks_construction) VALUES (?,?,?,?,current_timestamp,?,?) ";
+        String sql = "INSERT INTO project ( project_name, contract_id, date_received, budget, tasks_substantial, tasks_construction, last_modified) VALUES (?,?,?,?,?,?,current_timestamp) ";
         jdbcTemplate.update(sql, project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getTasksSubstantial(), project.getTasksConstruction());
     }
 
@@ -93,6 +93,7 @@ public class JdbcProjectDAO implements ProjectDAO {
         project.setId(rs.getInt("Id"));
         project.setProjectName(rs.getString("project_name"));
         project.setContractId(rs.getInt("contract_id"));
+        project.setBudget(rs.getBigDecimal("budget"));
         if (rs.getDate("date_received") != null) {
             project.setDateReceived(rs.getDate("date_received").toLocalDate());
         }

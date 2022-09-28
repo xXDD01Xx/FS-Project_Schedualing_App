@@ -60,16 +60,16 @@ public class JdbcProjectDAO implements ProjectDAO {
 
     @Override
     public void addProject(Project project) {
-        String sql = "INSERT INTO project (id, project_name, contract_id, date_received, budget, last_modified, tasks_substantial, tasks_construction) VALUES (?,?,?,?,?,?,?,?) ";
-        jdbcTemplate.update(sql, project.getId(), project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getLastModified(), project.getTasksSubstantial(), project.getTasksConstruction());
+        String sql = "INSERT INTO project ( project_name, contract_id, date_received, budget, last_modified, tasks_substantial, tasks_construction) VALUES (?,?,?,?,current_timestamp,?,?) ";
+        jdbcTemplate.update(sql, project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getTasksSubstantial(), project.getTasksConstruction());
     }
 
 
     @Override
     public void updateProject(Project project) {
-        String sql = "UPDATE project SET project_name = ?, contract_id= ?, date_received = ?, budget = ?, last_modified = ?, tasks_substantial = ?, tasks_construction = ? " +
+        String sql = "UPDATE project SET project_name = ?, contract_id= ?, date_received = ?, budget = ?, last_modified = current_timestamp, tasks_substantial = ?, tasks_construction = ? " +
                 "WHERE id = ?";
-        jdbcTemplate.update(sql, project.getId(), project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getLastModified(), project.getTasksSubstantial(), project.getTasksConstruction());
+        jdbcTemplate.update(sql, project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getTasksSubstantial(), project.getTasksConstruction(), project.getId());
     }
 
     public List<ContractDTO> getContractList() {

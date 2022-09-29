@@ -81,7 +81,7 @@ public class JdbcScheduleDao implements ScheduleDao {
         baselinePhaseItem.setProjectId(rs.getInt("project_id"));
         baselinePhaseItem.setPhaseItemId(rs.getInt("phase_item"));
         baselinePhaseItem.setItemDescription(rs.getString("item_description"));
-        baselinePhaseItem.setPhaseItemDescription(rs.getString("phase"));
+        baselinePhaseItem.setPhaseDescription(rs.getString("phase"));
         if (rs.getDate("item_date") != null) {
             baselinePhaseItem.setItemDate(rs.getDate("item_date").toLocalDate());
         }
@@ -89,11 +89,5 @@ public class JdbcScheduleDao implements ScheduleDao {
         return baselinePhaseItem;
     }
 
-    private Project mapRowToProject(SqlRowSet rs) {
-        Project project = new Project();
-        project.setId(rs.getInt("Id"));
-        project.setProjectName(rs.getString("project_name"));
-        return project;
-    }
 
 }

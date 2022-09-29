@@ -1,8 +1,12 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.MonthlyPhaseItem;
+
+import java.util.List;
+
 public interface MonthlyScheduleDao {
 
-//    void
+    List<MonthlyPhaseItem> listMonthlyScheduleItems(int monthlyScheduleId);
 
     void addToMonthlySchedule();
 

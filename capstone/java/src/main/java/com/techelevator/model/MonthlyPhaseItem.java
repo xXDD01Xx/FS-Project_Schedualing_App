@@ -2,20 +2,22 @@ package com.techelevator.model;
 
 import java.time.LocalDate;
 
-public class BaselinePhaseItem {
-
+public class MonthlyPhaseItem {
     private int id;
-    private int projectId;
+    private int monthlyScheduleId;
     private int phaseItemId;
     private LocalDate itemDate;
     private int itemTasks;
     private String itemDescription;
     private String phaseDescription;
 
+    public MonthlyPhaseItem() {
+    }
 
-    public BaselinePhaseItem(int id, int projectId, int phaseItemId, LocalDate itemDate, int itemTasks, String itemDescription, String phaseDescription) {
+
+    public MonthlyPhaseItem(int id, int monthlyScheduleId, int phaseItemId, LocalDate itemDate, int itemTasks, String itemDescription, String phaseDescription) {
         this.id = id;
-        this.projectId = projectId;
+        this.monthlyScheduleId = monthlyScheduleId;
         this.phaseItemId = phaseItemId;
         this.itemDate = itemDate;
         this.itemTasks = itemTasks;
@@ -23,24 +25,6 @@ public class BaselinePhaseItem {
         this.phaseDescription = phaseDescription;
     }
 
-    public String getPhaseDescription() {
-        return phaseDescription;
-    }
-
-    public void setPhaseDescription(String phaseDescription) {
-        this.phaseDescription = phaseDescription;
-    }
-
-    public String getItemDescription() {
-        return itemDescription;
-    }
-
-    public void setItemDescription(String itemDescription) {
-        this.itemDescription = itemDescription;
-    }
-
-    public BaselinePhaseItem() {
-    }
 
     public int getId() {
         return id;
@@ -50,12 +34,12 @@ public class BaselinePhaseItem {
         this.id = id;
     }
 
-    public int getProjectId() {
-        return projectId;
+    public int getMonthlyScheduleId() {
+        return monthlyScheduleId;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setMonthlyScheduleId(int monthlyScheduleId) {
+        this.monthlyScheduleId = monthlyScheduleId;
     }
 
     public int getPhaseItemId() {
@@ -81,4 +65,21 @@ public class BaselinePhaseItem {
     public void setItemTasks(int itemTasks) {
         this.itemTasks = itemTasks;
     }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    public String getPhaseDescription() {
+        return phaseDescription;
+    }
+
+    public void setPhaseDescription(String phaseDescription) {
+        this.phaseDescription = phaseDescription;
+    }
 }
+

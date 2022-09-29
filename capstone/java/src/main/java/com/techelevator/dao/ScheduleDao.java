@@ -15,6 +15,8 @@ public interface ScheduleDao {
 
     void addToBaselineSchedule(BaselinePhaseItem baselinePhaseItem);
 
+    void addNewProjectBaselineItems(int projectId);
+
     void updateBaselineScheduleItem(BaselinePhaseItem baselinePhaseItem);
 
     void deleteBaselineScheduleItem(int id);

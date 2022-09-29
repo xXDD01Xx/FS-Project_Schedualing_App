@@ -54,13 +54,20 @@ public class JdbcScheduleDao implements ScheduleDao {
     }
 
     @Override
+    public void addNewProjectBaselineItems(int projectId) {
+        String sql = "INSERT into baseline_sched_items " +
+                "(project_id, phase_item) " +
+                "select ?, id from phase_items;";
+        jdbcTemplate.update(sql, projectId);
+    }
+
+    @Override
     public void updateBaselineScheduleItem(BaselinePhaseItem baselinePhaseItem) {
         String sql = "UPDATE baseline_sched_items " +
                 "SET project_id = ?, phase_item = ?, item_date = ?, item_tasks = ? " +
                 "WHERE id = ?";
         jdbcTemplate.update(sql, baselinePhaseItem.getProjectId(), baselinePhaseItem.getPhaseItemId(), baselinePhaseItem.getItemDate(), baselinePhaseItem.getItemTasks(), baselinePhaseItem.getId());
     }
-
 
     @Override
     public void deleteBaselineScheduleItem(int id) {
@@ -70,6 +77,7 @@ public class JdbcScheduleDao implements ScheduleDao {
 
     private BaselinePhaseItem mapRowToBaselineSchedule(SqlRowSet rs) {
         BaselinePhaseItem baselinePhaseItem = new BaselinePhaseItem();
+        baselinePhaseItem.setId(rs.getInt("id"));
         baselinePhaseItem.setProjectId(rs.getInt("project_id"));
         baselinePhaseItem.setPhaseItemId(rs.getInt("phase_item"));
         if (rs.getDate("item_date") != null) {
@@ -86,11 +94,4 @@ public class JdbcScheduleDao implements ScheduleDao {
         return project;
     }
 
-
-//    need to get project id from project name
-//    get phase item id from phase item description
-//    add to schedule
-//    get list of schedule items for project
-//    update schedule item date/tasks
-//    delete schedule item
 }

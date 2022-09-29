@@ -2,8 +2,6 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.ScheduleDao;
 import com.techelevator.model.BaselinePhaseItem;
-import com.techelevator.model.Project;
-import com.techelevator.model.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

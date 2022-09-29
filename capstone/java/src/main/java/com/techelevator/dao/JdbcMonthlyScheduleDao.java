@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,32 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
     }
 
     @Override
-    public void addToMonthlySchedule() {
+    public void addItemToMonthlySchedule() {
     }
+
+    @Override
+    public void addNewMonthlySchedule(int projectId, LocalDate monthYear) {
+        String sql = "BEGIN; " +
+                "" +
+                "INSERT INTO monthly_schedule " +
+                "(project_id, month_year) " +
+                "VALUES " +
+                "(?, ?); " +
+                "" +
+                "INSERT INTO monthly_sched_items " +
+                "(monthly_sched_id, phase_item) " +
+                "SELECT  " +
+                "(SELECT MAX(id) FROM monthly_schedule WHERE project_id = ? AND month_year = ?), " +
+                "a.phase_item, a.item_date, a.item_tasks " +
+                "FROM all_items_vw a " +
+                "LEFT JOIN all_items_vw b ON a.project_id = b.project_id AND a.month_year < b.month_year " +
+                "WHERE b.month_year IS NULL AND a.project_id = ?; " +
+                "" +
+                "COMMIT;";
+
+        jdbcTemplate.update(sql, projectId, monthYear, projectId, monthYear, projectId);
+    }
+
 
     @Override
     public void updateMonthlySchedule() {

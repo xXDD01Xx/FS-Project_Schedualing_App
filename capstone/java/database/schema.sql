@@ -47,7 +47,7 @@ CREATE TABLE project (
 CREATE TABLE mods_changes (
     id SERIAL NOT NULL,
     mod_co_name VARCHAR(20),
-    project_id INTEGER REFERENCES project (id),
+    project_id INTEGER REFERENCES project (id) ON DELETE CASCADE,
     type VARCHAR(20),
     court_date date,
     schedule_impacted BOOLEAN,
@@ -60,7 +60,7 @@ CREATE TABLE mods_changes (
 
 CREATE TABLE baseline_sched_items (
     id SERIAL NOT NULL,
-    project_id INTEGER REFERENCES project (id),
+    project_id INTEGER REFERENCES project (id) ON DELETE CASCADE,
     phase_item INTEGER REFERENCES phase_items (id),
     item_date date,
 	item_tasks INTEGER,
@@ -69,7 +69,7 @@ CREATE TABLE baseline_sched_items (
 
 CREATE TABLE monthly_schedule (
     id SERIAL NOT NULL,
-    project_id INTEGER REFERENCES project (id),
+    project_id INTEGER REFERENCES project (id) ON DELETE CASCADE,
     month_year date,
     schedule_notes VARCHAR(255),
     pct_complete INTEGER,
@@ -86,7 +86,7 @@ CREATE TABLE monthly_schedule (
 
 CREATE TABLE monthly_sched_items (
     id SERIAL NOT NULL,
-    monthly_sched_id INTEGER REFERENCES monthly_schedule (id),
+    monthly_sched_id INTEGER REFERENCES monthly_schedule (id) ON DELETE CASCADE,
     phase_item INTEGER REFERENCES phase_items (id),
     item_date date,
 	item_tasks INTEGER,

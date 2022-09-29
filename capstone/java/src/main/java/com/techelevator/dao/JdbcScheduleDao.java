@@ -35,10 +35,9 @@ public class JdbcScheduleDao implements ScheduleDao {
 
     @Override
     public List<BaselinePhaseItem> listBaselineScheduleItems(int projectId) {
-        String sql = "SELECT id, project_id, phase_item, item_date, item_tasks, item_description " +
-                "FROM baseline_sched_items " +
-                "JOIN phase_items pi on pi.id = baseline_sched_items.phase_item " +
-                "JOIN baseline_sched_items bsi on pi.id = bsi.phase_item;";
+        String sql = "SELECT b.id, b.project_id, phase_item, item_date, item_tasks, item_description, phase " +
+                "FROM baseline_sched_items b " +
+                "JOIN phase_items pi on pi.id = b.phase_item;";
         SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql);
         List<BaselinePhaseItem> baselinePhaseItem = new ArrayList<>();
         while (rs.next()) {

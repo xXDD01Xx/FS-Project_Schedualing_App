@@ -35,7 +35,7 @@ CREATE TABLE contract (
 CREATE TABLE project (
     id SERIAL NOT NULL,
     project_name VARCHAR(100),
-    contract_id INTEGER REFERENCES contract (id),
+    contract_id INTEGER REFERENCES contract (id) ON DELETE CASCADE,
     date_received date,
     budget BIGINT,
     last_modified TIMESTAMP WITHOUT TIME ZONE,

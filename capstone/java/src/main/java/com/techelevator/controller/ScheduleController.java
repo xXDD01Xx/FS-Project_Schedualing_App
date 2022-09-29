@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ScheduleDao;
+import com.techelevator.model.BaselinePhaseItem;
 import com.techelevator.model.Project;
 import com.techelevator.model.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,34 +19,34 @@ public class ScheduleController {
     @Autowired
     ScheduleDao scheduleDao;
 
-    @RequestMapping(path = "/project/{id}/projectname", method = RequestMethod.GET)
-    public Integer projectIdFromProjectName(@PathVariable String projectName) {
+    @RequestMapping(path = "/project/projectname", method = RequestMethod.POST)
+    public Integer projectIdFromProjectName(@RequestBody String projectName) {
         return scheduleDao.projectIdFromProjectName(projectName);
     }
 
-    @RequestMapping(path = "/phase/{id}/description", method = RequestMethod.GET)
-    public Integer phaseIdFromPhaseDescription(@PathVariable String description) {
+    @RequestMapping(path = "/phase/description", method = RequestMethod.POST)
+    public Integer phaseIdFromPhaseDescription(@RequestBody String description) {
         return scheduleDao.phaseIdFromPhaseDescription(description);
     }
 
     @RequestMapping(path = "/schedule/{id}", method = RequestMethod.GET)
-    public List<Schedule> listScheduleItems(@PathVariable int projectId) {
-        return scheduleDao.listScheduleItems(projectId);
+    public List<BaselinePhaseItem> listBaselineScheduleItems(@PathVariable int id) {
+        return scheduleDao.listBaselineScheduleItems(id);
     }
 
     @RequestMapping(path = "/schedule/new", method = RequestMethod.POST)
-    public void addToSchedule(@RequestBody Project project, Schedule schedule) {
-        scheduleDao.addToSchedule(project, schedule);
+    public void addToBaselineSchedule(@RequestBody BaselinePhaseItem baselinePhaseItem) {
+        scheduleDao.addToBaselineSchedule(baselinePhaseItem);
     }
 
     @RequestMapping(path = "/schedule/update", method = RequestMethod.PUT)
-    public void updateScheduleItem(@RequestBody Schedule schedule) {
-        scheduleDao.updateScheduleItem(schedule);
+    public void updateScheduleItem(@RequestBody BaselinePhaseItem baselinePhaseItem) {
+        scheduleDao.updateBaselineScheduleItem(baselinePhaseItem);
     }
 
     @RequestMapping(path = "/schedule/{id}/delete", method = RequestMethod.DELETE)
     public void deleteProject(@PathVariable int id) {
-        scheduleDao.deleteScheduleItem(id);
+        scheduleDao.deleteBaselineScheduleItem(id);
     }
 
 }

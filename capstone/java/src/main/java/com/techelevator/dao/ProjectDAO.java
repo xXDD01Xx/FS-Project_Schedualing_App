@@ -20,4 +20,6 @@ public interface ProjectDAO {
     void deleteProject(int id);
 
     List<ContractDTO> getContractList();
+
+
 }

@@ -23,7 +23,7 @@ public class JdbcProjectDAO implements ProjectDAO {
     @Override
     public List<Project> listAllProjects() {
         String sql = "SELECT id,project_name,contract_id,date_received,budget,last_modified,tasks_substantial,tasks_construction " +
-                "FROM project";
+                "FROM project;";
         SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql);
         List<Project> projects = new ArrayList<>();
         while (rs.next()) {
@@ -60,7 +60,7 @@ public class JdbcProjectDAO implements ProjectDAO {
 
     @Override
     public void addProject(Project project) {
-        String sql = "INSERT INTO project ( project_name, contract_id, date_received, budget, tasks_substantial, tasks_construction, last_modified) VALUES (?,?,?,?,?,?,current_timestamp) ";
+        String sql = "INSERT INTO project ( project_name, contract_id, date_received, budget, tasks_substantial, tasks_construction, last_modified) VALUES (?,?,?,?,?,?,current_timestamp); ";
         jdbcTemplate.update(sql, project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getTasksSubstantial(), project.getTasksConstruction());
     }
 
@@ -68,7 +68,7 @@ public class JdbcProjectDAO implements ProjectDAO {
     @Override
     public void updateProject(Project project) {
         String sql = "UPDATE project SET project_name = ?, contract_id= ?, date_received = ?, budget = ?, last_modified = current_timestamp, tasks_substantial = ?, tasks_construction = ? " +
-                "WHERE id = ?";
+                "WHERE id = ?;";
         jdbcTemplate.update(sql, project.getProjectName(), project.getContractId(), project.getDateReceived(), project.getBudget(), project.getTasksSubstantial(), project.getTasksConstruction(), project.getId());
     }
 
@@ -84,7 +84,7 @@ public class JdbcProjectDAO implements ProjectDAO {
 
     @Override
     public void deleteProject(int id) {
-        String sql = "DELETE FROM project WHERE id =?";
+        String sql = "DELETE FROM project WHERE id =?;";
         jdbcTemplate.update(sql, id);
     }
 

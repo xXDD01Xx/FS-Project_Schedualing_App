@@ -6,6 +6,7 @@ public class PhaseItem {
     private String phase;
     private String item;
     private LocalDate itemDate;
+    private int taskCount;
 
     public PhaseItem(String phase, String item, LocalDate itemDate, int taskCount) {
         this.phase = phase;
@@ -46,5 +47,5 @@ public class PhaseItem {
         this.taskCount = taskCount;
     }
 
-    private int taskCount;
+
 }

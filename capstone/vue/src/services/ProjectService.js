@@ -21,4 +21,6 @@ export default {
         return axios.get("/contracts")
     },
 
+    
+
 }

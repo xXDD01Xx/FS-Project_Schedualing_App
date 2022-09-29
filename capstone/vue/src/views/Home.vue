@@ -29,6 +29,13 @@
                      outlined
               >View Projects</v-btn>
             </router-link>
+            <router-link class="text-decoration-none" :to="{path: '/listBaseline'}">
+              <v-btn class="button"
+                     color=#8c090e
+                     elevation="2"
+                     outlined
+              >List Baseline Items</v-btn>
+            </router-link>
           </v-container>
           </div>
           <div v-if="user.authorities[0].name !== 'ROLE_VIEW'">

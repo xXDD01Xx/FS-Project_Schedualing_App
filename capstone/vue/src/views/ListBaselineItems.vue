@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container>
+      <v-container>
       <v-simple-table>
         <thead>
         <th>Project Name</th>
@@ -9,7 +9,7 @@
         <th>Budget</th>
         <th>Construction Tasks</th>
         <th>Substantial Tasks</th>
-        <th v-if="userOrAdmin">Edit Project</th>
+        <th>View Baseline Items</th>
         </thead>
         <tbody>
         <tr v-for="project in projects" :key="project.projectName">
@@ -31,10 +31,10 @@
           <td>
             {{ project.tasksSubstantial }}
           </td>
-          <td v-if="userOrAdmin">
+          <td>
             <v-btn 
             elevation="2" class="text-decoration-none" 
-            @click="editProject(project)">Edit</v-btn>
+            @click="editProject(project)">View</v-btn>
           </td>
         </tr>
         </tbody>
@@ -56,8 +56,8 @@
 import ProjectService from "@/services/ProjectService";
 
 export default {
-  name: "ViewProjects",
-  data(){
+    name: 'ListBaselineItems',
+    data(){
     return {
       projects: [],
       showEdit: false,
@@ -72,26 +72,16 @@ export default {
       //TODO filter?
     });
   },
-  computed: {
-    userOrAdmin()
-    {
-      return this.$store.state.user.authorities[0].name !== 'ROLE_VIEW';
-    }
-  },
   methods: {
     editProject(project)
     {
       this.$store.commit('SET_PROJECT', project);
-      this.$router.push({name: 'EditProject', params: {id: project.id}})
+      this.$router.push({name: 'ListBaselineByID', params: {id: project.id}})
     }
   }
 }
 </script>
 
-<style scoped>
-th {
-  padding: 5px;
-}
-
+<style>
 
 </style>

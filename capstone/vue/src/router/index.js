@@ -17,6 +17,8 @@ import ReviewPendingUsers from '../views/ReviewPendingUsers.vue'
 import StatusReports from '../views/StatusReports.vue'
 import ViewProjects from "@/views/ViewProjects";
 import EditProject from "@/views/EditProject";
+import ListBaselineItems from '../views/ListBaselineItems.vue'
+import ListBaselineByID from '../views/ListBaselineByID.vue'
 
 Vue.use(Router)
 
@@ -156,6 +158,22 @@ const router = new Router({
       path: `/editProject/:id`,
       name: 'EditProject',
       component: EditProject,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: `/listBaseline/`,
+      name: 'ListBaselineItems',
+      component: ListBaselineItems,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: `/listBaseline/:id`,
+      name: 'ListBaselineByID',
+      component: ListBaselineByID,
       meta: {
         requiresAuth: true
       }

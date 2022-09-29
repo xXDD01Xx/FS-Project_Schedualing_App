@@ -9,34 +9,45 @@ Vue.use(Vuex)
  * the page is refreshed. When that happens you need to check for the token in local storage and if it
  * exists you should set the header so that it will be attached to each request
  */
-const currentToken = localStorage.getItem('token')
+const currentToken = localStorage.getItem('token');
 const currentUser = JSON.parse(localStorage.getItem('user'));
+const currentProject = JSON.parse(localStorage.getItem('project'));
 
-if(currentToken != null) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
+if (currentToken != null)
+{
+    axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
 
 export default new Vuex.Store({
-  state: {
-    token: currentToken || '',
-    user: currentUser || {}
-  },
-  mutations: {
-    SET_AUTH_TOKEN(state, token) {
-      state.token = token;
-      localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    state: {
+        token: currentToken || '',
+        user: currentUser || {},
+        project: currentProject || {},
     },
-    SET_USER(state, user) {
-      state.user = user;
-      localStorage.setItem('user',JSON.stringify(user));
-    },
-    LOGOUT(state) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      state.token = '';
-      state.user = {};
-      axios.defaults.headers.common = {};
+    mutations: {
+        SET_AUTH_TOKEN(state, token)
+        {
+            state.token = token;
+            localStorage.setItem('token', token);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        },
+        SET_USER(state, user)
+        {
+            state.user = user;
+            localStorage.setItem('user', JSON.stringify(user));
+        },
+        LOGOUT(state)
+        {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            state.token = '';
+            state.user = {};
+            axios.defaults.headers.common = {};
+        },
+        SET_PROJECT(state, project)
+        {
+            state.project = project;
+            localStorage.setItem('project', JSON.stringify(project));
+        }
     }
-  }
 })

@@ -15,7 +15,6 @@
           item-value="id"
           v-model="project.contractId"
         ></v-select>
-          <!-- :reduce="(contracts) => contracts.id" -->
 
         <v-text-field
           v-model="project.dateReceived"
@@ -27,6 +26,7 @@
           v-model="project.budget"
           type="number"
           label="Budget"
+          placeholder="$"
           required
         ></v-text-field>
         <!-- <v-text-field
@@ -40,7 +40,7 @@
           elevation="2"
           outlined
           @click="saveProject"
-          >Submit</v-btn
+          >Create Baseline Schedule</v-btn
         >
       </v-form>
       <div v-show="addProjectSuccess">{{ addProjectSuccessMessage }}</div>
@@ -60,44 +60,43 @@
       return {
         con: {},
         addProjectSuccess: false,
-        addProjectSuccessMessage: "Successfully Added Project",
+        addProjectSuccessMessage: "Successfully Added Project!",
         addProjectFailure: false,
-        addProjectFailureMessage: "Something Went Wrong",
+        addProjectFailureMessage: "Something Went Wrong! \n Please Try again...",
         contracts: [],
-        // items: [1,2,3,4,5],
         project: {
           projectName: "",
           dateReceived: "",
           budget: "",
           contractId: "",
-          // lastModified: '',
           //TODO Add contract Name? Add substantial/construction tasks
         },
       };
     },
     methods: {
       saveProject() {
-        // this.project.contractId = this.setContractId()
-        // this.project.lastModified = new Date().getTimezoneOffset()
+
         console.log(this.project);
         console.log(this.con);
         ProjectService.addProject(this.project)
           .then((response) => {
             if (response.status == 200 || response.status == 201) {
               this.addProjectSuccess = true;
+              this.$store.commit("SET_PROJECT", this.project);
               this.project = {};
+              this.$router.push("/baselineSchedule");
             }
           })
           .catch((error) => {
             const response = error.response;
             if (response.status == 400) {
-              alert(response.data.message);
+              alert(this.addProjectFailureMessage);
             }
             if (response.status == 401) {
-              alert(response.data.message);
+              alert(this.addProjectFailureMessage);
             }
             if (response.status == 500) {
-              alert(response.data.message);
+              alert(this.addProjectFailureMessage);
             }
           });
       },

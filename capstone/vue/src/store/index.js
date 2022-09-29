@@ -54,5 +54,10 @@ export default new Vuex.Store({
             state.project = project;
             localStorage.setItem('project', JSON.stringify(project));
         },
+
+        EMPTY_PROJECT(state){
+            state.project = {};
+        },
+        
     }
 })

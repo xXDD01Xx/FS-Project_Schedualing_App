@@ -53,7 +53,6 @@
   export default {
     data() {
       return {
-        con: {},
         addProjectSuccess: false,
         addProjectSuccessMessage: "Successfully Added Project!",
         addProjectFailure: false,
@@ -70,9 +69,7 @@
     },
     methods: {
       saveProject() {
-
         console.log(this.project);
-        console.log(this.con);
         ProjectService.addProject(this.project)
           .then((response) => {
             if (response.status == 200 || response.status == 201) {

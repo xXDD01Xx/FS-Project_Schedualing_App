@@ -41,7 +41,6 @@ CREATE TABLE project (
     last_modified TIMESTAMP WITHOUT TIME ZONE,
     tasks_substantial INTEGER,
     tasks_construction INTEGER,
---     contract_project_id BIGINT,
     CONSTRAINT project_pkey PRIMARY KEY (id)
 );
 
@@ -56,7 +55,6 @@ CREATE TABLE mods_changes (
     why VARCHAR(255),
     approved BOOLEAN,
     approv_datetm TIMESTAMP WITHOUT TIME ZONE,
---     project_mods_id BIGINT,
     CONSTRAINT mods_changes_pkey PRIMARY KEY (id)
 );
 
@@ -66,8 +64,6 @@ CREATE TABLE baseline_sched_items (
     phase_item INTEGER REFERENCES phase_items (id),
     item_date date,
 	item_tasks INTEGER,
---     project_baseline_id BIGINT,
---     baseline_items_id BIGINT,
     CONSTRAINT baseline_sched_items_pkey PRIMARY KEY (id)
 );
 
@@ -85,7 +81,6 @@ CREATE TABLE monthly_schedule (
     why_five VARCHAR(255),
     tasks_substantial INTEGER,
     tasks_construction INTEGER,
---     project_monthly_id BIGINT,
     CONSTRAINT monthly_schedule_pkey PRIMARY KEY (id)
 );
 
@@ -94,23 +89,8 @@ CREATE TABLE monthly_sched_items (
     monthly_sched_id INTEGER REFERENCES monthly_schedule (id),
     phase_item INTEGER REFERENCES phase_items (id),
     item_date date,
---     monthly_items_id BIGINT,
---     monthly_sched_items_id BIGINT,
+	item_tasks INTEGER,
     CONSTRAINT monthly_sched_items_pkey PRIMARY KEY (id)
 );
-
--- ALTER TABLE project ADD CONSTRAINT fk_project_contract_project_id FOREIGN KEY (contract_project_id) REFERENCES contract (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
-
--- ALTER TABLE mods_changes ADD CONSTRAINT fk_mods_changes_project_mods_id FOREIGN KEY (project_mods_id) REFERENCES project (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
-
--- ALTER TABLE baseline_sched_items ADD CONSTRAINT fk_baseline_sched_items_project_baseline_id FOREIGN KEY (project_baseline_id) REFERENCES project (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
-
--- ALTER TABLE baseline_sched_items ADD CONSTRAINT fk_baseline_sched_items_baseline_items_id FOREIGN KEY (baseline_items_id) REFERENCES phase_items (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
-
--- ALTER TABLE monthly_schedule ADD CONSTRAINT fk_monthly_schedule_project_monthly_id FOREIGN KEY (project_monthly_id) REFERENCES project (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
-
--- ALTER TABLE monthly_sched_items ADD CONSTRAINT fk_monthly_sched_items_monthly_items_id FOREIGN KEY (monthly_items_id) REFERENCES phase_items (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
-
--- ALTER TABLE monthly_sched_items ADD CONSTRAINT fk_monthly_sched_items_monthly_sched_items_id FOREIGN KEY (monthly_sched_items_id) REFERENCES monthly_schedule (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 COMMIT;

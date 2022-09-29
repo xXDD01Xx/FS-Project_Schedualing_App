@@ -1,11 +1,10 @@
 <template>
   <v-app id="app">
-    <v-container id="landing-container">
-
+    <v-container id="landing-container" class="text-center"  >
+<!--      <v-col :align-self="align" :key="align">-->
       <h1 id="introduction">
-        Welcome to the Frontline Project Schedule App
+        Welcome to the Front Line Project Schedule App
       </h1>
-      <v-col class="text-right">
       <router-link class="text-decoration-none" :to="{path: '/login'}">
         <v-btn class="button"
         color=#76a1c0
@@ -19,10 +18,7 @@
         elevation="2"
         outlined>Register</v-btn>
       </router-link>
-      </v-col>
-    </v-container>
-    <v-container>
-      <!-- <v-img id="logo" src="../assets/flag-logo.svg"/> -->
+<!--      </v-col>-->
     </v-container>
   </v-app>
 </template>

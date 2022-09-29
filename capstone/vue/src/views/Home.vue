@@ -1,11 +1,11 @@
 <template>
   <v-app>
     <div class="home">
-      <v-container id="home-container" class="text-center">
+      <v-container id="home-container" class="text-center" >
       <h1>Welcome, {{user.username}}</h1>
           <div>
-            <h3>Schedule</h3>
-            <v-container id="master-container">
+            <h2>Schedule</h2>
+            <v-container id="master-container" class="my-2">
               <router-link class="text-decoration-none" :to="{path: '/master'}">
               <v-btn class="button"
               color=#8c090e
@@ -14,7 +14,7 @@
               >Master Schedule</v-btn>
               </router-link>
             </v-container>
-          <v-container id="report-container">
+          <v-container id="report-container" class="my-2">
             <router-link class="text-decoration-none" :to="{path: '/statusReports'}">
             <v-btn class="button"
               color=#8c090e
@@ -32,8 +32,8 @@
           </v-container>
           </div>
           <div v-if="user.authorities[0].name !== 'ROLE_VIEW'">
-            <h3>Schedule Management</h3>
-            <v-container id="schedule-container">
+            <h2>Schedule Management</h2>
+            <v-container id="schedule-container" class="my-2">
               <router-link class="text-decoration-none" :to="{path: '/baselineSchedule'}">
               <v-btn class="button"
               color=#8c090e
@@ -49,7 +49,7 @@
               >Monthly Update</v-btn>
               </router-link>
            </v-container>
-           <v-container id="pending-mod-co-container">
+           <v-container id="pending-mod-co-container" class="my-2">
              <router-link class="text-decoration-none" :to="{path: '/mods-co'}">
              <v-btn class="button"
               color=#8c090e
@@ -58,7 +58,7 @@
             >Pending Modifications/Change Orders</v-btn>
              </router-link>
           </v-container>
-          <v-container id="add-project-container">
+          <v-container id="add-project-container" class="my-2">
             <router-link class="text-decoration-none" :to="{path: '/addProject'}">
             <v-btn class="button"
               color=#8c090e
@@ -69,8 +69,8 @@
           </v-container>
           </div>
           <div v-if="user.authorities[0].name === 'ROLE_ADMIN'">
-            <h3>Admin Management</h3>
-            <v-container id="admin-container">
+            <h2>Admin Management</h2>
+            <v-container id="admin-container" class="my-2">
               <router-link class="text-decoration-none" :to="{path: '/reviewPendingUsers'}">
               <v-btn class="button"
               color=#8c090e
@@ -88,8 +88,8 @@
             </v-container>
           </div>
           <div>
-            <h3>Edit Account</h3>
-            <v-container id="account-container">
+            <h2>Edit Account</h2>
+            <v-container id="account-container" class="my-2">
               <router-link class="text-decoration-none" :to="{path: '/changePassword'}">
               <v-btn class="button"
               color=#8c090e
@@ -121,12 +121,20 @@ export default {
 
 
 <style scoped>
-#home-container{
-  display: flexbox;
-  flex-direction: column;
-  justify-content: center;
-}
+/*#home-container{*/
+/*  display: flexbox;*/
+/*  flex-direction: column;*/
+/*  justify-content: center;*/
+/*}*/
 .button {
     margin: 10px;
+}
+h1 {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+h2 {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>

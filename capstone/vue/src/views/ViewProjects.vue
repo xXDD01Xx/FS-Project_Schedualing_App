@@ -35,6 +35,8 @@
             <router-link :to="{name: 'EditProject', params:{ id:project.id }}"
                          @click.native="editProject(project)"
                          :project="project"
+                         color=#8c090e
+                         elevation="2"
                          class="text-decoration-none">
               <v-btn>Edit</v-btn>
             </router-link>

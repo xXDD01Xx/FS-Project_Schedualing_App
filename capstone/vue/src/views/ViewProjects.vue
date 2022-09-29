@@ -32,7 +32,10 @@
             {{ project.tasksSubstantial }}
           </td>
           <td v-if="userOrAdmin">
-            <router-link :to="{path: '/home'}">
+            <router-link :to="{name: 'EditProject', params:{ id:project.id }}"
+                         @click.native="editProject(project)"
+                         :project="project"
+                         class="text-decoration-none">
               <v-btn>Edit</v-btn>
             </router-link>
           </td>
@@ -41,14 +44,14 @@
       </v-simple-table>
     </v-container>
     <div class="text-center">
-        <router-link class="text-decoration-none" :to="{path: '/home'}">
-          <v-btn class="button"
-                 color=#8c090e
-                 elevation="2"
-                 outlined
-          >Home</v-btn>
-        </router-link>
-      </div>
+      <router-link class="text-decoration-none" :to="{path: '/home'}">
+        <v-btn class="button"
+               color=#8c090e
+               elevation="2"
+               outlined
+        >Home</v-btn>
+      </router-link>
+    </div>
   </v-app>
 </template>
 
@@ -64,10 +67,11 @@ export default {
       showEdit: false,
     }
   },
-  created() {
+  created()
+  {
     ProjectService.listProjects().then((response) =>
     {
-      if(response.status == 200 || response.status == 201)
+      if (response.status == 200 || response.status == 201)
       {
         this.projects = response.data;
       }
@@ -75,16 +79,23 @@ export default {
     });
   },
   computed: {
-    userOrAdmin(){
+    userOrAdmin()
+    {
       return this.$store.state.user.authorities[0].name !== 'ROLE_VIEW';
+    }
+  },
+  methods: {
+    editProject(project)
+    {
+      this.$store.commit('SET_PROJECT', project);
     }
   }
 }
 </script>
 
 <style scoped>
-th { 
-   padding: 5px; 
+th {
+  padding: 5px;
 }
 
 

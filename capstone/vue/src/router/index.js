@@ -16,6 +16,7 @@ import MonthlyUpdate from '../views/MonthlyUpdate.vue'
 import ReviewPendingUsers from '../views/ReviewPendingUsers.vue'
 import StatusReports from '../views/StatusReports.vue'
 import ViewProjects from "@/views/ViewProjects";
+import EditProject from "@/views/EditProject";
 
 Vue.use(Router)
 
@@ -147,6 +148,14 @@ const router = new Router({
       path: '/viewProjects',
       name: 'ViewProjects',
       component: ViewProjects,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: `/editProject/:id`,
+      name: 'EditProject',
+      component: EditProject,
       meta: {
         requiresAuth: true
       }

@@ -29,11 +29,6 @@
           placeholder="$"
           required
         ></v-text-field>
-        <!-- <v-text-field
-          v-model="project.lastModified"
-          type="date"
-          label="Date Last Modified"
-          required></v-text-field> -->
         <v-btn
           class="button"
           color="#8c090e"
@@ -100,14 +95,6 @@
             }
           });
       },
-      // setContractId(){
-      //   const c = this.contracts.filter(contract => {
-      //     this.contract !== contract.contractName
-      //   });
-      //   console.log(c)
-      //   const id = c[0].contractId
-      //   return id;
-      // }
     },
     created() {
       ProjectService.getContracts().then((response) => {

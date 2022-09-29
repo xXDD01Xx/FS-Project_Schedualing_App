@@ -1,21 +1,18 @@
 <template>
   <v-app>
-    <v-container>
-      <v-form ref="form" lazy-validation>
+    <v-container >
 
-        //display project name
-        //display contract name
-        //
+      <v-form ref="form" lazy-validation>
 
         <v-text-field
             v-model="project.projectName"
-            label="Project Name"
+            label="Project Name - From Project Creation"
             required
             :readonly="true"
         ></v-text-field>
 
         <v-text-field
-            label="Contract"
+            label="Contract - From Project Creation"
             :items="contracts"
             item-text="contractName"
             item-value="id"
@@ -26,25 +23,19 @@
         <v-text-field
             v-model="project.dateReceived"
             type="date"
-            label="Date Received"
+            label="Date Received - From Project Creation"
             required
             :readonly="true"
         ></v-text-field>
         <v-text-field
             v-model="project.budget"
             type="number"
-            label="Budget"
+            label="Budget - From Project Creation"
             placeholder="$"
             required
             :readonly="true"
         ></v-text-field>
 
-
-        <!--      <v-select>-->
-        <!--        label="Phase Selection"-->
-        <!--        :items="items"-->
-        <!--        v-model=""-->
-        <!--      </v-select>-->
         <v-container>
           <v-checkbox
               label="Phase Design"
@@ -58,7 +49,6 @@
               label="Construction Design"
               v-model="phaseConstruction">
           </v-checkbox>
-
         </v-container>
         <PhaseDesignEntry
             v-show="phaseDesign">
@@ -151,7 +141,6 @@ export default {
   },
   created()
   {
-
   },
 };
 

@@ -22,6 +22,7 @@ export default new Vuex.Store({
     state: {
         token: currentToken || '',
         user: currentUser || {},
+        users: [],
         project: currentProject || {},
     },
     mutations: {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
             state.token = token;
             localStorage.setItem('token', token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        },
+        ADD_ALL_USERS(state, user)
+        {
+            this.state.users = user;
         },
         SET_USER(state, user)
         {
@@ -48,6 +53,6 @@ export default new Vuex.Store({
         {
             state.project = project;
             localStorage.setItem('project', JSON.stringify(project));
-        }
+        },
     }
 })

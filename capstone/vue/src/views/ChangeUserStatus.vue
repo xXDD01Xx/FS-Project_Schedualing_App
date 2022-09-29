@@ -44,8 +44,8 @@
         </template>
       </v-simple-table>
     </v-container>
-    <router-link :to="{ path: '/home' }">
-      <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
+    <router-link :to="{ path: '/home' }" class="text-decoration-none">
+      <v-btn   color="#8c090e" elevation="2" outlined>Home</v-btn>
     </router-link>
   </v-app>
 </template>
@@ -76,12 +76,19 @@ export default {
     },
   },
   created() {
-    AuthService.getAllUsers().then((response) => {
-      if (response.status == 200 || response.status == 201) {
+    if (this.$store.state.users == []) {
+    AuthService.getAllUsers().then((response) =>
+    {
+      if (response.status == 200 || response.status == 201)
+      {
         this.users = response.data.filter(u => u.username !== this.user.username);
-        console.log(this.users);
+        this.$store.commit("ADD_ALL_USERS", this.users);
+      }
+      else {
+        this.users = this.$store.state.users;
       }
     });
+    }
   },
 };
 </script>

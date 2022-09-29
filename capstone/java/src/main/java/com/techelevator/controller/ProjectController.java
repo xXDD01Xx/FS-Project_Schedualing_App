@@ -1,6 +1,5 @@
 package com.techelevator.controller;
 
-import com.techelevator.dao.ScheduleDao;
 import com.techelevator.model.ContractDTO;
 import com.techelevator.model.Project;
 import com.techelevator.dao.ProjectDAO;

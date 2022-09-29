@@ -9,13 +9,34 @@ public class BaselinePhaseItem {
     private int phaseItemId;
     private LocalDate itemDate;
     private int itemTasks;
+    private String itemDescription;
+    private String phaseItemDescription;
 
-    public BaselinePhaseItem(int id, int projectId, int phaseItemId, LocalDate itemDate, int itemTasks) {
+
+    public BaselinePhaseItem(int id, int projectId, int phaseItemId, LocalDate itemDate, int itemTasks, String itemDescription, String phaseItemDescription) {
         this.id = id;
         this.projectId = projectId;
         this.phaseItemId = phaseItemId;
         this.itemDate = itemDate;
         this.itemTasks = itemTasks;
+        this.itemDescription = itemDescription;
+        this.phaseItemDescription = phaseItemDescription;
+    }
+
+    public String getPhaseItemDescription() {
+        return phaseItemDescription;
+    }
+
+    public void setPhaseItemDescription(String phaseItemDescription) {
+        this.phaseItemDescription = phaseItemDescription;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
     }
 
     public BaselinePhaseItem() {

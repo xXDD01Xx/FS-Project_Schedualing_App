@@ -8,12 +8,15 @@ public class PhaseItem {
     private LocalDate itemDate;
     private int taskCount;
 
+
     public PhaseItem(String phase, String item, LocalDate itemDate, int taskCount) {
         this.phase = phase;
         this.item = item;
         this.itemDate = itemDate;
         this.taskCount = taskCount;
+
     }
+
 
     public String getPhase() {
         return phase;

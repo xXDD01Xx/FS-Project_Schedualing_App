@@ -34,7 +34,7 @@ export default new Vuex.Store({
         },
         ADD_ALL_USERS(state, user)
         {
-            this.state.users = user;
+            state.users = user;
         },
         SET_USER(state, user)
         {

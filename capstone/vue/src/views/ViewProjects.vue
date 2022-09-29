@@ -32,14 +32,9 @@
             {{ project.tasksSubstantial }}
           </td>
           <td v-if="userOrAdmin">
-            <router-link :to="{name: 'EditProject', params:{ id:project.id }}"
-                         @click.native="editProject(project)"
-                         :project="project"
-                         color=#8c090e
-                         elevation="2"
-                         class="text-decoration-none">
-              <v-btn>Edit</v-btn>
-            </router-link>
+            <v-btn 
+            elevation="2" class="text-decoration-none" 
+            @click="editProject(project)">Edit</v-btn>
           </td>
         </tr>
         </tbody>
@@ -90,6 +85,7 @@ export default {
     editProject(project)
     {
       this.$store.commit('SET_PROJECT', project);
+      this.$router.push({name: 'EditProject', params: {id: project.id}})
     }
   }
 }

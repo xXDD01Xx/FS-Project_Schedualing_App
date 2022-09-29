@@ -35,8 +35,10 @@ public class JdbcScheduleDao implements ScheduleDao {
 
     @Override
     public List<BaselinePhaseItem> listBaselineScheduleItems(int projectId) {
-        String sql = "SELECT id, project_id, phase_item, item_date, item_tasks " +
-                "FROM baseline_sched_items;";
+        String sql = "SELECT id, project_id, phase_item, item_date, item_tasks, item_description " +
+                "FROM baseline_sched_items " +
+                "JOIN phase_items pi on pi.id = baseline_sched_items.phase_item " +
+                "JOIN baseline_sched_items bsi on pi.id = bsi.phase_item;";
         SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql);
         List<BaselinePhaseItem> baselinePhaseItem = new ArrayList<>();
         while (rs.next()) {
@@ -64,7 +66,7 @@ public class JdbcScheduleDao implements ScheduleDao {
     @Override
     public void updateBaselineScheduleItem(BaselinePhaseItem baselinePhaseItem) {
         String sql = "UPDATE baseline_sched_items " +
-                "SET project_id = ?, phase_item = ?, item_date = ?, item_tasks = ? " +
+                "SET project_id = ?, phase_item = ?, item_date = ?, item_tasks = ?" +
                 "WHERE id = ?";
         jdbcTemplate.update(sql, baselinePhaseItem.getProjectId(), baselinePhaseItem.getPhaseItemId(), baselinePhaseItem.getItemDate(), baselinePhaseItem.getItemTasks(), baselinePhaseItem.getId());
     }
@@ -80,6 +82,8 @@ public class JdbcScheduleDao implements ScheduleDao {
         baselinePhaseItem.setId(rs.getInt("id"));
         baselinePhaseItem.setProjectId(rs.getInt("project_id"));
         baselinePhaseItem.setPhaseItemId(rs.getInt("phase_item"));
+        baselinePhaseItem.setItemDescription(rs.getString("item_description"));
+        baselinePhaseItem.setPhaseItemDescription(rs.getString("phase"));
         if (rs.getDate("item_date") != null) {
             baselinePhaseItem.setItemDate(rs.getDate("item_date").toLocalDate());
         }

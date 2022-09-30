@@ -37,7 +37,7 @@ public class JdbcScheduleDao implements ScheduleDao {
                 "FROM baseline_sched_items b " +
                 "JOIN phase_items pi on pi.id = b.phase_item " +
                 "WHERE b.project_id = ?;";
-        SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql);
+        SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql, projectId);
         List<BaselinePhaseItem> baselinePhaseItem = new ArrayList<>();
         while (rs.next()) {
             baselinePhaseItem.add(mapRowToBaselineSchedule(rs));

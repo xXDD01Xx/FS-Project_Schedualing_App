@@ -5,21 +5,39 @@
       :key="item.id"
       id="item-container"
     >
-      <h4>{{ item.itemDescription }}</h4>
-      <v-text-field
-        v-model="item.itemDate"
-        label="Date"
-        type="date"
-        required
-        @blur="saveBaselineItem(item)"
-      ></v-text-field>
-      <v-text-field
-        v-model="item.itemTasks"
-        type="text"
-        label="No. of Tasks"
-        required
-        @blur="saveBaselineItem(item)"
-      ></v-text-field>
+      <v-row>
+        <v-col cols="6" sm="3"> </v-col>
+        <v-col cols="6">
+          <h4>{{ item.itemDescription }}</h4>
+        </v-col>
+        <v-col cols="6" sm="3"> </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12" sm="2"></v-col>
+        <v-col cols="12" sm="2"></v-col>
+        <v-col cols="12" sm="2">
+          <v-text-field
+            v-model="item.itemDate"
+            label="Date"
+            type="date"
+            required
+            @blur="saveBaselineItem(item)"
+          >
+          </v-text-field>
+        </v-col>
+
+        <v-col cols="12" sm="2">
+          <v-text-field
+            v-model="item.itemTasks"
+            type="text"
+            label="No. of Tasks"
+            required
+            @blur="saveBaselineItem(item)"
+          ></v-text-field>
+        </v-col>
+        
+      </v-row>
     </v-container>
   </v-app>
 </template>

@@ -13,7 +13,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="user in users" :key="user.username">
+          <tr v-for="user in users.filter(user => user.status != 'Active')"
+              :key="user.username">
             <td>{{ user.username }}</td>
 <!--            <td>{{ user.}}</td>-->
           </tr>
@@ -45,13 +46,31 @@
 </template>
 
 <script>
+// import AuthService from "@/services/AuthService";
+
 export default {
 data()
 {
   return {
+    users: [],
     user: this.$store.state.user
   }
-}
+},
+  // created() {
+  // if (this.$store.state.users == [])
+  // {
+  //   AuthService.getAllUsers().then((response) =>
+  //   {
+  //     if (response.status == 200 || response.status == 201)
+  //     {
+  //       this.users = response.data.filter(u => u.username !== this.user.username);
+  //     } else
+  //     {
+  //       this.users = this.$store.state.users;
+  //     }
+  //   });
+  // }
+  // }
 
 }
 </script>

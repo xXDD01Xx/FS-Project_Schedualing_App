@@ -9,6 +9,10 @@ INSERT INTO users (username,password_hash,role,user_status_id) VALUES ('user','$
 														WHERE user_status_desc='Active')),('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN',
 														(SELECT MAX(user_status_id) 
 														FROM user_status
+														WHERE user_status_desc='Active')),
+('viewer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_VIEW',
+														(SELECT MAX(user_status_id) 
+														FROM user_status
 														WHERE user_status_desc='Active'));
 
 COMMIT TRANSACTION;

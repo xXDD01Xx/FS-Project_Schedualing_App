@@ -2,10 +2,12 @@ package com.techelevator.dao;
 
 import com.techelevator.model.ContractDTO;
 import com.techelevator.model.Project;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -60,6 +62,7 @@ public class JdbcProjectDAO implements ProjectDAO {
     }
 
     @Override
+    @Transactional
     public Project addProject(Project project) {
         String sql = "BEGIN; " +
                 "INSERT INTO project ( " +
@@ -96,6 +99,8 @@ public class JdbcProjectDAO implements ProjectDAO {
             output = listProject(projectId);
         } catch (NullPointerException e) {
             System.out.println("Unable to get new project");
+        } catch (DataAccessException e) {
+            System.out.println("Unable to access Data");
         }
         return output;
     }

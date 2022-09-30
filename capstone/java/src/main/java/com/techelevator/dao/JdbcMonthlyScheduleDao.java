@@ -6,6 +6,7 @@ import com.techelevator.dao.MonthlyScheduleDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
     }
 
     @Override
+    @Transactional
     public void addNewMonthlySchedule(int projectId, LocalDate monthYear) {
         String sql = "BEGIN; " +
                 "" +
@@ -64,8 +66,8 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
     public void addNewMonthlyScheduleItem(MonthlyPhaseItem monthlyPhaseItem) {
         String sql = "INSERT INTO monthly_sched_items " +
                 "(monthly_sched_id, phase_item, item_date, item_tasks) " +
-                "SELECT ?, id FROM phase_items; ";
-        jdbcTemplate.update(sql, monthlyPhaseItem.getMonthlyScheduleId());
+                "VALUES (?,?,?,?);";
+        jdbcTemplate.update(sql, monthlyPhaseItem.getMonthlyScheduleId(), monthlyPhaseItem.getPhaseItemId(), monthlyPhaseItem.getItemDate(), monthlyPhaseItem.getItemTasks());
     }
 
     @Override

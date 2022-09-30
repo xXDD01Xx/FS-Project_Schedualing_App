@@ -1,6 +1,9 @@
 <template>
   <v-app>
       <v-container>
+        <br>
+        <h2 class="text-center">List Baseline</h2>
+        <br><br>
       <v-simple-table>
         <thead>
         <th>Project Name</th>
@@ -41,6 +44,7 @@
       </v-simple-table>
     </v-container>
     <div class="text-center">
+      <br><br>
       <router-link class="text-decoration-none" :to="{path: '/home'}">
         <v-btn class="button"
                color=#8c090e

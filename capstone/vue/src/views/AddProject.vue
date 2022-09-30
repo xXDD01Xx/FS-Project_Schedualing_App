@@ -1,6 +1,9 @@
 <template>
   <v-app>
     <v-container>
+      <br>
+      <h2 class="text-center">Add Project</h2>
+      <br>
       <v-form ref="form" lazy-validation>
         <v-text-field
           v-model="project.projectName"
@@ -29,6 +32,8 @@
           placeholder="$"
           required
         ></v-text-field>
+        <div class="text-center">
+          <br>
         <v-btn
           class="button"
           color="#8c090e"
@@ -36,14 +41,17 @@
           outlined
           @click="saveProject"
           >Create Baseline Schedule</v-btn
-        >
+        ></div>
       </v-form>
       <div v-show="addProjectSuccess">{{ addProjectSuccessMessage }}</div>
       <div v-show="addProjectFailure">{{ addProjectFailureMessage }}</div>
     </v-container>
+    <div class="text-center">
+      <br><br>
     <router-link class="text-decoration-none" :to="{ path: '/home' }">
       <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
     </router-link>
+    </div>
   </v-app>
 </template>
 

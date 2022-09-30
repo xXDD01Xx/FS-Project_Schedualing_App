@@ -54,6 +54,7 @@
       </v-btn>
       <br><br>
     </div>
+    <v-btn @click="check">click</v-btn>
     <div class="text-center">
     <router-link :to="{ path: '/home' }" class="text-decoration-none">
       <v-btn color="#8c090e"
@@ -82,6 +83,9 @@ export default {
     };
   },
   methods: {
+    check(){
+      console.log(this.users)
+    },
     submitAll()
     {
       let u = this.users;
@@ -99,12 +103,13 @@ export default {
   },
   created()
   {
-    if (this.$store.state.users == [])
+    if (this.$store.state.users.length === 0)
     {
       AuthService.getAllUsers().then((response) =>
       {
         if (response.status == 200 || response.status == 201)
         {
+          console.log(response.data)
           this.users = response.data.filter(u => u.username !== this.user.username);
           this.$store.commit("ADD_ALL_USERS", this.users);
         } else

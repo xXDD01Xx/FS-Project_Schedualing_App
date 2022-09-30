@@ -53,9 +53,11 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "a.phase_item, a.item_date, a.item_tasks " +
                 "FROM all_items_vw a " +
                 "LEFT JOIN all_items_vw b ON a.project_id = b.project_id AND " +
-                "and a.phase_item=b.phase_item AND " +
+                "a.phase_item=b.phase_item AND " +
                 "a.month_year < b.month_year " +
-                "WHERE b.month_year IS NULL AND a.project_id = ?; " +
+                "WHERE b.month_year IS NULL AND " +
+                "NOT (a.item_date IS NULL and a.item_tasks IS NULL) " +
+                "a.project_id = ?; " +
                 "" +
                 "COMMIT;";
 

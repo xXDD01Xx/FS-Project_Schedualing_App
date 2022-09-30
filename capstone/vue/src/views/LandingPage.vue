@@ -5,7 +5,8 @@
       <h1 id="introduction">
         Welcome to the Front Line Project Schedule App
       </h1>
-      <router-link class="text-decoration-none" :to="{path: '/login'}">
+      <router-link v-show="loginBtn"
+          class="text-decoration-none" :to="{path: '/login'}">
         <v-btn class="button"
         color=#76a1c0
         elevation="2"
@@ -13,10 +14,20 @@
       </router-link>
       <br>
       <router-link class="text-decoration-none" :to="{path: '/register'}">
-        <v-btn class="button"
+        <v-btn v-show="registerBtn"
+            class="button"
         color=#76a1c0
         elevation="2"
         outlined>Register</v-btn>
+      </router-link>
+      <br>
+      <router-link class="text-decoration-none" :to="{path: '/home'}">
+        <v-btn v-show="homeBtn"
+            class="button"
+               color=#76a1c0
+               elevation="2"
+               outlined
+        >Home</v-btn>
       </router-link>
 <!--      </v-col>-->
     </v-container>
@@ -25,7 +36,32 @@
 
 <script>
 export default {
-  name: "LandingPage"
+  name: "LandingPage",
+  data() {
+    return {
+      loginBtn: false,
+      registerBtn: false,
+      homeBtn: false,
+    }
+  },
+  mounted: function()
+  {
+    this.showButtons();
+  },
+  methods: {
+    showButtons()
+    {
+      if(this.$store.state.token)
+      {
+        this.homeBtn = true;
+      }
+      else
+      {
+        this.loginBtn = true;
+        this.registerBtn = true;
+      }
+    }
+  }
 }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <v-container>
     <router-link class="text-decoration-none" :to="{path: '/home'}">
       <v-btn class="button"
               color=#8c090e
@@ -7,6 +8,7 @@
               outlined
               >Home</v-btn>
     </router-link>
+    </v-container>
   </v-app>
 </template>
 

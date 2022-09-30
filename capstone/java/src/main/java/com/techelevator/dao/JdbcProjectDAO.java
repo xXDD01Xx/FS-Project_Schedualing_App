@@ -4,6 +4,7 @@ import com.techelevator.model.ContractDTO;
 import com.techelevator.model.Project;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -59,7 +60,7 @@ public class JdbcProjectDAO implements ProjectDAO {
     }
 
     @Override
-    public void addProject(Project project) {
+    public Project addProject(Project project) {
         String sql = "BEGIN; " +
                 "INSERT INTO project ( " +
                 "project_name, " +
@@ -69,7 +70,7 @@ public class JdbcProjectDAO implements ProjectDAO {
                 "tasks_substantial, " +
                 "tasks_construction, " +
                 "last_modified) " +
-                "VALUES (?,?,?,?,?,?,current_timestamp); ";
+                "VALUES (?,?,?,?,?,?,current_timestamp) ;";
 
         sql += "INSERT into baseline_sched_items " +
                 "(project_id, phase_item) " +
@@ -78,15 +79,25 @@ public class JdbcProjectDAO implements ProjectDAO {
                 "id from phase_items; " +
                 "COMMIT;";
 
-        int projectId = jdbcTemplate.update(
-                sql,
-                project.getProjectName(),
-                project.getContractId(),
-                project.getDateReceived(),
-                project.getBudget(),
-                project.getTasksSubstantial(),
-                project.getTasksConstruction(),
-                project.getProjectName());
+        Project output = new Project();
+        try {
+            jdbcTemplate.update(
+                    sql,
+                    project.getProjectName(),
+                    project.getContractId(),
+                    project.getDateReceived(),
+                    project.getBudget(),
+                    project.getTasksSubstantial(),
+                    project.getTasksConstruction(),
+                    project.getProjectName());
+
+            sql = "SELECT MAX(id) FROM project WHERE project_name = ?;";
+            Integer projectId = jdbcTemplate.queryForObject(sql, Integer.class, project.getProjectName());
+            output = listProject(projectId);
+        } catch (NullPointerException e) {
+            System.out.println("Unable to get new project");
+        }
+        return output;
     }
 
 

@@ -13,7 +13,7 @@ public interface ProjectDAO {
 
     Project listProject(int id);
 
-    void addProject(Project project);
+    Project addProject(Project project);
 
     void updateProject(Project project);
 

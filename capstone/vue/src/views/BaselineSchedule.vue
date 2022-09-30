@@ -86,8 +86,7 @@
              color=#8c090e
              elevation="2"
              outlined
-      >Home
-      </v-btn>
+      >Home</v-btn>
     </router-link>
   </v-app>
 </template>

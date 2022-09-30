@@ -34,10 +34,6 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
     }
 
     @Override
-    public void addItemToMonthlySchedule() {
-    }
-
-    @Override
     public void addNewMonthlySchedule(int projectId, LocalDate monthYear) {
         String sql = "BEGIN; " +
                 "" +
@@ -64,13 +60,26 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
         jdbcTemplate.update(sql, projectId, monthYear, projectId, monthYear, projectId);
     }
 
-
     @Override
-    public void updateMonthlySchedule() {
+    public void addNewMonthlyScheduleItem(int projectId) {
+        String sql = "INSERT INTO monthly_sched_items " +
+                "(monthly_sched_id, phase_item, item_date, item_tasks) " +
+                "SELECT ?, id FROM monthly_sched_items; ";
+        jdbcTemplate.update(sql, projectId);
     }
 
     @Override
-    public void deleteMonthlySchedule() {
+    public void updateMonthlyScheduleItem(MonthlyPhaseItem monthlyPhaseItem) {
+        String sql = "UPDATE monthly_sched_items " +
+                "SET monthly_sched_id = ?, phase_item = ?, item_date = ? , item_tasks = ? " +
+                "WHERE id = ?; ";
+        jdbcTemplate.update(sql, monthlyPhaseItem.getMonthlyScheduleId(), monthlyPhaseItem.getPhaseItemId(), monthlyPhaseItem.getItemDate(), monthlyPhaseItem.getItemTasks(), monthlyPhaseItem.getId());
+    }
+
+    @Override
+    public void deleteMonthlyScheduleItem(int id) {
+        String sql = "DELETE FROM monthly_sched_items WHERE id = ?; ";
+        jdbcTemplate.update(sql, id);
     }
 
 

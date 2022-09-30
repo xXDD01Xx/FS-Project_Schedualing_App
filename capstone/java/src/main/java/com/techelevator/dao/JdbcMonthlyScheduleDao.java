@@ -52,7 +52,9 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "(SELECT MAX(id) FROM monthly_schedule WHERE project_id = ? AND month_year = ?), " +
                 "a.phase_item, a.item_date, a.item_tasks " +
                 "FROM all_items_vw a " +
-                "LEFT JOIN all_items_vw b ON a.project_id = b.project_id AND a.month_year < b.month_year " +
+                "LEFT JOIN all_items_vw b ON a.project_id = b.project_id AND " +
+                "and a.phase_item=b.phase_item AND " +
+                "a.month_year < b.month_year " +
                 "WHERE b.month_year IS NULL AND a.project_id = ?; " +
                 "" +
                 "COMMIT;";

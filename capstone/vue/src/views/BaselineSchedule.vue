@@ -86,7 +86,8 @@
              color=#8c090e
              elevation="2"
              outlined
-      >Home</v-btn>
+      >Home
+      </v-btn>
     </router-link>
   </v-app>
 </template>
@@ -122,9 +123,8 @@ export default {
   },
   methods: {
     check(){
-      console.log(this.contract)
-      console.log(this.project)
-      console.log('name', this.name)
+      console.log('contract',this.contract)
+      console.log('project',this.project)
     },
     updateBaseline(){
       console.log(this.project)

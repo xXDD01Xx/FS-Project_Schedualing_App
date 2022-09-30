@@ -17,19 +17,17 @@ public class MonthlyScheduleController {
     @Autowired
     MonthlyScheduleDao monthlyScheduleDao;
 
-
     @GetMapping(path = "/monthlyschedule/{id}")
     public List<MonthlyPhaseItem> listMonthlyScheduleItems(@PathVariable int id) {
         return monthlyScheduleDao.listMonthlyScheduleItems(id);
     }
-
 
     @PostMapping(path = "/monthlyschedule/new")
     public void addNewMonthlySchedule(@RequestBody int projectId, LocalDate monthYear) {
         monthlyScheduleDao.addNewMonthlySchedule(projectId, monthYear);
     }
 
-    @PostMapping(path = "/monthlyschedule/{id}")
+    @PostMapping(path = "/monthlyschedule/new/{id}")
     public void addNewMonthlyScheduleItem(@PathVariable int projectId) {
         monthlyScheduleDao.addNewMonthlyScheduleItem(projectId);
     }

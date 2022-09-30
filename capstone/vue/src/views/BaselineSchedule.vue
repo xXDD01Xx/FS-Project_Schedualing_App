@@ -35,7 +35,7 @@
             :readonly="true"
         ></v-text-field>
 
-        <v-container>
+        <v-container class="check-container">
           <v-checkbox
               label="Design" value="Design"
               @click="updateBaseline"
@@ -51,8 +51,8 @@
               @click="updateBaseline"
               v-model="phase">
           </v-checkbox>
-          <h2>{{phase}}</h2>
         </v-container>
+          <h2 class="text-center">{{phase}}</h2>
         <BaselineSchedEntry :baselineItems="filteredBaseline"/>
           <!-- <v-btn
           class="button"
@@ -153,5 +153,11 @@ export default {
 </script>
 
 <style>
-
+.check-container{
+    display: flex;
+    max-width: 40%;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-evenly;
+}
 </style>

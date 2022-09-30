@@ -26,7 +26,7 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "FROM monthly_sched_items m " +
                 "JOIN phase_items pi on pi.id = m.phase_item " +
                 "WHERE m.monthly_sched_id = ?;";
-        SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql);
+        SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql, monthlyScheduleId);
         List<MonthlyPhaseItem> monthlyPhaseItems = new ArrayList<>();
         while (rs.next()) {
             monthlyPhaseItems.add(mapRowToMonthlySchedule(rs));

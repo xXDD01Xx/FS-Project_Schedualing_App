@@ -1,6 +1,7 @@
 <template>
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
+      <br>
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
         Invalid Username and Password!
@@ -12,6 +13,7 @@
       >
         Thank you for registering, please sign in.
       </div>
+      <br>
       <v-container id="form-container">
         <v-row>
           <v-text-field
@@ -36,6 +38,7 @@
           />
         </v-row>
       </v-container>
+      <br>
       <router-link class="text-decoration-none" :to="{ name: 'register' }">
         <v-btn class="button"
             color=#8c090e

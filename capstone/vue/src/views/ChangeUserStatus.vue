@@ -9,16 +9,18 @@
           <thead>
           <tr class="trow">
             <th class="text-left">Username</th>
-            <th class="text-left">Status</th>
-            <th class="text-left">Approve User</th>
-            <th class="text-left">Deny User</th>
+            <!-- <th class="text-left">Status</th> -->
+            <th class="text-left">Approve/Deny User</th>
+            <!-- <th class="text-left">Deny User</th> -->
           </tr>
           </thead>
           <tbody>
           <tr v-for="user in users" :key="user.username">
             <td>{{ user.username }}</td>
-            <td>{{ user.status }}</td>
-            <td>
+            <!-- <v-container style="width:20%">
+              <td>{{ user.status }}</td>
+            </v-container> -->
+            <!-- <td>
               <input
                   type="radio"
                   name="Approve User"
@@ -35,6 +37,14 @@
                   value="Not Approved"
                   v-model="user.status"
               />
+            </td> -->
+            <td>
+              <v-radio-group v-model="user.status" row>
+                <v-radio label="Approve User" value="Active" ></v-radio>
+                <v-radio label="Deny User" value="Not Approved"></v-radio>
+                <v-radio label="Inactive" value="Inactive"></v-radio>
+                <v-radio label="Needs Approval" value="Needs Approval"></v-radio>
+              </v-radio-group>
             </td>
           </tr>
           </tbody>
@@ -99,7 +109,7 @@ export default {
   },
   created()
   {
-    if (this.$store.state.users == [])
+    if (this.$store.state.users.length===0)
     {
       AuthService.getAllUsers().then((response) =>
       {

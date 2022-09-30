@@ -34,16 +34,19 @@ public class ProjectController {
         return projectDAO.listProject(id);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/project/new", method = RequestMethod.POST)
     public Project addProject(@RequestBody Project project) {
         return projectDAO.addProject(project);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/project/update", method = RequestMethod.PUT)
     public void updateProject(@RequestBody Project project) {
         projectDAO.updateProject(project);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/project/{id}/delete", method = RequestMethod.DELETE)
     public void deleteProject(@PathVariable int id) {
         projectDAO.deleteProject(id);

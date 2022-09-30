@@ -17,11 +17,13 @@ public class ScheduleController {
     @Autowired
     ScheduleDao scheduleDao;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/project/projectname", method = RequestMethod.POST)
     public Integer projectIdFromProjectName(@RequestBody String projectName) {
         return scheduleDao.projectIdFromProjectName(projectName);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/phase/description", method = RequestMethod.POST)
     public Integer phaseIdFromPhaseDescription(@RequestBody String description) {
         return scheduleDao.phaseIdFromPhaseDescription(description);
@@ -32,16 +34,19 @@ public class ScheduleController {
         return scheduleDao.listBaselineScheduleItems(id);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/schedule/new", method = RequestMethod.POST)
     public void addToBaselineSchedule(@RequestBody BaselinePhaseItem baselinePhaseItem) {
         scheduleDao.addToBaselineSchedule(baselinePhaseItem);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/schedule/update", method = RequestMethod.PUT)
     public void updateScheduleItem(@RequestBody BaselinePhaseItem baselinePhaseItem) {
         scheduleDao.updateBaselineScheduleItem(baselinePhaseItem);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/schedule/{id}/delete", method = RequestMethod.DELETE)
     public void deleteProject(@PathVariable int id) {
         scheduleDao.deleteBaselineScheduleItem(id);

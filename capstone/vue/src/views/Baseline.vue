@@ -37,7 +37,7 @@
           <td>
             <v-btn 
             elevation="2" class="text-decoration-none" 
-            @click="editProject(project)">View</v-btn>
+            @click="editProject(project)">Edit Baseline</v-btn>
           </td>
         </tr>
         </tbody>
@@ -57,30 +57,28 @@
 </template>
 
 <script>
-import ProjectService from "@/services/ProjectService";
+import ProjectService from '../services/ProjectService.js'
 
 export default {
-    name: 'ListBaselineItems',
+    name: 'Baseline',
     data(){
-      return {
+        return {
         projects: [],
-        showEdit: false,
-      }
-  },
-  created(){
-    ProjectService.listProjects().then((response) =>{
-      if (response.status == 200 || response.status == 201)
-      {
-        this.projects = response.data;
-      }
-      //TODO filter?
-    });
-  },
-  methods: {
-    editProject(project){
-      this.$store.commit('SET_PROJECT', project);
-      this.$router.push({name: 'ListBaselineByID', params: {id: project.id}})
-    }
+        }
+    },
+    created(){
+        ProjectService.listProjects().then((response) =>{
+            if (response.status == 200 || response.status == 201){
+                this.projects = response.data;
+            }
+            //TODO filter?
+            });
+    },
+    methods: {
+        editProject(project){
+        this.$store.commit('SET_PROJECT', project);
+        this.$router.push({name: 'BaselineSchedule', params: {id: project.id}})
+        }
   }
 }
 </script>

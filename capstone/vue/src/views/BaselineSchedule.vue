@@ -2,7 +2,6 @@
   <v-app>
     <v-container >
       <v-form ref="form" lazy-validation>
-
         <v-text-field
             v-model="project.projectName"
             label="Project Name - From Project Creation"
@@ -35,7 +34,9 @@
             :readonly="true"
         ></v-text-field>
 
-        <v-container class="check-container">
+      </v-form>
+    </v-container>
+    <v-container class="check-container">
           <v-checkbox
               label="Design" value="Design"
               @click="updateBaseline"
@@ -54,15 +55,6 @@
         </v-container>
           <h2 class="text-center">{{phase}}</h2>
         <BaselineSchedEntry :baselineItems="filteredBaseline"/>
-          <!-- <v-btn
-          class="button"
-          color="#8c090e"
-          elevation="2"
-          outlined
-          @click="allDone"
-          >Submit Changes</v-btn> -->
-      </v-form>
-    </v-container>
     <div class="text-center">
       <router-link class="text-decoration-none" :to="{path: '/home'}">
         <v-btn class="button"
@@ -110,19 +102,15 @@ export default {
       alert('Changes Saved')
     },
     updateBaseline(){
-      console.log(this.project)
       this.filteredBaseline = this.baselineItems.filter((each) => {
         return this.phase == each.phaseDescription;
       })
-      console.log(this.filteredBaseline)
     }
   },
   created(){
         const baseID = this.$route.params.id
         console.log('id',baseID)
         ScheduleService.listBaselineItems(baseID).then((response) =>{
-            console.log('test')
-            console.log(response.data)
             if (response.status == 200 || response.status == 201){
                 this.baselineItems = response.data;
             }
@@ -155,9 +143,7 @@ export default {
 <style>
 .check-container{
     display: flex;
-    max-width: 40%;
     flex-direction: row;
-    justify-content: center;
-    justify-content: space-evenly;
+
 }
 </style>

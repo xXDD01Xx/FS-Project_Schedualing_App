@@ -19,6 +19,7 @@ import ViewProjects from "@/views/ViewProjects";
 import EditProject from "@/views/EditProject";
 import ListBaselineItems from '../views/ListBaselineItems.vue'
 import ListBaselineByID from '../views/ListBaselineByID.vue'
+import Baseline from '../views/Baseline.vue'
 
 Vue.use(Router)
 
@@ -174,6 +175,14 @@ const router = new Router({
       path: `/listBaseline/:id`,
       name: 'ListBaselineByID',
       component: ListBaselineByID,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: `/baseline`,
+      name: 'Baseline',
+      component: Baseline,
       meta: {
         requiresAuth: true
       }

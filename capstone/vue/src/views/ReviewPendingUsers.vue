@@ -72,19 +72,21 @@ export default {
     return {
       users: [],
       user: this.$store.state.user,
-      filteredUsers: []
+      filteredUsers: [],
     }
   },
-    created() {
-      AuthService.getAllUsers().then((response) =>{
-        if (response.status == 200 || response.status == 201){
-          this.users = response.data.filter(u => u.username !== this.user.username);
-          this.filteredUsers = this.users.filter((user) =>{
-            return user.status == "Needs Approval";
-          })
-        } 
-      });
-    }
+  created() {
+    AuthService.getAllUsers().then((response) =>{
+      if (response.status == 200 || response.status == 201){
+        this.users = response.data.filter(u => u.username !== this.user.username);
+        this.filteredUsers = this.users.filter((user) =>{
+          return user.status == "Needs Approval";
+        })
+      }
+      console.log(this.filteredUsers) 
+    });
+    console.log(this.filteredUsers)
+  }
 
 }
 </script>
@@ -93,10 +95,6 @@ export default {
 #main-table {
   max-width: 60%;
   padding: 10px;
-}
-
-.table{
-
 }
 
 .trow {

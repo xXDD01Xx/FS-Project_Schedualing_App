@@ -41,12 +41,12 @@
           <div v-if="user.authorities[0].name !== 'ROLE_VIEW'">
             <h2>Schedule Management</h2>
             <v-container id="schedule-container" class="my-2">
-              <router-link class="text-decoration-none" :to="{path: '/baselineSchedule'}">
+              <router-link class="text-decoration-none" :to="{path: '/baseline'}">
               <v-btn class="button"
               color=#8c090e
               elevation="2"
               outlined
-              >Baseline Schedule</v-btn>
+              >Edit Baseline Schedule</v-btn>
               </router-link>
               <router-link class="text-decoration-none" :to="{path: '/monthlyUpdate'}">
               <v-btn class="button"
@@ -84,6 +84,7 @@
               elevation="2"
               outlined
             >Review Pending Users</v-btn>
+            <PendingSnackbar v-if="pending"/>
               </router-link>
               <router-link class="text-decoration-none" :to="{path: '/changeUserStatus'}">
             <v-btn class="button"
@@ -113,26 +114,43 @@
 </template>
 
 <script>
+import PendingSnackbar from '../components/PendingSnackbar.vue'
+import AuthService from '../services/AuthService.js'
+
 export default {
   name: "home",
-  components: {},
+  components: {PendingSnackbar},
 
   data(){
     return {
-      user: this.$store.state.user
+      user: this.$store.state.user,
+      filteredUsers: [],
+      pending: false,
     }
   },
-  methods: {}
+  methods: {},
+  created(){
+    AuthService.getAllUsers().then((response) =>{
+        if (response.status == 200 || response.status == 201){
+          this.filteredUsers = response.data.filter((user) =>{
+            return user.status == "Needs Approval";
+          })
+        }
+        if (this.filteredUsers.length > 0){
+          this.pending = true;
+          alert('Pending Users Need Review')
+      } 
+      });
+      console.log(this.filteredUsers)
+      if (this.filteredUsers.length > 0){
+        alert('Pending Users Need Review')
+      }
+  }
 };
 </script>
 
 
 <style scoped>
-/*#home-container{*/
-/*  display: flexbox;*/
-/*  flex-direction: column;*/
-/*  justify-content: center;*/
-/*}*/
 .button {
     margin: 10px;
 }

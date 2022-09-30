@@ -33,8 +33,8 @@ public class MonthlyScheduleController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping(path = "/monthlyschedule/new/{id}")
-    public void addNewMonthlyScheduleItem(@PathVariable int projectId) {
-        monthlyScheduleDao.addNewMonthlyScheduleItem(projectId);
+    public void addNewMonthlyScheduleItem(@RequestBody MonthlyPhaseItem monthlyPhaseItem) {
+        monthlyScheduleDao.addNewMonthlyScheduleItem(monthlyPhaseItem);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")

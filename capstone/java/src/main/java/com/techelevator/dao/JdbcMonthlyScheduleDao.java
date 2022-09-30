@@ -24,8 +24,9 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
     public List<MonthlyPhaseItem> listMonthlyScheduleItems(int monthlyScheduleId) {
         String sql = "SELECT m.id, m.monthly_sched_id, phase_item, item_date, item_tasks, item_description, phase " +
                 "FROM monthly_sched_items m " +
-                "JOIN phase_items pi on pi.id = m.phase_item;";
-        SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql);
+                "JOIN phase_items pi on pi.id = m.phase_item " +
+                "WHERE m.monthly_sched_id = ?;";
+        SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql, monthlyScheduleId);
         List<MonthlyPhaseItem> monthlyPhaseItems = new ArrayList<>();
         while (rs.next()) {
             monthlyPhaseItems.add(mapRowToMonthlySchedule(rs));
@@ -60,11 +61,11 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
     }
 
     @Override
-    public void addNewMonthlyScheduleItem(int projectId) {
+    public void addNewMonthlyScheduleItem(MonthlyPhaseItem monthlyPhaseItem) {
         String sql = "INSERT INTO monthly_sched_items " +
                 "(monthly_sched_id, phase_item, item_date, item_tasks) " +
-                "SELECT ?, id FROM monthly_sched_items; ";
-        jdbcTemplate.update(sql, projectId);
+                "SELECT ?, id FROM phase_items; ";
+        jdbcTemplate.update(sql, monthlyPhaseItem.getMonthlyScheduleId());
     }
 
     @Override

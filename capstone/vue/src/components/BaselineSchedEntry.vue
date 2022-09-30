@@ -13,14 +13,13 @@
               label="Construction"
               v-model="phaseConstruction">
           </v-checkbox> -->
+          <v-btn @click="check">click</v-btn>
         </v-container>
   </v-app>
 </template>
 
 <script>
-//import ProjectService from '../services/ProjectService'
-// import ScheduleService from '../services/ScheduleService'
-//import ScheduleService from '@/services/ScheduleService.js'
+
 
 export default {
     data(){
@@ -41,6 +40,11 @@ export default {
     //         }
     //     })
     // }
+    methods: {
+        check(){
+            console.log(this.baselineItems)
+        }
+    }
 
 }
 </script>

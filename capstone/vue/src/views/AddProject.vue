@@ -77,7 +77,6 @@
     },
     methods: {
       saveProject() {
-        //console.log(this.project);
         let pro = ''
         ProjectService.addProject(this.project)
           .then((response) => {
@@ -85,7 +84,10 @@
               this.addProjectSuccess = true
               pro = response.data;
               console.log('pro', pro)
-              this.$store.commit("SET_PROJECT", this.pro);
+              this.$store.commit('SET_PROJECT', pro);
+              console.log('store project',this.$store.state.project)
+              this.project = {};
+              this.$router.push({name: 'BaselineSchedule', params: {id: this.$store.state.project.id}});
             }
           })
           .catch((error) => {
@@ -100,8 +102,6 @@
               alert(this.addProjectFailureMessage);
             }
           });
-          this.project = {};
-          this.$router.push("/baselineSchedule");
       },
     },
     created() {

@@ -1,6 +1,9 @@
 <template>
   <v-app>
     <v-container>
+      <br>
+      <h2 class="text-center">View Current Projects</h2>
+      <br><br>
       <v-simple-table>
         <thead>
         <th>Project Name</th>

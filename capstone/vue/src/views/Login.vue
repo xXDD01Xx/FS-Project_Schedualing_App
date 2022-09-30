@@ -1,6 +1,8 @@
 <template>
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
+      <br>
+      <div v-show="signedInDiv">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
         Invalid Username and Password!
@@ -12,6 +14,7 @@
       >
         Thank you for registering, please sign in.
       </div>
+      <br>
       <v-container id="form-container">
         <v-row>
           <v-text-field
@@ -36,15 +39,24 @@
           />
         </v-row>
       </v-container>
+      </div>
+      <div v-show="loggedInDisplay">
+        <h2>Already Signed In! </h2>
+        <br>
+        <h3> Please Logout to Login</h3>
+      </div>
+      <br>
       <router-link class="text-decoration-none" :to="{ name: 'register' }">
-        <v-btn class="button"
+        <v-btn v-show="registerBtn"
+            class="button"
             color=#8c090e
             elevation="2"
             outlined
         >Create New Account</v-btn>
       </router-link>
 
-      <v-btn class="button"
+      <v-btn v-show="loginBtn"
+          class="button"
           color=#8c090e
           elevation="2"
           outlined
@@ -52,6 +64,15 @@
           @click="check"
       >Sign in</v-btn>
     </form>
+    <br>
+    <router-link class="text-decoration-none" :to="{path: '/home'}">
+      <v-btn v-show="homeBtn"
+             class="button"
+             color=#76a1c0
+             elevation="2"
+             outlined
+      >Home</v-btn>
+    </router-link>
   </div>
 </template>
 
@@ -62,7 +83,13 @@
     name: "login",
     components: {},
     data() {
-      return {
+      return{
+        homeBtn: false,
+        loginBtn: false,
+        registerBtn: false,
+        signedInDiv: true,
+        loggedInDisplay: false,
+
         user: {
           username: "",
           password: "",
@@ -70,7 +97,24 @@
         invalidCredentials: false,
       };
     },
+    mounted: function()
+    {
+      this.showButtons();
+    },
     methods: {
+      showButtons() {
+        if(this.$store.state.token)
+        {
+          this.homeBtn = true;
+          this.loggedInDisplay = true;
+          this.signedInDiv = false;
+        }
+        else
+        {
+          this.loginBtn = true;
+          this.registerBtn = true;
+        }
+      },
       check(){
         console.log(this.user)
       },

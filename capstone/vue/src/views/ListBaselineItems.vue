@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <v-container>
-      <br>
-      <h2 class="text-center">View Current Projects</h2>
-      <br><br>
+      <v-container>
+        <br>
+        <h2 class="text-center">List Baseline</h2>
+        <br><br>
       <v-simple-table>
         <thead>
         <th>Project Name</th>
@@ -12,10 +12,10 @@
         <th>Budget</th>
         <th>Construction Tasks</th>
         <th>Substantial Tasks</th>
-        <th v-if="userOrAdmin">Edit Project</th>
+        <th>View Baseline Items</th>
         </thead>
         <tbody>
-        <tr v-for="project in projects" :key="project.projectName">
+        <tr v-for="project in projects" :key="project.id">
           <td>
             {{ project.projectName }}
           </td>
@@ -34,16 +34,17 @@
           <td>
             {{ project.tasksSubstantial }}
           </td>
-          <td v-if="userOrAdmin">
+          <td>
             <v-btn 
             elevation="2" class="text-decoration-none" 
-            @click="editProject(project)">Edit</v-btn>
+            @click="editProject(project)">View</v-btn>
           </td>
         </tr>
         </tbody>
       </v-simple-table>
     </v-container>
     <div class="text-center">
+      <br><br>
       <router-link class="text-decoration-none" :to="{path: '/home'}">
         <v-btn class="button"
                color=#8c090e
@@ -59,8 +60,8 @@
 import ProjectService from "@/services/ProjectService";
 
 export default {
-  name: "ViewProjects",
-  data(){
+    name: 'ListBaselineItems',
+    data(){
     return {
       projects: [],
       showEdit: false,
@@ -75,26 +76,15 @@ export default {
       //TODO filter?
     });
   },
-  computed: {
-    userOrAdmin()
-    {
-      return this.$store.state.user.authorities[0].name !== 'ROLE_VIEW';
-    }
-  },
   methods: {
-    editProject(project)
-    {
+    editProject(project){
       this.$store.commit('SET_PROJECT', project);
-      this.$router.push({name: 'EditProject', params: {id: project.id}})
+      this.$router.push({name: 'ListBaselineByID', params: {id: project.id}})
     }
   }
 }
 </script>
 
-<style scoped>
-th {
-  padding: 5px;
-}
-
+<style>
 
 </style>

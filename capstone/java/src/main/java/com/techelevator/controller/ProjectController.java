@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import com.techelevator.model.ContractDTO;
 import com.techelevator.model.Project;
 import com.techelevator.dao.ProjectDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ProjectController {
         return projectDAO.listAllProjects();
     }
 
-    @RequestMapping(path = "groups/{id}/projects", method = RequestMethod.GET)
+    @RequestMapping(path = "/groups/{id}/projects", method = RequestMethod.GET)
     public List<Project> listProjectsByContractId(@PathVariable int contractId) {
         return projectDAO.listProjectsByContractId(contractId);
     }
@@ -33,18 +34,26 @@ public class ProjectController {
         return projectDAO.listProject(id);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(path = "/project/new", method = RequestMethod.POST)
-    public void addProject(@RequestBody Project project) {
-        projectDAO.addProject(project);
+    public Project addProject(@RequestBody Project project) {
+        return projectDAO.addProject(project);
     }
 
-    @RequestMapping(path = "project/update", method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @RequestMapping(path = "/project/update", method = RequestMethod.PUT)
     public void updateProject(@RequestBody Project project) {
         projectDAO.updateProject(project);
     }
 
-    @RequestMapping(path = "project/{id}/delete", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @RequestMapping(path = "/project/{id}/delete", method = RequestMethod.DELETE)
     public void deleteProject(@PathVariable int id) {
         projectDAO.deleteProject(id);
+    }
+
+    @GetMapping(path = "/contracts")
+    public List<ContractDTO> getContractList() {
+        return projectDAO.getContractList();
     }
 }

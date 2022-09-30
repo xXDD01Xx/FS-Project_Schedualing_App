@@ -9,14 +9,21 @@ public class Project {
     private int id;
     private String projectName;
     private int contractId;
-    private LocalDateTime dateReceived;
-    private BigDecimal lastModified;
+    private LocalDate dateReceived;
+
+    private BigDecimal budget;
+    private LocalDateTime lastModified;
     private int tasksSubstantial;
-    private int taskConstruction;
-    private BigDecimal contractProjectId;
+    private int tasksConstruction;
 
 
-    public int getId (){ return id;}
+    public Project() {
+    }
+
+
+    public int getId() {
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -38,20 +45,28 @@ public class Project {
         this.contractId = contractId;
     }
 
-    public LocalDateTime getDateReceived() {
+    public LocalDate getDateReceived() {
         return dateReceived;
     }
 
-    public void setDateReceived(LocalDateTime dateReceived) {
+    public void setDateReceived(LocalDate dateReceived) {
         this.dateReceived = dateReceived;
     }
 
-    public BigDecimal getLastModified() {
-        return lastModified;
+    public BigDecimal getBudget() {
+        return budget;
     }
 
-    public void setLastModified(BigDecimal lastModified) {
+    public void setBudget(BigDecimal budget) {
+        this.budget = budget;
+    }
+
+    public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public LocalDateTime getLastModified() {
+        return lastModified;
     }
 
     public int getTasksSubstantial() {
@@ -62,32 +77,25 @@ public class Project {
         this.tasksSubstantial = tasksSubstantial;
     }
 
-    public int getTaskConstruction() {
-        return taskConstruction;
+    public int getTasksConstruction() {
+        return tasksConstruction;
     }
 
-    public void setTaskConstruction(int taskConstruction) {
-        this.taskConstruction = taskConstruction;
-    }
-
-    public BigDecimal getContractProjectId() {
-        return contractProjectId;
-    }
-
-    public void setContractProjectId(BigDecimal contractProjectId) {
-        this.contractProjectId = contractProjectId;
+    public void setTasksConstruction(int tasksConstruction) {
+        this.tasksConstruction = tasksConstruction;
     }
 
 
-    public Project(int id, String projectName, int contractId, LocalDateTime dateReceived, BigDecimal lastModified, int tasksSubstantial, int taskConstruction, BigDecimal contractProjectId) {
+    public Project(int id, String projectName, int contractId, LocalDate dateReceived, BigDecimal budget, LocalDateTime lastModified, int tasksSubstantial, int tasksConstruction) {
         this.id = id;
         this.projectName = projectName;
         this.contractId = contractId;
         this.dateReceived = dateReceived;
+        this.budget = budget;
         this.lastModified = lastModified;
         this.tasksSubstantial = tasksSubstantial;
-        this.taskConstruction = taskConstruction;
-        this.contractProjectId = contractProjectId;
+        this.tasksConstruction = tasksConstruction;
+
     }
 
     @Override
@@ -97,10 +105,10 @@ public class Project {
                 ", projectName='" + projectName + '\'' +
                 ", contractId=" + contractId +
                 ", dateReceived=" + dateReceived +
+                ", budget=" + budget +
                 ", lastModified=" + lastModified +
                 ", tasksSubstantial=" + tasksSubstantial +
-                ", taskConstruction=" + taskConstruction +
-                ", contractProjectId=" + contractProjectId +
+                ", tasksConstruction=" + tasksConstruction +
                 '}';
     }
 }

@@ -1,9 +1,10 @@
 <template>
   <v-app>
-    <router-link class="text-decoration-none" :to="{ path: '/home' }">
-      <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
-    </router-link>
+
     <v-container id="form-container" v-if="!showSuccess">
+      <br>
+      <h2 class="text-center">Change User Password</h2>
+      <br><br>
       <v-row>
         <v-text-field
           type="password"
@@ -26,6 +27,8 @@
           solo-inverted
         />
       </v-row>
+      <br>
+      <div class="text-center">
       <v-btn
         class="button"
         color="#8c090e"
@@ -35,6 +38,11 @@
         @click="updatePass"
         >Update Password</v-btn
       >
+      <br><br>
+      <router-link class="text-decoration-none" :to="{ path: '/home' }">
+        <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
+      </router-link>
+      </div>
     </v-container>
     <v-alert type="success" v-if="showSuccess">Password changed!</v-alert>
   </v-app>

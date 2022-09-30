@@ -1,59 +1,88 @@
 <template>
   <v-app>
     <v-container id="main-table">
+      <br>
+      <h2 class="text-center">Change User Status</h2>
+      <br><br>
       <v-simple-table>
         <template v-slot:default>
-          
           <thead>
-            <tr class="trow">
-              <th class="text-left">Name</th>
-              <th class="text-left">Status</th>
-              <th class="text-left">Approve User</th>
-              <th class="text-left">Deny User</th>
-            </tr>
+          <tr class="trow">
+            <th class="text-left">Username</th>
+            <!-- <th class="text-left">Status</th> -->
+            <th class="text-left">Approve/Deny User</th>
+            <!-- <th class="text-left">Deny User</th> -->
+          </tr>
           </thead>
           <tbody>
-            <tr v-for="user in users" :key="user.username">
-              <td>{{ user.username }}</td>
+          <tr v-for="user in users" :key="user.username">
+            <td>{{ user.username }}</td>
+            <!-- <v-container style="width:20%">
               <td>{{ user.status }}</td>
-              <td>
-                <input
+            </v-container> -->
+            <!-- <td>
+              <input
                   type="radio"
                   name="Approve User"
                   class="button"
                   value="Active"
                   v-model="user.status"
-                />
-              </td>
-              <td>
-                <input
+              />
+            </td>
+            <td>
+              <input
                   type="radio"
                   name="Deny User"
                   class="button"
                   value="Not Approved"
                   v-model="user.status"
-                />
-              </td>
-            </tr>
+              />
+            </td> -->
+            <td>
+              <v-radio-group v-model="user.status" row>
+                <v-radio label="Approve User" value="Active" ></v-radio>
+                <v-radio label="Deny User" value="Not Approved"></v-radio>
+                <v-radio label="Inactive" value="Inactive"></v-radio>
+                <v-radio label="Needs Approval" value="Needs Approval"></v-radio>
+              </v-radio-group>
+            </td>
+          </tr>
           </tbody>
-          <v-btn class="button" @click="submitAll" color="#8c090e" elevation="2" outlined
-            >Submit</v-btn
-          >
-          <div v-if="submitError">{{submitErrorMessage}} </div>
-          <div v-if="submitSuccess">{{submitSuccessMessage}}</div>
+
+          <div v-if="submitError">{{ submitErrorMessage }}</div>
+          <div v-if="submitSuccess">{{ submitSuccessMessage }}</div>
         </template>
       </v-simple-table>
     </v-container>
-    <router-link :to="{ path: '/home' }">
-      <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
+    <br>
+    <div class="text-center">
+      <v-btn class="button"
+             @click="submitAll"
+             color="#8c090e"
+             elevation="2" outlined>
+        Submit
+      </v-btn>
+      <br><br>
+    </div>
+    <v-btn @click="check">click</v-btn>
+    <div class="text-center">
+    <router-link :to="{ path: '/home' }" class="text-decoration-none">
+      <v-btn color="#8c090e"
+             elevation="2"
+             outlined>
+        Home
+      </v-btn>
     </router-link>
+    </div>
   </v-app>
 </template>
 
 <script>
 import AuthService from "../services/AuthService";
+
 export default {
-  data() {
+  data()
+  {
     return {
       users: [],
       submitError: false,
@@ -64,24 +93,41 @@ export default {
     };
   },
   methods: {
-    submitAll() {
+    check(){
+      console.log(this.users)
+    },
+    submitAll()
+    {
       let u = this.users;
-      AuthService.saveChangeUserStatus(u).then((response) => {
-        if (response.status == 200) {
+      AuthService.saveChangeUserStatus(u).then((response) =>
+      {
+        if (response.status == 200)
+        {
           this.submitSuccess = true;
-        } else if (response.status == 400) {
+        } else if (response.status == 400)
+        {
           this.submitError = true;
         }
       });
     },
   },
-  created() {
-    AuthService.getAllUsers().then((response) => {
-      if (response.status == 200 || response.status == 201) {
-        this.users = response.data.filter(u => u.username !== this.user.username);
-        console.log(this.users);
-      }
-    });
+  created()
+  {
+    if (this.$store.state.users.length===0)
+    {
+      AuthService.getAllUsers().then((response) =>
+      {
+        if (response.status == 200 || response.status == 201)
+        {
+          console.log(response.data)
+          this.users = response.data.filter(u => u.username !== this.user.username);
+          this.$store.commit("ADD_ALL_USERS", this.users);
+        } else
+        {
+          this.users = this.$store.state.users;
+        }
+      });
+    }
   },
 };
 </script>
@@ -91,6 +137,7 @@ export default {
   max-width: 60%;
   padding: 10px;
 }
+
 .trow {
   border-right: 4px;
   border-top: 4px;

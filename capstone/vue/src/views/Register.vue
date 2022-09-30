@@ -1,11 +1,13 @@
 <template>
   <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
+      <br>
       <h1 class="h3 mb-4 font-weight-normal">Create New Account</h1>
       <h3 class="h1 mb-2 font-weight-normal">New Accounts Reviewed Before Approval</h3>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
+      <br>
         <v-container id="form-container">
         <label for="username" class="sr-only"></label>
         <v-row>
@@ -43,6 +45,8 @@
               solo-inverted
           />
         </v-row>
+          <br>
+          <h4 class="h1 mb-2 font-weight-normal">Please Select Role</h4>
         <div>
           <input type="radio" 
           name="user-radio" 
@@ -58,6 +62,7 @@
           > Admin
         </div>
       </v-container>
+      <br>
       <router-link :to="{ name: 'login' }">
         <v-btn class="button"
             color=#8c090e
@@ -72,6 +77,14 @@
              type="submit">
         Submit - Create Account
       </v-btn>
+      <br><br><br>
+      <router-link class="text-decoration-none" :to="{path: '/home'}">
+        <v-btn v-show="homeBtn"
+               class="button"
+               color=#76a1c0
+               elevation="2"
+               outlined>Home</v-btn>
+      </router-link>
     </form>
   </div>
 </template>
@@ -84,6 +97,7 @@ export default {
   data()
   {
     return {
+      homeBtn: false,
       user: {
         username: '',
         password: '',
@@ -95,9 +109,19 @@ export default {
       registrationErrorMsg: 'There were problems registering this user.',
     };
   },
+  mounted: function () {
+    this.showButtons();
+  },
   methods: {
     check(){
       console.log(this.user);
+    },
+    showButtons()
+    {
+      if(this.$store.state.token)
+      {
+        this.homeBtn = true;
+      }
     },
     register()
     {

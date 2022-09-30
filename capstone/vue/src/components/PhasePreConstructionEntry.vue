@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container class="text-center">
-      <h3>Pre Construction Phase</h3>
+      <h3>Pre Construction</h3>
       <v-form ref="form" lazy-validation>
         <v-text-field
             type="date"
@@ -43,3 +43,17 @@
     </v-container>
   </v-app>
 </template>
+
+
+<script>
+
+export default({
+  setup() {
+    
+  },
+})
+</script>
+
+<style scoped>
+
+</style>

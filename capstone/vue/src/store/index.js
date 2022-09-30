@@ -58,6 +58,5 @@ export default new Vuex.Store({
         EMPTY_PROJECT(state){
             state.project = {};
         },
-        
     }
 })

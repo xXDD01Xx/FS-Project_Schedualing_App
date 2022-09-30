@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-container >
+      <v-btn @click="check">click</v-btn>
 
       <v-form ref="form" lazy-validation>
 
@@ -13,11 +14,10 @@
 
         <v-text-field
             label="Contract - From Project Creation"
-            :items="contracts"
-            item-text="contractName"
-            item-value="id"
-            v-model="project.contractId"
+            type="text"
+            v-model="name"
             :readonly="true"
+            required
         ></v-text-field>
 
         <v-text-field
@@ -27,6 +27,7 @@
             required
             :readonly="true"
         ></v-text-field>
+
         <v-text-field
             v-model="project.budget"
             type="number"
@@ -38,18 +39,21 @@
 
         <v-container>
           <v-checkbox
-              label="Phase Design"
-              v-model="phaseDesign">
+              label="Design" value="Design"
+              @click="updateBaseline"
+              v-model="phase">
           </v-checkbox>
           <v-checkbox
-              label="Pre Construction Design"
-              v-model="phasePreConstruction">
+              label="Pre Construction" value="PreConstruction"
+              v-model="phase">
           </v-checkbox>
           <v-checkbox
-              label="Construction Design"
-              v-model="phaseConstruction">
+              label="Construction" value="Construction"
+              v-model="phase">
           </v-checkbox>
+          <p>{{phase}}</p>
         </v-container>
+
         <PhaseDesignEntry
             v-show="phaseDesign">
         </PhaseDesignEntry>
@@ -59,12 +63,17 @@
         <PhaseConstructionEntry
             v-show="phaseConstruction">
         </PhaseConstructionEntry>
+
+
+        <BaselineSchedEntry :baselineItems="filteredBaseline"/>
+
+        
+
         <v-btn
             class="button"
             color="#8c090e"
             elevation="2"
             outlined
-            @click="saveProject"
         >Submit Baseline Schedule
         </v-btn>
       </v-form>
@@ -84,13 +93,16 @@
 </template>
 
 <script>
-import ProjectService from "@/services/ProjectService";
+// import ProjectService from "@/services/ProjectService";
 import PhaseDesignEntry from "@/components/PhaseDesignEntry";
 import PhasePreConstructionEntry from "@/components/PhasePreConstructionEntry";
 import PhaseConstructionEntry from "@/components/PhaseConstructionEntry";
+import ScheduleService from '../services/ScheduleService.js'
+import ProjectService from '../services/ProjectService.js'
+import BaselineSchedEntry from '../components/BaselineSchedEntry.vue'
 
 export default {
-  components: {PhaseConstructionEntry, PhasePreConstructionEntry, PhaseDesignEntry},
+  components: {PhaseConstructionEntry, PhasePreConstructionEntry, PhaseDesignEntry, BaselineSchedEntry},
   data()
   {
     return {
@@ -98,51 +110,49 @@ export default {
       addProjectSuccessMessage: "Successfully Added Project!",
       addProjectFailure: false,
       addProjectFailureMessage: "Something Went Wrong! Please Try again...",
-      contracts: [],
+      contract: '',
+      name: '',
+      phase: '',
       phaseDesign: false,
       phasePreConstruction: false,
       phaseConstruction: false,
       project: this.$store.state.project,
+      baselineItems: [],
+      filteredBaseline: [],
     };
   },
   methods: {
-    saveProject()
-    {
-      console.log(this.project);
-      console.log(this.con);
-      ProjectService.addProject(this.project)
-          .then((response) =>
-          {
-            if (response.status == 200 || response.status == 201)
-            {
-              this.addProjectSuccess = true;
-              this.project = {};
-              this.$router.push("/baselineSchedule");
-            }
-          })
-          .catch((error) =>
-          {
-            const response = error.response;
-            if (response.status == 400)
-            {
-              alert(this.addProjectFailureMessage);
-            }
-            if (response.status == 401)
-            {
-              alert(this.addProjectFailureMessage);
-            }
-            if (response.status == 500)
-            {
-              alert(this.addProjectFailureMessage);
-            }
-          });
+    check(){
+      console.log(this.contract)
+      console.log(this.project)
+      console.log('name', this.name)
     },
+    updateBaseline(){
+      console.log(this.project)
+      this.filteredBaseline = this.baselineItems.filter((each) => {
+        return this.phase == each.phaseDescription;
+      })
+      console.log(this.filteredBaseline)
+    }
+  },
+  created(){
+        ScheduleService.listBaselineItems(this.$store.state.project.id).then((response) =>{
+            console.log('test')
+            console.log(response.data)
+            if (response.status == 200 || response.status == 201){
+                this.baselineItems = response.data;
+            }
+        })
+        ProjectService.getContracts().then((response) =>{
+            this.contract = response.data.filter((each) => {
+                 return each.id == this.$store.state.project.contractId
+            })
+            this.name = this.contract[0].contractName
+        })
 
-  },
-  created()
-  {
-  },
+    },
 };
+
 
 </script>
 

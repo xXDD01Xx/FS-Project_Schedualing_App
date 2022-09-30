@@ -59,6 +59,7 @@
         addProjectFailureMessage: "Something Went Wrong! \n Please Try again...",
         contracts: [],
         project: {
+          id: '',
           projectName: "",
           dateReceived: "",
           budget: "",
@@ -68,15 +69,36 @@
       };
     },
     methods: {
+      // saveProject() {
+      //   console.log(this.project);
+      //   ProjectService.addProject(this.project)
+      //     .then((response) => {
+      //       if (response.status == 200 || response.status == 201) {
+      //         this.addProjectSuccess = true;
+      //         this.$store.commit("SET_PROJECT", this.project);
+      //         this.project = {};
+      //         this.$router.push("/baselineSchedule");
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       const response = error.response;
+      //       if (response.status == 400) {
+      //         alert(this.addProjectFailureMessage);
+      //       }
+      //       if (response.status == 401) {
+      //         alert(this.addProjectFailureMessage);
+      //       }
+      //       if (response.status == 500) {
+      //         alert(this.addProjectFailureMessage);
+      //       }
+      //     });
+      // },
       saveProject() {
-        console.log(this.project);
-        ProjectService.addProject(this.project)
+        const pro = this.project
+        this.project = ProjectService.addProject(pro)
           .then((response) => {
             if (response.status == 200 || response.status == 201) {
               this.addProjectSuccess = true;
-              this.$store.commit("SET_PROJECT", this.project);
-              this.project = {};
-              this.$router.push("/baselineSchedule");
             }
           })
           .catch((error) => {
@@ -91,6 +113,9 @@
               alert(this.addProjectFailureMessage);
             }
           });
+        this.$store.commit("SET_PROJECT", this.project);
+        this.project = {};
+        this.$router.push("/baselineSchedule");
       },
     },
     created() {

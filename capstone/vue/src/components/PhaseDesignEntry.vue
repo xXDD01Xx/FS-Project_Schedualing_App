@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container class="text-center">
-      <h3>Design Phase</h3>
+      <h3>Design</h3>
       <v-form ref="form" lazy-validation>
       <v-text-field
           type="date"
@@ -9,18 +9,26 @@
           required
       ></v-text-field>
 
-      <v-text-field
-          type="date"
-          label="30% Completion"
-          required
-      ></v-text-field>
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-text-field
+                type="date"
+                label="30% Completion"
+                required
+            ></v-text-field>
+          </v-col>
 
-      <v-text-field
-        type="text"
-        label="30% Tasks"
-        required
-        placeholder="Number of tasks until 30% complete...">
-      </v-text-field>
+          <v-col>
+            <v-text-field
+              type="text"
+              label="30% Tasks"
+              required
+              placeholder="Number of tasks until 30% complete...">
+            </v-text-field>
+          </v-col>
+        </v-row>
+      </v-container>
 
       <v-text-field
           type="date"
@@ -67,3 +75,17 @@
     </v-container>
   </v-app>
 </template>
+
+<script>
+
+
+export default ({
+  setup() {
+    
+  },
+})
+</script>
+
+<style scoped>
+
+</style>

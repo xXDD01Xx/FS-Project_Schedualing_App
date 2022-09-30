@@ -54,13 +54,13 @@
           <h2>{{phase}}</h2>
         </v-container>
         <BaselineSchedEntry :baselineItems="filteredBaseline"/>
-          <v-btn
+          <!-- <v-btn
           class="button"
           color="#8c090e"
           elevation="2"
           outlined
           @click="allDone"
-          >Submit Changes</v-btn>
+          >Submit Changes</v-btn> -->
       </v-form>
     </v-container>
     <div class="text-center">

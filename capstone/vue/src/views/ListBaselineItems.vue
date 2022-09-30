@@ -77,8 +77,7 @@ export default {
     });
   },
   methods: {
-    editProject(project)
-    {
+    editProject(project){
       this.$store.commit('SET_PROJECT', project);
       this.$router.push({name: 'ListBaselineByID', params: {id: project.id}})
     }

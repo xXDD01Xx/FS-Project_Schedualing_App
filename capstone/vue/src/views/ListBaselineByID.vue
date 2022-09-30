@@ -1,5 +1,24 @@
 <template>
   <v-app>
+      <h2 class="text-center">{{this.$store.state.project.projectName}}</h2>
+      <v-container class=check-container>
+          <v-checkbox
+              label="Design" value="Design"
+              @click="updateBaseline"
+              v-model="phase">
+          </v-checkbox>
+          <v-checkbox
+              label="Pre Construction" value="Pre-Construction"
+              @click="updateBaseline"
+              v-model="phase">
+          </v-checkbox>
+          <v-checkbox
+              label="Construction" value="Construction"
+              @click="updateBaseline"
+              v-model="phase">
+          </v-checkbox>
+        </v-container>
+        <h2>{{phase}}</h2>
       <v-simple-table>
           <thead>
               <th class="desc">Item</th>
@@ -8,7 +27,7 @@
               <th class="date">Date</th>
           </thead>
           <tbody>
-              <tr v-for="item in baselineItems" :key="item.id" :item="item">
+              <tr v-for="item in filteredBaseline" :key="item.id" :item="item">
                 <td class="desc">{{item.itemDescription}}</td>
                 <td class="phase">{{item.phaseDescription || 0}}</td>
                 <td class="task">{{item.itemTasks}}</td>
@@ -35,14 +54,20 @@ export default {
     name: 'ListBaselineByID',
     data(){
         return {
-            baselineItems: []
+            baselineItems: [],
+            phase: '',
+            filteredBaseline: []
         }
     },
-    methods: {},
+    methods: {
+        updateBaseline(){
+            this.filteredBaseline = this.baselineItems.filter((each) => {
+                return this.phase == each.phaseDescription;
+            })
+        }
+    },
     created(){
         ScheduleService.listBaselineItems(this.$store.state.project.id).then((response) =>{
-            console.log('test')
-            console.log(response.data)
             if (response.status == 200 || response.status == 201){
                 this.baselineItems = response.data;
             }
@@ -55,6 +80,13 @@ export default {
 <style>
 .desc{
     max-width: 20%;
+}
+.check-container{
+    display: flex;
+    max-width: 40%;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-evenly;
 }
 
 </style>

@@ -1,6 +1,7 @@
 <template>
   <v-app v-show="populated">
-    <v-container v-for="item in baselineItems" :key="item.id">
+    <v-container v-for="item in baselineItems" :key="item.id"
+    class="check-container">
         <h4>{{item.itemDescription}}</h4>
         <v-text-field
             v-model="item.itemDate"
@@ -12,7 +13,7 @@
         <v-text-field
             v-model="item.itemTasks"
             type="text"
-            label="Tasks"
+            label="No. of Tasks"
             required
             @blur="saveBaselineItem(item)"
         ></v-text-field>
@@ -61,5 +62,12 @@ export default {
 </script>
 
 <style>
+.check-container{
+    display: flex;
+    max-width: 40%;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-evenly;
+}
 
 </style>

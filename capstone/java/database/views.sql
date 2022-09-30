@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS baseline_items_vw, monthly_items_vw, all_items_vw;
+DROP VIEW IF EXISTS baseline_items_vw, monthly_items_vw, all_items_vw, schedule_vw;
 
 CREATE OR REPLACE VIEW baseline_items_vw AS 
 (SELECT p.project_name, p.id, pi.phase, pi.item_description, bi.item_date, bi.item_tasks, bi.phase_item

@@ -1,25 +1,27 @@
 <template>
-  <v-app>
-      <v-container>
-          <!-- <v-checkbox
-              label="Design"
-              v-model="phaseDesign">
-          </v-checkbox>
-          <v-checkbox
-              label="Pre Construction"
-              v-model="phasePreConstruction">
-          </v-checkbox>
-          <v-checkbox
-              label="Construction"
-              v-model="phaseConstruction">
-          </v-checkbox> -->
-          <v-btn @click="check">click</v-btn>
-        </v-container>
+  <v-app v-show="populated">
+    <v-container v-for="item in baselineItems" :key="item.id">
+        <h4>{{item.itemDescription}}</h4>
+        <v-text-field
+            v-model="item.itemDate"
+            label="Date"
+            type="date"
+            required
+            @blur="saveBaselineItem(item)"
+        ></v-text-field>
+        <v-text-field
+            v-model="item.itemTasks"
+            type="text"
+            label="Tasks"
+            required
+            @blur="saveBaselineItem(item)"
+        ></v-text-field>
+    </v-container>
   </v-app>
 </template>
 
 <script>
-
+import ScheduleService from '../services/ScheduleService.js'
 
 export default {
     data(){
@@ -27,22 +29,31 @@ export default {
             phaseDesign: false,
             phasePreConstruction: false,
             phaseConstruction: false,
-            contract: {}
+            contract: {},
         }
     },
     props: ['baselineItems'],
-    // created(){
-    //     ScheduleService.listBaselineItems(this.$store.state.project.id).then((response) =>{
-    //         console.log('test')
-    //         console.log(response.data)
-    //         if (response.status == 200 || response.status == 201){
-    //             this.baselineItems = response.data;
-    //         }
-    //     })
-    // }
     methods: {
         check(){
             console.log(this.baselineItems)
+        },
+        saveBaselineItem(item){
+            ScheduleService.updateBaselineItem(item).then((response) =>{
+                if (response.status == 200 || response.status == 201){
+                    //
+                }
+            })
+            .catch((error) => {
+                const response = error.response;
+                if (response.status == 400){
+                    console.log(response.data.message)
+                }
+            })
+        }
+    },
+    computed: {
+        populated(){
+            return this.baselineItems.length > 0;
         }
     }
 

@@ -12,7 +12,7 @@
         <th>View Baseline Items</th>
         </thead>
         <tbody>
-        <tr v-for="project in projects" :key="project.projectName">
+        <tr v-for="project in projects" :key="project.id">
           <td>
             {{ project.projectName }}
           </td>

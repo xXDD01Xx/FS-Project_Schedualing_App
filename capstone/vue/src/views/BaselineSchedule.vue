@@ -1,8 +1,6 @@
 <template>
   <v-app>
     <v-container >
-      <v-btn @click="check">click</v-btn>
-
       <v-form ref="form" lazy-validation>
 
         <v-text-field
@@ -44,65 +42,51 @@
               v-model="phase">
           </v-checkbox>
           <v-checkbox
-              label="Pre Construction" value="PreConstruction"
+              label="Pre Construction" value="Pre-Construction"
+              @click="updateBaseline"
               v-model="phase">
           </v-checkbox>
           <v-checkbox
               label="Construction" value="Construction"
+              @click="updateBaseline"
               v-model="phase">
           </v-checkbox>
-          <p>{{phase}}</p>
+          <h2>{{phase}}</h2>
         </v-container>
-
-        <PhaseDesignEntry
-            v-show="phaseDesign">
-        </PhaseDesignEntry>
-        <PhasePreConstructionEntry
-            v-show="phasePreConstruction">
-        </PhasePreConstructionEntry>
-        <PhaseConstructionEntry
-            v-show="phaseConstruction">
-        </PhaseConstructionEntry>
-
-
         <BaselineSchedEntry :baselineItems="filteredBaseline"/>
-
-        
-
-        <v-btn
-            class="button"
-            color="#8c090e"
-            elevation="2"
-            outlined
-        >Submit Baseline Schedule
-        </v-btn>
+          <v-btn
+          class="button"
+          color="#8c090e"
+          elevation="2"
+          outlined
+          @click="allDone"
+          >Submit Changes</v-btn>
       </v-form>
-      <div v-show="addProjectSuccess">{{ addProjectSuccessMessage }}</div>
-      <div v-show="addProjectFailure">{{ addProjectFailureMessage }}</div>
     </v-container>
-
-    <router-link class="text-decoration-none" :to="{path: '/home'}">
-      <v-btn class="button"
-             color=#8c090e
-             elevation="2"
-             outlined
-      >Home
-      </v-btn>
-    </router-link>
+    <div class="text-center">
+      <router-link class="text-decoration-none" :to="{path: '/home'}">
+        <v-btn class="button"
+              color=#8c090e
+              elevation="2"
+              outlined
+        >Home
+        </v-btn>
+      </router-link>
+    </div>
   </v-app>
 </template>
 
 <script>
 // import ProjectService from "@/services/ProjectService";
-import PhaseDesignEntry from "@/components/PhaseDesignEntry";
-import PhasePreConstructionEntry from "@/components/PhasePreConstructionEntry";
-import PhaseConstructionEntry from "@/components/PhaseConstructionEntry";
+// import PhaseDesignEntry from "@/components/PhaseDesignEntry";
+// import PhasePreConstructionEntry from "@/components/PhasePreConstructionEntry";
+// import PhaseConstructionEntry from "@/components/PhaseConstructionEntry";
 import ScheduleService from '../services/ScheduleService.js'
 import ProjectService from '../services/ProjectService.js'
 import BaselineSchedEntry from '../components/BaselineSchedEntry.vue'
 
 export default {
-  components: {PhaseConstructionEntry, PhasePreConstructionEntry, PhaseDesignEntry, BaselineSchedEntry},
+  components: {BaselineSchedEntry},
   data()
   {
     return {
@@ -122,9 +106,8 @@ export default {
     };
   },
   methods: {
-    check(){
-      console.log('contract',this.contract)
-      console.log('project',this.project)
+    allDone(){
+      alert('Changes Saved')
     },
     updateBaseline(){
       console.log(this.project)

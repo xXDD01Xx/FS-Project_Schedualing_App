@@ -7,7 +7,6 @@
               <th class="task">Tasks</th>
               <th class="date">Date</th>
           </thead>
-          <!-- <h4>{{baselineItems}}</h4> -->
           <tbody>
               <tr v-for="item in baselineItems" :key="item.id" :item="item">
                 <td class="desc">{{item.itemDescription}}</td>

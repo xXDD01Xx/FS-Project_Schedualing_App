@@ -135,18 +135,32 @@ export default {
     }
   },
   created(){
-        ScheduleService.listBaselineItems(this.$store.state.project.id).then((response) =>{
+        const baseID = this.$route.params.id
+        console.log('id',baseID)
+        ScheduleService.listBaselineItems(baseID).then((response) =>{
             console.log('test')
             console.log(response.data)
             if (response.status == 200 || response.status == 201){
                 this.baselineItems = response.data;
             }
         })
+        .catch((error) => {
+          const response = error.response;
+          if (response.status == 400){
+            alert('baseline',error)
+          }
+        })
         ProjectService.getContracts().then((response) =>{
             this.contract = response.data.filter((each) => {
-                 return each.id == this.$store.state.project.contractId
+                 return each.id == this.project.contractId
             })
             this.name = this.contract[0].contractName
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response.status == 400){
+            alert('contract',response)
+          }
         })
 
     },

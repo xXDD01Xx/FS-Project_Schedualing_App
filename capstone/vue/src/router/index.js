@@ -91,7 +91,7 @@ const router = new Router({
         requiresAuth: true
       }
     },{
-      path: '/baselineSchedule',
+      path: '/baselineSchedule/:id',
       name: 'BaselineSchedule',
       component: BaselineSchedule,
       meta: {

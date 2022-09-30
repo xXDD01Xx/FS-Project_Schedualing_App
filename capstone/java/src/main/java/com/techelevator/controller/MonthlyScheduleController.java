@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.MonthlyScheduleDao;
 import com.techelevator.model.MonthlyPhaseItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,9 @@ public class MonthlyScheduleController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping(path = "/monthlyschedule/new")
-    public void addNewMonthlySchedule(@RequestBody int projectId, LocalDate monthYear) {
+    public void addNewMonthlySchedule(
+            @RequestParam int projectId,
+            @RequestParam("monthYear") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate monthYear) {
         monthlyScheduleDao.addNewMonthlySchedule(projectId, monthYear);
     }
 

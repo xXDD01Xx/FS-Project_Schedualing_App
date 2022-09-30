@@ -41,19 +41,18 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "(project_id, month_year) " +
                 "VALUES " +
                 "(?, ?); " +
-                "" +
                 "INSERT INTO monthly_sched_items " +
-                "(monthly_sched_id, phase_item) " +
+                "(monthly_sched_id, phase_item, item_date, item_tasks) " +
                 "SELECT  " +
                 "(SELECT MAX(id) FROM monthly_schedule WHERE project_id = ? AND month_year = ?), " +
                 "a.phase_item, a.item_date, a.item_tasks " +
                 "FROM all_items_vw a " +
                 "LEFT JOIN all_items_vw b ON a.project_id = b.project_id AND " +
-                "a.phase_item=b.phase_item AND " +
+                "a.phase_item = b.phase_item AND " +
                 "a.month_year < b.month_year " +
                 "WHERE b.month_year IS NULL AND " +
                 "NOT (a.item_date IS NULL and a.item_tasks IS NULL) " +
-                "a.project_id = ?; " +
+                "AND a.project_id = ?; " +
                 "" +
                 "COMMIT;";
 

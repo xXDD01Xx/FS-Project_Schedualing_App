@@ -25,10 +25,10 @@ public class MonthlyScheduleController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping(path = "/monthlyschedule/new")
-    public void addNewMonthlySchedule(
+    public int addNewMonthlySchedule(
             @RequestParam int projectId,
             @RequestParam("monthYear") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate monthYear) {
-        monthlyScheduleDao.addNewMonthlySchedule(projectId, monthYear);
+       return monthlyScheduleDao.addNewMonthlySchedule(projectId, monthYear);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")

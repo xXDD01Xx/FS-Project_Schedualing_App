@@ -10,7 +10,7 @@ public interface MonthlyScheduleDao {
     List<MonthlyPhaseItem> listMonthlyScheduleItems(int monthlyScheduleId);
 
 
-    void addNewMonthlySchedule(int projectId, LocalDate monthYear);
+    int addNewMonthlySchedule(int projectId, LocalDate monthYear);
 
     void addNewMonthlyScheduleItem(MonthlyPhaseItem monthlyPhaseItem);
 

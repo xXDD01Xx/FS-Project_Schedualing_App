@@ -8,12 +8,12 @@ export default {
   },
 
   getMonthly(id) {
-    return axios.post(`monthlyschedules/${id}`);
+    return axios.get(`monthlyschedules/${id}`);
   },
   getMonthlyItems(id) {
-    return axios.post(`/monthlyscheduleitems/${id}`);
+    return axios.get(`/monthlyscheduleitems/${id}`);
   },
   updateMonthlyItem(item) {
-    return axios.post(`/monthlyschedule/update`, item);
+    return axios.put(`/monthlyschedule/update`, item);
   },
 };

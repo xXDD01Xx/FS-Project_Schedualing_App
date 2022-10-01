@@ -3,6 +3,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.MonthlyPhaseItem;
 import com.techelevator.dao.MonthlyScheduleDao;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -35,9 +36,37 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
         return monthlyPhaseItems;
     }
 
+//    @Override
+//    @Transactional
+//    public void addNewMonthlySchedule(int projectId, LocalDate monthYear) {
+//        String sql = "BEGIN; " +
+//                "" +
+//                "INSERT INTO monthly_schedule " +
+//                "(project_id, month_year) " +
+//                "VALUES " +
+//                "(?, ?); " +
+//                "INSERT INTO monthly_sched_items " +
+//                "(monthly_sched_id, phase_item, item_date, item_tasks) " +
+//                "SELECT  " +
+//                "(SELECT MAX(id) FROM monthly_schedule WHERE project_id = ? AND month_year = ?), " +
+//                "a.phase_item, a.item_date, a.item_tasks " +
+//                "FROM all_items_vw a " +
+//                "LEFT JOIN all_items_vw b ON a.project_id = b.project_id AND " +
+//                "a.phase_item = b.phase_item AND " +
+//                "a.month_year < b.month_year " +
+//                "WHERE b.month_year IS NULL AND " +
+//                "NOT (a.item_date IS NULL and a.item_tasks IS NULL) " +
+//                "AND a.project_id = ?; " +
+//                "" +
+//                "COMMIT;";
+//
+//        jdbcTemplate.update(sql, projectId, monthYear, projectId, monthYear, projectId);
+//    }
+
+
     @Override
     @Transactional
-    public void addNewMonthlySchedule(int projectId, LocalDate monthYear) {
+    public Integer addNewMonthlySchedule(int projectId, LocalDate monthYear) {
         String sql = "BEGIN; " +
                 "" +
                 "INSERT INTO monthly_schedule " +
@@ -59,7 +88,17 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "" +
                 "COMMIT;";
 
-        jdbcTemplate.update(sql, projectId, monthYear, projectId, monthYear, projectId);
+        Integer monthlyIdOutput = 0;
+        try{
+            jdbcTemplate.update(sql, projectId, monthYear, projectId, monthYear, projectId);
+            sql = "SELECT MAX(id) FROM monthly_schedule WHERE project_id = ? AND month_year = ?;";
+            monthlyIdOutput = jdbcTemplate.queryForObject(sql, Integer.class, projectId, monthYear);
+        } catch (NullPointerException e) {
+            System.out.println("Unable to retrieve new monthly schedule...");
+        } catch (DataAccessException e) {
+            System.out.println("Unable to access data...");
+        }
+        return monthlyIdOutput;
     }
 
     @Override

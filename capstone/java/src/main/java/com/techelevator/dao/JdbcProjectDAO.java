@@ -98,9 +98,9 @@ public class JdbcProjectDAO implements ProjectDAO {
             Integer projectId = jdbcTemplate.queryForObject(sql, Integer.class, project.getProjectName());
             output = listProject(projectId);
         } catch (NullPointerException e) {
-            System.out.println("Unable to get new project");
+            System.out.println("Unable to retrieve new project...");
         } catch (DataAccessException e) {
-            System.out.println("Unable to access Data");
+            System.out.println("Unable to access data...");
         }
         return output;
     }

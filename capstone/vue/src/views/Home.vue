@@ -138,12 +138,12 @@ export default {
         }
         if (this.filteredUsers.length > 0){
           this.pending = true;
-          alert('Pending Users Need Review')
+          //alert('Pending Users Need Review')
       } 
       });
       console.log(this.filteredUsers)
       if (this.filteredUsers.length > 0){
-        alert('Pending Users Need Review')
+        //alert('Pending Users Need Review')
       }
   }
 };

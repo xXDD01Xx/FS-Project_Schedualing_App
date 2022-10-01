@@ -66,7 +66,7 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
 
     @Override
     @Transactional
-    public int addNewMonthlySchedule(int projectId, LocalDate monthYear) {
+    public Integer addNewMonthlySchedule(int projectId, LocalDate monthYear) {
         String sql = "BEGIN; " +
                 "" +
                 "INSERT INTO monthly_schedule " +
@@ -88,12 +88,11 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "" +
                 "COMMIT;";
 
-        int monthlyIdOutput = 0;
+        Integer monthlyIdOutput = 0;
         try{
             jdbcTemplate.update(sql, projectId, monthYear, projectId, monthYear, projectId);
             sql = "SELECT MAX(id) FROM monthly_schedule WHERE project_id = ? AND month_year = ?;";
-            Integer monthlyScheduleId = jdbcTemplate.queryForObject(sql, Integer.class, projectId, monthYear);
-            monthlyIdOutput = addNewMonthlySchedule(projectId, monthYear);
+            monthlyIdOutput = jdbcTemplate.queryForObject(sql, Integer.class, projectId, monthYear);
         } catch (NullPointerException e) {
             System.out.println("Unable to retrieve new monthly schedule...");
         } catch (DataAccessException e) {

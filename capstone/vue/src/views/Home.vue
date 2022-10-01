@@ -84,7 +84,6 @@
               elevation="2"
               outlined
             >Review Pending Users</v-btn>
-            <PendingSnackbar v-if="pending"/>
               </router-link>
               <router-link class="text-decoration-none" :to="{path: '/changeUserStatus'}">
             <v-btn class="button"
@@ -114,38 +113,35 @@
 </template>
 
 <script>
-import PendingSnackbar from '../components/PendingSnackbar.vue'
+// import PendingSnackbar from '../components/PendingSnackbar.vue'
 import AuthService from '../services/AuthService.js'
 
 export default {
   name: "home",
-  components: {PendingSnackbar},
+  components: {},
 
   data(){
     return {
       user: this.$store.state.user,
       filteredUsers: [],
-      pending: false,
+      // pending: false,
     }
   },
   methods: {},
   created(){
-    AuthService.getAllUsers().then((response) =>{
-        if (response.status == 200 || response.status == 201){
-          this.filteredUsers = response.data.filter((user) =>{
-            return user.status == "Needs Approval";
-          })
-        }
-        if (this.filteredUsers.length > 0){
-          this.pending = true;
-          //alert('Pending Users Need Review')
-      } 
-      });
-      console.log(this.filteredUsers)
-      if (this.filteredUsers.length > 0){
-        //alert('Pending Users Need Review')
-      }
-  }
+    if (this.$store.state.user.authorities[0].name === 'ROLE_ADMIN'){
+      AuthService.getAllUsers().then((response) =>{
+          if (response.status == 200 || response.status == 201){
+            this.filteredUsers = response.data.filter((user) =>{
+              return user.status == "Needs Approval";
+            })
+          }
+          if (this.filteredUsers.length > 0){
+            alert('Pending Users Need Review')
+        } 
+        });
+    }
+    }
 };
 </script>
 

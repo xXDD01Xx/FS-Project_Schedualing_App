@@ -1,22 +1,18 @@
 <template>
   <v-app>
-      
-        <template>
-            <v-row justify="center">
-                <v-date-picker
-                v-model="picker"
-                type="month"
-                ></v-date-picker>
-            </v-row>
-        </template>
-
-
-
-
-
-
-
-
+      <h2>Select a Month</h2>
+        <v-container>
+            <v-date-picker
+            v-model="picker"
+            type="month"
+            ></v-date-picker> 
+            <v-btn 
+            class="text-decoration-none"
+            color=#8c090e
+            elevation="2"
+            outlined
+            @click="addMonthly(picker)">Confirm</v-btn>
+        </v-container>
 
       <router-link class="text-decoration-none" :to="{path: '/monthlyUpdate'}">
         <v-btn class="button"
@@ -36,11 +32,33 @@
 </template>
 
 <script>
+import MonthlyService from '../services/MonthlyService.js'
+
 export default {
+    data () {
+      return {
+        picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        id: '',
+      }
+    },
+    methods: {
+        addMonthly(picker){
+            console.log(this.picker)
+            const time = picker + '-01'
+            console.log(time)
+            MonthlyService.addMonthly(time, this.$store.state.project.id).then((response) =>{
+                if (response.status == 200 || response.status == 201){
+                    this.id = response.data;
+                    console.log(this.id)
+                }
+            })
+        }
+    }
 
 }
 </script>
 
 <style>
+
 
 </style>

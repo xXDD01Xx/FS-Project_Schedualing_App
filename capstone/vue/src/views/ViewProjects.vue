@@ -15,7 +15,7 @@
         <th v-if="userOrAdmin">Edit Project</th>
         </thead>
         <tbody>
-        <tr v-for="project in projects" :key="project.projectName">
+        <tr v-for="project in projects" :key="project.id">
           <td>
             {{ project.projectName }}
           </td>

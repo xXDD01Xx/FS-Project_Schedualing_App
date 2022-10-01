@@ -48,7 +48,7 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
     }
 
     @Override
-    public MonthlySchedule listMonthlySchedule(int projectId) {
+    public MonthlySchedule listMonthlySchedule(int monthlySchedId) {
         String sql = "SELECT id, " +
                 "project_id, " +
                 "month_year, " +
@@ -63,8 +63,8 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "tasks_substantial, " +
                 "tasks_construction " +
                 "FROM monthly_schedule " +
-                "WHERE project_id = ?;";
-        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, projectId);
+                "WHERE id = ?;";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, monthlySchedId);
         MonthlySchedule monthlySchedule = new MonthlySchedule();
         if (rs.next()) {
             monthlySchedule = mapRowToMonthlySchedule(rs);

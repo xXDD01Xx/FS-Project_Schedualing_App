@@ -21,6 +21,7 @@ import ListBaselineItems from '../views/ListBaselineItems.vue'
 import ListBaselineByID from '../views/ListBaselineByID.vue'
 import Baseline from '../views/Baseline.vue'
 import MonthlyUpdateById from '../views/MonthlyUpdateById.vue'
+import MonthlySchedule from "../views/MonthlySchedule.vue";
 
 Vue.use(Router)
 
@@ -34,170 +35,179 @@ Vue.use(Router)
  */
 
 const router = new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'landingPage',
+      path: "/",
+      name: "landingPage",
       component: LandingPage,
       meta: {
-        requiresAuth: false
-      }
+        requiresAuth: false,
+      },
     },
     {
       path: "/login",
       name: "login",
       component: Login,
       meta: {
-        requiresAuth: false
-      }
+        requiresAuth: false,
+      },
     },
     {
       path: "/logout",
       name: "logout",
       component: Logout,
       meta: {
-        requiresAuth: false
-      }
+        requiresAuth: false,
+      },
     },
     {
       path: "/register",
       name: "register",
       component: Register,
       meta: {
-        requiresAuth: false
-      }
+        requiresAuth: false,
+      },
     },
     {
-      path: '/home',
-      name: 'home',
+      path: "/home",
+      name: "home",
       component: Home,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/changePassword',
-      name: 'ChangePassword',
+      path: "/changePassword",
+      name: "ChangePassword",
       component: ChangePassword,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/addProject',
-      name: 'AddProject',
+      path: "/addProject",
+      name: "AddProject",
       component: AddProject,
       meta: {
-        requiresAuth: true
-      }
-    },{
-      path: '/baselineSchedule/:id',
-      name: 'BaselineSchedule',
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/baselineSchedule/:id",
+      name: "BaselineSchedule",
       component: BaselineSchedule,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/changeUserStatus',
-      name: 'ChangeUserStatus',
+      path: "/changeUserStatus",
+      name: "ChangeUserStatus",
       component: ChangeUserStatus,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/master',
-      name: 'MasterSchedule',
+      path: "/master",
+      name: "MasterSchedule",
       component: MasterSchedule,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/mods-co',
-      name: 'ModsChangeOrders',
+      path: "/mods-co",
+      name: "ModsChangeOrders",
       component: ModsChangeOrders,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/monthlyUpdate',
-      name: 'MonthlyUpdate',
+      path: "/monthlyUpdate",
+      name: "MonthlyUpdate",
       component: MonthlyUpdate,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/reviewPendingUsers',
-      name: 'ReviewPendingUsers',
+      path: "/reviewPendingUsers",
+      name: "ReviewPendingUsers",
       component: ReviewPendingUsers,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/statusReports',
-      name: 'StatusReports',
+      path: "/statusReports",
+      name: "StatusReports",
       component: StatusReports,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
-      path: '/viewProjects',
-      name: 'ViewProjects',
+      path: "/viewProjects",
+      name: "ViewProjects",
       component: ViewProjects,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
       path: `/editProject/:id`,
-      name: 'EditProject',
+      name: "EditProject",
       component: EditProject,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
       path: `/listBaseline/`,
-      name: 'ListBaselineItems',
+      name: "ListBaselineItems",
       component: ListBaselineItems,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
       path: `/listBaseline/:id`,
-      name: 'ListBaselineByID',
+      name: "ListBaselineByID",
       component: ListBaselineByID,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
       path: `/baseline`,
-      name: 'Baseline',
+      name: "Baseline",
       component: Baseline,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
     {
       path: `/monthlyUpdate/:id`,
-      name: 'MonthlyUpdateById',
+      name: "MonthlyUpdateById",
       component: MonthlyUpdateById,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: true,
+      },
     },
-  ]
-})
+    {
+      path: `/monthlySchedule/:id`,
+      name: "MonthlySchedule",
+      component: MonthlySchedule,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+  ],
+});
 
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication

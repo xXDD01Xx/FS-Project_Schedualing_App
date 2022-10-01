@@ -25,9 +25,9 @@ public class MonthlyScheduleController {
         return monthlyScheduleDao.listAllMonthlySchedule();
     }
 
-    @GetMapping(path = "/monthlyschedules/{projectId}")
-    public MonthlySchedule listMonthlyScheduleList(@PathVariable int projectId) {
-        return monthlyScheduleDao.listMonthlySchedule(projectId);
+    @GetMapping(path = "/monthlyschedules/{monthlySchedId}")
+    public MonthlySchedule listMonthlyScheduleList(@PathVariable int monthlySchedId) {
+        return monthlyScheduleDao.listMonthlySchedule(monthlySchedId);
     }
 
     @GetMapping(path = "/monthlyscheduleitems/{id}")

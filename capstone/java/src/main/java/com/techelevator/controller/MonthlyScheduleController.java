@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.MonthlyScheduleDao;
 import com.techelevator.model.MonthlyPhaseItem;
+import com.techelevator.model.MonthlySchedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +19,18 @@ public class MonthlyScheduleController {
     @Autowired
     MonthlyScheduleDao monthlyScheduleDao;
 
-    @GetMapping(path = "/monthlyschedule/{id}")
+
+    @GetMapping(path = "/monthlyschedules")
+    public List<MonthlySchedule> listAllMonthlyScheduleList() {
+        return monthlyScheduleDao.listAllMonthlySchedule();
+    }
+
+    @GetMapping(path = "/monthlyschedules/{projectId}")
+    public MonthlySchedule listMonthlyScheduleList(@PathVariable int projectId) {
+        return monthlyScheduleDao.listMonthlySchedule(projectId);
+    }
+
+    @GetMapping(path = "/monthlyscheduleitems/{id}")
     public List<MonthlyPhaseItem> listMonthlyScheduleItems(@PathVariable int id) {
         return monthlyScheduleDao.listMonthlyScheduleItems(id);
     }
@@ -28,7 +40,7 @@ public class MonthlyScheduleController {
     public int addNewMonthlySchedule(
             @RequestParam int projectId,
             @RequestParam("monthYear") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate monthYear) {
-       return monthlyScheduleDao.addNewMonthlySchedule(projectId, monthYear);
+        return monthlyScheduleDao.addNewMonthlySchedule(projectId, monthYear);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")

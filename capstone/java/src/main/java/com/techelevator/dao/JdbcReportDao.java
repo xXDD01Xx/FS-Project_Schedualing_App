@@ -50,7 +50,7 @@ public class JdbcReportDao implements ReportDao {
             masterSchedule.setStart(rs.getDate("start_dt").toLocalDate());
         }
         if (rs.getDate("end_dt") != null) {
-            masterSchedule.setStart(rs.getDate("end_dt").toLocalDate());
+            masterSchedule.setEnd(rs.getDate("end_dt").toLocalDate());
         }
         masterSchedule.setDurationDays(rs.getInt("duration_days"));
 

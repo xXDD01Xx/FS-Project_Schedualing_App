@@ -156,6 +156,8 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
             monthlyPhaseItem.setItemDate(rs.getDate("item_date").toLocalDate());
         }
         monthlyPhaseItem.setItemTasks(rs.getInt("item_tasks"));
+        monthlyPhaseItem.setItemDescription(rs.getString("item_description"));
+        monthlyPhaseItem.setPhaseDescription(rs.getString("phase"));
         return monthlyPhaseItem;
     }
 

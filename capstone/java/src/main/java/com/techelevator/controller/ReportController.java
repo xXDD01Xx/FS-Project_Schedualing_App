@@ -25,7 +25,7 @@ public class ReportController {
 //        return reportDao.listStatusReport(projectId);
 //    }
 
-    @GetMapping(path = "/master/")
+    @GetMapping(path = "/master")
     public List<MasterSchedule> listMasterSchedules() {
         return reportDao.listMaster();
     }

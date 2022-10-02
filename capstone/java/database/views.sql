@@ -38,4 +38,14 @@ and phase != 'TNR Hold'
 group by contract_name, contract_id, project_name, project_id, phase
 order by contract_name, contract_id, project_name, project_id, (case phase when 'Design' then 1 when 'Pre-Construction' then 2 when 'Construction' then 3 else 4 end);
 
+CREATE OR REPLACE VIEW current_items AS
+WITH current_items AS (SELECT * 
+FROM all_items_vw a
+WHERE month_year = (SELECT MAX(month_year) FROM all_items_vw sq WHERE sq.project_id=a.project_id and sq.phase_item=a.phase_item)
+AND item_date IS NOT NULL
+ORDER BY project_id, phase_item)
+SELECT *
+FROM current_items c
+WHERE item_date=(SELECT max(item_date) FROM current_items sq WHERE sq.project_id=c.project_id AND item_date<=current_date);
+
 COMMIT;

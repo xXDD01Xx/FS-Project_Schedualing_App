@@ -10,4 +10,5 @@ psql -U postgres -d $DATABASE -f "$BASEDIR/data/userData.sql" &&
 psql -U postgres -d $DATABASE -f "$BASEDIR/data/phaseItemsData.sql" &&
 psql -U postgres -d $DATABASE -f "$BASEDIR/data/contractData.sql" &&
 psql -U postgres -d $DATABASE -f "$BASEDIR/data/projectData.sql"&&
+psql -U postgres -d $DATABASE -f "$BASEDIR/data/scheduleData.sql"&&
 psql -U postgres -d $DATABASE -f "$BASEDIR/views.sql"

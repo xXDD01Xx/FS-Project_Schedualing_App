@@ -27,7 +27,6 @@
           label="Schedule Notes"
           type="text"
           v-model="monthly.scheduleNotes"
-          :readonly="true"
           required
         ></v-text-field>
 
@@ -35,11 +34,11 @@
           label="Percent Complete"
           type="text"
           v-model="monthly.pctComplete"
-          :readonly="true"
           required
         ></v-text-field>
 
         <v-radio-group v-model="monthly.samePrevMonth" row>
+          <h3>Same as Last Month?</h3>
           <v-radio label="Yes" value=true></v-radio>
           <v-radio label="No" value=false></v-radio>
         </v-radio-group>
@@ -50,28 +49,31 @@
       <v-checkbox
         label="Design"
         value="Design"
-        @click="updateBaseline"
+        @click="filterMonthly"
         v-model="phase"
       >
       </v-checkbox>
       <v-checkbox
         label="Pre Construction"
         value="Pre-Construction"
-        @click="updateBaseline"
+        @click="filterMonthly"
         v-model="phase"
       >
       </v-checkbox>
       <v-checkbox
         label="Construction"
         value="Construction"
-        @click="updateBaseline"
+        @click="filterMonthly"
         v-model="phase"
       >
       </v-checkbox>
     </v-container>
-    <h2 class="text-center">{{ phase }}</h2>
-    <MonthlyEntry :monthlyItems="filteredMonthlyItems" />
+    <v-container v-show="monthly.samePrevMonth">
+      <h2 class="text-center">{{ phase }}</h2>
+      <MonthlyEntry :monthlyItems="filteredMonthlyItems" />
+    </v-container>
     <div class="text-center">
+
       <router-link class="text-decoration-none" :to="{ path: '/home' }">
         <v-btn class="button" color="#8c090e" elevation="2" outlined
           >Home
@@ -96,11 +98,8 @@
         contract: "",
         monthYear: "",
         phase: "",
-        phaseDesign: false,
-        phasePreConstruction: false,
-        phaseConstruction: false,
         project: this.$store.state.project,
-        monthly: [],
+        monthly: {},
         monthlyItems: [],
         filteredMonthlyItems: [],
       };
@@ -109,10 +108,11 @@
       allDone() {
         alert("Changes Saved");
       },
-      updateBaseline() {
+      filterMonthly() {
         this.filteredMonthlyItems = this.monthlyItems.filter((each) => {
-          return this.phase == each.phaseDescription;
+          return this.phase === each.phaseDescription;
         });
+        console.log(this.filteredMonthlyItems)
       },
     },
     created() {
@@ -122,6 +122,7 @@
         .then((response) => {
           if (response.status == 200 || response.status == 201) {
             this.monthly = response.data;
+            console.log('mon sched', this.monthly)
           }
         })
         .catch((error) => {
@@ -134,12 +135,13 @@
         .then((response) => {
           if (response.status == 200 || response.status == 201) {
             this.monthlyItems = response.data;
+            console.log('month items',this.monthlyItems)
           }
         })
         .catch((error) => {
           const response = error.response;
           if (response.status == 400) {
-            alert("monthly ", error);
+            alert("monthly items", error);
           }
         });
     },

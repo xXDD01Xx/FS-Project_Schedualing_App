@@ -10,9 +10,11 @@ export default {
   getMonthly(id) {
     return axios.get(`monthlyschedules/${id}`);
   },
+
   getMonthlyItems(id) {
     return axios.get(`/monthlyscheduleitems/${id}`);
   },
+  
   updateMonthlyItem(item) {
     return axios.put(`/monthlyschedule/update`, item);
   },

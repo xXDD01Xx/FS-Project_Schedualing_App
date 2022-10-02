@@ -37,15 +37,15 @@
           required
         ></v-text-field>
 
-        <v-radio-group v-model="monthly.samePrevMonth" row>
+        <v-radio-group row v-model="flipper">
           <h3>Same as Last Month?</h3>
-          <v-radio label="Yes" value=true></v-radio>
-          <v-radio label="No" value=false></v-radio>
+          <v-radio label="Yes" value=true @click="flipTheFlipper"></v-radio>
+          <v-radio label="No" value=false @click="flipTheFlipper"></v-radio>
         </v-radio-group>
 
       </v-form>
     </v-container>
-    <v-container class="check-container">
+    <v-container class="check-container" v-show="!monthly.samePrevMonth">
       <v-checkbox
         label="Design"
         value="Design"
@@ -68,10 +68,14 @@
       >
       </v-checkbox>
     </v-container>
-    <v-container v-show="monthly.samePrevMonth">
+    <v-container v-show="!monthly.samePrevMonth">
       <h2 class="text-center">{{ phase }}</h2>
       <MonthlyEntry :monthlyItems="filteredMonthlyItems" />
     </v-container>
+    <div class="text-center" v-show="flipper == 'true'">
+      <v-btn class="text-decoration-none" color="#8c090e" elevation="2" outlined
+        @click="submitChanges">Submit Changes</v-btn>
+    </div>
     <div class="text-center">
 
       <router-link class="text-decoration-none" :to="{ path: '/home' }">
@@ -99,12 +103,23 @@
         monthYear: "",
         phase: "",
         project: this.$store.state.project,
-        monthly: {},
+        monthly: '',
         monthlyItems: [],
         filteredMonthlyItems: [],
+        flipper: '',
       };
     },
     methods: {
+      flipTheFlipper(){
+        if (this.flipper == 'true'){
+          this.monthly.samePrevMonth = true;
+        }else if (this.flipper == 'false'){
+          this.monthly.samePrevMonth = false;
+        }
+      },
+      submitChanges(){
+        this.$router.push({name: 'home'})
+      },
       allDone() {
         alert("Changes Saved");
       },
@@ -122,6 +137,7 @@
         .then((response) => {
           if (response.status == 200 || response.status == 201) {
             this.monthly = response.data;
+            this.monthly.samePrevMonth = true;
             console.log('mon sched', this.monthly)
           }
         })

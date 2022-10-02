@@ -38,11 +38,16 @@
         </v-col>
       </v-row>
     </v-container>
+    <div class="text-center">
+      <v-btn class="text-decoration-none" color="#8c090e" elevation="2" outlined
+        @click="submitChanges">Submit Changes</v-btn>
+    </div>
   </v-app>
 </template>
 
 <script>
-  import MonthlyService from "../services/MonthlyService.js";
+import MonthlyService from "../services/MonthlyService.js";
+  
   export default {
     data() {
       return {
@@ -53,20 +58,23 @@
     },
     props: ["monthlyItems"],
     methods: {
-        saveMonthlyItem(item){
-            MonthlyService.updateMonthlyItem(item)
-            .then((response)=>{
-                if (response.status == 200 || response.status == 201) {
-              // should indicate it was updated, maybe flash green?
-            }
+      submitChanges(){
+        this.$router.push({name: 'home'})
+      },
+      saveMonthlyItem(item){
+          MonthlyService.updateMonthlyItem(item)
+          .then((response)=>{
+              if (response.status == 200 || response.status == 201) {
+            // should indicate it was updated, maybe flash green?
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response.status == 400) {
+            console.log(response.data.message);
+          } 
           })
-          .catch((error) => {
-            const response = error.response;
-            if (response.status == 400) {
-              console.log(response.data.message);
-            } 
-            })
-        }
+      }
     },
     computed: {
       populated() {

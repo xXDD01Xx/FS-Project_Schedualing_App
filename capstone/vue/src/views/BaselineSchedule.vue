@@ -64,6 +64,7 @@
         >Home
         </v-btn>
       </router-link>
+      <v-btn @click="check">click</v-btn>
     </div>
   </v-app>
 </template>
@@ -98,6 +99,10 @@ export default {
     };
   },
   methods: {
+    check(){
+      console.log('reg',this.baselineItems)
+      console.log('filter',this.filteredBaseline)
+    },
     allDone(){
       alert('Changes Saved')
     },
@@ -113,6 +118,7 @@ export default {
         ScheduleService.listBaselineItems(baseID).then((response) =>{
             if (response.status == 200 || response.status == 201){
                 this.baselineItems = response.data;
+                console.log(this.baselineItems)
             }
         })
         .catch((error) => {

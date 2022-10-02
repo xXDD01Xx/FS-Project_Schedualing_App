@@ -70,6 +70,13 @@ export default {
         ScheduleService.listBaselineItems(this.$store.state.project.id).then((response) =>{
             if (response.status == 200 || response.status == 201){
                 this.baselineItems = response.data;
+                console.log(this.baselineItems)
+            }
+        })
+        .catch((error) => {
+            const response = error.data;
+            if (response.state == 400){
+                alert(response)
             }
         })
     }

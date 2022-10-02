@@ -1,5 +1,5 @@
 BEGIN;
-DROP VIEW IF EXISTS baseline_items_vw, monthly_items_vw, all_items_vw, schedule_vw;
+DROP VIEW IF EXISTS current_items_vw, baseline_items_vw, monthly_items_vw, all_items_vw, schedule_vw;
 
 CREATE OR REPLACE VIEW baseline_items_vw AS 
 (SELECT p.project_name, p.id, pi.phase, pi.item_description, bi.item_date, bi.item_tasks, bi.phase_item
@@ -38,7 +38,7 @@ and phase != 'TNR Hold'
 group by contract_name, contract_id, project_name, project_id, phase
 order by contract_name, contract_id, project_name, project_id, (case phase when 'Design' then 1 when 'Pre-Construction' then 2 when 'Construction' then 3 else 4 end);
 
-CREATE OR REPLACE VIEW current_items AS
+CREATE OR REPLACE VIEW current_items_vw AS
 WITH current_items AS (SELECT * 
 FROM all_items_vw a
 WHERE month_year = (SELECT MAX(month_year) FROM all_items_vw sq WHERE sq.project_id=a.project_id and sq.phase_item=a.phase_item)

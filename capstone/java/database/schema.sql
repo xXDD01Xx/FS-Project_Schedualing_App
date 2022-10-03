@@ -73,6 +73,7 @@ CREATE TABLE monthly_schedule (
     month_year date,
     schedule_notes VARCHAR(255),
     pct_complete INTEGER,
+	sched_prod_idx DECIMAL,
     same_prev_month BOOLEAN,
     why_one VARCHAR(255),
     why_two VARCHAR(255),
@@ -81,7 +82,8 @@ CREATE TABLE monthly_schedule (
     why_five VARCHAR(255),
     tasks_substantial INTEGER,
     tasks_construction INTEGER,
-    CONSTRAINT monthly_schedule_pkey PRIMARY KEY (id)
+    CONSTRAINT monthly_schedule_pkey PRIMARY KEY (id),
+	UNIQUE (project_id, month_year)
 );
 
 CREATE TABLE monthly_sched_items (

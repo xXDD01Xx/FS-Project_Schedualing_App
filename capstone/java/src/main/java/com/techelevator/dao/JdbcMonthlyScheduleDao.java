@@ -55,7 +55,7 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "month_year, " +
                 "schedule_notes, " +
                 "pct_complete, " +
-                "sched_prod_idx " +
+                "sched_prod_idx, " +
                 "same_prev_month, " +
                 "why_one, " +
                 "why_two, " +

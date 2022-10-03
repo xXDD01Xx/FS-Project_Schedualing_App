@@ -116,7 +116,7 @@
         }
       },
       check(){
-        console.log(this.user)
+        // console.log(this.user)
       },
       login() {
         authService

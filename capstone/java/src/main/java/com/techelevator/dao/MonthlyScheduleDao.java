@@ -24,4 +24,5 @@ public interface MonthlyScheduleDao {
 
     void deleteMonthlyScheduleItem(int id);
 
+    void updateMonthlySchedule(MonthlySchedule monthlySchedule);
 }

@@ -19,25 +19,29 @@ public abstract class ModsChangeOrdersController
     ModsChangeOrdersDao modsChangeOrdersDao;
 
 
-    @GetMapping(path="/")
+    @GetMapping(path="/modco")
     public List<ModChangeOrder> listModsCO() {
         return modsChangeOrdersDao.listAllModsChangeOrders();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping(path="/")
-    public void addToModsCO(@RequestParam int id)
+    @PostMapping(path="/modco/new")
+    public void addToModsCO(@RequestParam int projectId)
     {
-
+        modsChangeOrdersDao.addToModsCO(projectId);
     }
 
-    public void updateModsCO(@PathVariable ModChangeOrder modChangeOrder)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping(path="/modco/update")
+    public void updateModsCO(@RequestBody ModChangeOrder modChangeOrder)
     {
-
+        modsChangeOrdersDao.updateModsCO(modChangeOrder);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping(path="/modco/delete")
     public void deleteModsCO(@PathVariable int id)
     {
-
+        modsChangeOrdersDao.deleteModsChangeCO(id);
     }
 }

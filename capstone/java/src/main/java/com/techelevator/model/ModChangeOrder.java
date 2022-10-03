@@ -30,6 +30,9 @@ public class ModChangeOrder
         this.approveDateTm = approveDateTm;
     }
 
+    public ModChangeOrder()
+    {}
+
     public int getId()
     {
         return id;

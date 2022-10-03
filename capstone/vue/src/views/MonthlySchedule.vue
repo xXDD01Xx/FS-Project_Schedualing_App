@@ -18,7 +18,7 @@
         <v-text-field
           label="Month/Year"
           type="text"
-          v-model="monthly.date"
+          v-model="monthly.monthYear"
           :readonly="true"
           required
         ></v-text-field>

@@ -4,7 +4,7 @@
     <h2 class="text-center">Select a Month</h2>
     <br />
     <v-container class="text-center">
-      <v-date-picker v-model="monthly.date"  color="#8c090e" type="month"></v-date-picker>
+      <v-date-picker v-model="monthly.monthYear"  color="#8c090e" type="month"></v-date-picker>
 <v-btn @click="check">click</v-btn>
       <v-radio-group row v-model="flipper">
           <h3>Same as Last Month?</h3>
@@ -95,7 +95,7 @@ export default {
     return {
       flipper: '',
       monthly: {
-        date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        monthYear: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
         projectId: this.$store.state.project.id,

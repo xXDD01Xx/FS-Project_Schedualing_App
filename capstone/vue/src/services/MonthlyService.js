@@ -7,6 +7,10 @@ export default {
     );
   },
 
+  updateMonthly(id, monthly){
+    return axios.put(`/monthlyschedule/update/${id}`, monthly)
+  },
+
   getMonthly(id) {
     return axios.get(`monthlyschedules/${id}`);
   },

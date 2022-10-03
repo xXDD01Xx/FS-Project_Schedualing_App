@@ -18,7 +18,7 @@
         <v-text-field
           label="Month/Year"
           type="text"
-          v-model="monthly.monthYear"
+          v-model="monthly.date"
           :readonly="true"
           required
         ></v-text-field>
@@ -137,7 +137,7 @@
         .then((response) => {
           if (response.status == 200 || response.status == 201) {
             this.monthly = response.data;
-            this.monthly.samePrevMonth = true;
+            // this.monthly.samePrevMonth = true;
             console.log('mon sched', this.monthly)
           }
         })

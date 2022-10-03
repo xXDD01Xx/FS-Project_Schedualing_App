@@ -4,8 +4,31 @@
     <h2 class="text-center">Select a Month</h2>
     <br />
     <v-container class="text-center">
-      <v-date-picker v-model="picker"  color="#8c090e" type="month"></v-date-picker>
-
+      <v-date-picker v-model="monthly.date"  color="#8c090e" type="month"></v-date-picker>
+<v-btn @click="check">click</v-btn>
+      <v-radio-group row v-model="flipper">
+          <h3>Same as Last Month?</h3>
+          <v-radio label="Yes" value=true @click="flipTheFlipper"></v-radio>
+          <v-radio label="No" value=false @click="flipTheFlipper"></v-radio>
+      </v-radio-group>
+      <v-textarea
+        label="Schedule Notes"
+        type="text"
+        v-model="monthly.scheduleNotes"
+        required
+      ></v-textarea>
+      <v-text-field
+        label="Percent Complete"
+        type="text"
+        v-model="monthly.pctComplete"
+        required
+      ></v-text-field>
+      <v-text-field
+        label="Project SPI"
+        type="text"
+        v-model="monthly.scheduleProdIdx"
+        required
+      ></v-text-field>
       <v-textarea
         label="Why did the Schedule Change?"
         type="text"
@@ -37,7 +60,7 @@
         color="#8c090e"
         elevation="2"
         outlined
-        @click="addMonthly(picker)"
+        @click="addMonthly(monthly)"
         >Confirm</v-btn
       >
     </v-container>
@@ -70,37 +93,72 @@ export default {
   components: {},
   data() {
     return {
+      flipper: '',
       monthly: {
-        date: this.picker,
+        date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
         projectId: this.$store.state.project.id,
+        scheduleNotes: '',
+        pctComplete: '',
+        scheduleProdIdx: '',
+        samePrevMonth: '',
         whyOne: '',
         whyTwo: '',
         whyThree: '',
         whyFour: '',
         whyFive: '',
       },
-      picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
+      // picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        // .toISOString()
+        // .substr(0, 10),
       id: "",
       displayMonthly: false,
       sameAsLastMonth: false,
     };
   },
   methods: {
-    addMonthly(picker) {
-      console.log(this.picker);
-      const time = picker + "-01";
-      console.log(time);
-      MonthlyService.addMonthly(time, this.$store.state.project.id).then(
+    check(){
+      console.log(this.monthly.date)
+    },
+    flipTheFlipper(){
+        if (this.flipper == 'true'){
+          this.monthly.samePrevMonth = true;
+        }else if (this.flipper == 'false'){
+          this.monthly.samePrevMonth = false;
+        }
+      },
+    addMonthly(monthly) {
+      const projId = this.monthly.projectId
+      const time = this.monthly.date + '-01';
+      MonthlyService.addMonthly(time, projId).then(
         (response) => {
           if (response.status == 200 || response.status == 201) {
+            // console.log(response.data)
             this.id = response.data;
-            // this.loadMonthly(this.id)
-            this.$router.push({name: 'MonthlySchedule', params:{id: this.id}});
+            console.log(this.id)
           }
-        }
-      );
+          console.log(this.id)
+          MonthlyService.updateMonthly(this.id, monthly).then((response) => {
+            if (response.status == 200 || response.status == 201){
+              this.$router.push({name: 'MonthlySchedule', params: {id: this.id}})
+            }
+          })
+          .catch((error) => {
+            alert(error.state.data)
+          })
+        })
+      .catch((error) => {
+        alert(error);
+      })
+      // MonthlyService.updateMonthly(this.id, monthly).then((response) => {
+      //   if (response.status == 200 || response.status == 201){
+      //     this.$router.push({name: 'monthlySchedule', params: {id: this.id}})
+      //   }
+      // })
+      // .catch((error) => {
+      //   alert(error)
+      // })
     },
     // loadMonthly(id){
     //   MonthlyService.getMonthly(id).then((response) => {

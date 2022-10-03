@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class MonthlySchedule {
@@ -9,6 +10,7 @@ public class MonthlySchedule {
     private LocalDate monthYear;
     private String scheduleNotes;
     private int pctComplete;
+    private Float scheduleProdIdx;
     private boolean samePrevMonth;
     private String whyOne;
     private String whyTwo;
@@ -21,12 +23,13 @@ public class MonthlySchedule {
     public MonthlySchedule() {
     }
 
-    public MonthlySchedule(int id, int projectId, LocalDate monthYear, String scheduleNotes, int pctComplete, boolean samePrevMonth, String whyOne, String whyTwo, String whyThree, String whyFour, String whyFive, int tasksSubstantial, int tasksConstruction) {
+    public MonthlySchedule(int id, int projectId, LocalDate monthYear, String scheduleNotes, int pctComplete, Float scheduleProdIdx, boolean samePrevMonth, String whyOne, String whyTwo, String whyThree, String whyFour, String whyFive, int tasksSubstantial, int tasksConstruction) {
         this.id = id;
         this.projectId = projectId;
         this.monthYear = monthYear;
         this.scheduleNotes = scheduleNotes;
         this.pctComplete = pctComplete;
+        this.scheduleProdIdx = scheduleProdIdx;
         this.samePrevMonth = samePrevMonth;
         this.whyOne = whyOne;
         this.whyTwo = whyTwo;
@@ -75,6 +78,14 @@ public class MonthlySchedule {
 
     public void setPctComplete(int pctComplete) {
         this.pctComplete = pctComplete;
+    }
+
+    public Float getScheduleProdIdx() {
+        return scheduleProdIdx;
+    }
+
+    public void setScheduleProdIdx(Float scheduleProdIdx) {
+        this.scheduleProdIdx = scheduleProdIdx;
     }
 
     public boolean isSamePrevMonth() {

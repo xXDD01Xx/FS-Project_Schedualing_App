@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @PreAuthorize("isAuthenticated()")
-public abstract class ModsChangeOrdersController
+public class ModsChangeOrdersController
 {
 
     @Autowired

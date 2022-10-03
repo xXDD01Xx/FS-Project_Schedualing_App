@@ -28,7 +28,7 @@
       </v-simple-table>
     </v-container>
     <gantt-elastic :options="getOptions" :tasks="getTasks">
-      <gantt-header slot="header"></gantt-header>
+      <gantt-header slot="header" :options="getOptions"></gantt-header>
     </gantt-elastic>
   </v-app>
 </template>
@@ -36,29 +36,29 @@
 <script>
   import ReportService from "../services/ReportService";
   import GanttElastic from "gantt-elastic";
-import GanttHeader from "gantt-elastic-header";
+  import GanttHeader from "gantt-elastic-header";
 
   export default {
     name: "master-schedule",
-  components: {
-    GanttElastic,
-    GanttHeader,
-  },
+    components: {
+      GanttElastic,
+      GanttHeader,
+    },
     data() {
       return {
         masterSchedules: [],
         options: {
-          taskMapping: {
-            progress: "percent",
+          times:{
+            timeZoom:22
           },
-          maxRows: 100,
-          maxHeight: 500,
           title: {
             label: "Master Schedule",
             html: false,
           },
+          maxRows: 100,
+          maxHeight: 500,
           row: {
-            height: 24,
+            height: 16,
           },
           calendar: {
             hour: {
@@ -67,7 +67,7 @@ import GanttHeader from "gantt-elastic-header";
           },
           chart: {
             progress: {
-              bar: false,
+              bar: true,
             },
             expander: {
               display: true,
@@ -113,17 +113,54 @@ import GanttHeader from "gantt-elastic-header";
         tasks: [
           {
             id: 1,
-            label: "Project 1",
             start: new Date(2022, 9, 1, 0, 0, 0).getTime(),
+            label: "Project 1",
+            user: "",
             duration: 60 * 24 * 60 * 60 * 1000,
-            type: "milestone",
+            progress: 50,
+            type: "project",
+            style: {
+              base: { fill: "red" },
+            }
           },
           {
             id: 2,
-            label: "Project 2",
-            start: new Date(2022, 11, 1, 0, 0, 0).getTime(),
-            duration: 60 * 24 * 60 * 60 * 1000,
+            parentId: 1,
+            start: new Date(2022, 9, 1, 0, 0, 0).getTime(),
+            label: "Design",
+            user: "",
+            duration: 20 * 24 * 60 * 60 * 1000,
+            progress: 0,
             type: "milestone",
+            style: {
+              base: { fill: "blue" },
+            }
+          },
+          {
+            id: 3,
+            parentId: 1,
+            start: new Date(2022, 9, 21, 0, 0, 0).getTime(),
+            label: "Pre-Construction",
+            user: "",
+            duration: 20 * 24 * 60 * 60 * 1000,
+            progress: 0,
+            type: "milestone",
+            style: {
+              base: { fill: "orange" },
+            }
+          },
+          {
+            id: 4,
+            parentId: 1,
+            start: new Date(2022, 10, 11, 0, 0, 0).getTime(),
+            label: "Construction",
+            user: "",
+            duration: 20 * 24 * 60 * 60 * 1000,
+            progress: 0,
+            type: "milestone",
+            style: {
+              base: { fill: "purple" },
+            }
           },
         ],
       };

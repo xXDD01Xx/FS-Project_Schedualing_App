@@ -18,7 +18,13 @@
           <tr v-for="user in filteredUsers" :key="user.username" class="trow">
             <td class="text-center">{{ user.username }}</td>
             <td class="text-center">{{user.status}}</td>
-            <td>
+            <v-radio-group v-model="user.status" row>
+                <v-radio label="Approve User" value="Active" ></v-radio>
+                <v-radio label="Deny User" value="Not Approved"></v-radio>
+                <v-radio label="Inactive" value="Inactive"></v-radio>
+                <v-radio label="Needs Approval" value="Needs Approval"></v-radio>
+              </v-radio-group>
+            <!-- <td>
               <input
                   type="radio"
                   name="Approve User"
@@ -35,7 +41,7 @@
                   value="Not Approved"
                   v-model="user.status"
               />
-            </td>       
+            </td>        -->
           </tr>
           </tbody>
         </template>
@@ -43,13 +49,18 @@
     </v-container>
     <br>
     <div class="text-center">
-    <router-link class="text-decoration-none" :to="{path: '/changeUserStatus'}">
+      <v-btn @click="submitAll">Submit Changes</v-btn>
+      <div v-if="submitError">{{ submitErrorMessage }}</div>
+      <div v-if="submitSuccess">{{ submitSuccessMessage }}</div>
+
+
+    <!-- <router-link class="text-decoration-none" :to="{path: '/changeUserStatus'}">
       <v-btn class="button"
              color=#8c090e
              elevation="2"
              outlined
       >Change User Status</v-btn>
-    </router-link>
+    </router-link> -->
     </div>
     <br><br>
     <div class="text-center">
@@ -73,7 +84,25 @@ export default {
       users: [],
       user: this.$store.state.user,
       filteredUsers: [],
+      submitError: false,
+      submitSuccess: false,
+      submitErrorMessage: "Error",
+      submitSuccessMessage: "Success",
     }
+  },
+  methods: {
+    submitAll()
+    {
+      let u = this.users;
+      AuthService.saveChangeUserStatus(u).then((response) =>{
+        if (response.status == 200){
+          this.submitSuccess = true;
+
+        } else if (response.status == 400){
+          this.submitError = true;
+        }
+      });
+    },
   },
   created() {
     AuthService.getAllUsers().then((response) =>{
@@ -83,9 +112,7 @@ export default {
           return user.status == "Needs Approval";
         })
       }
-      console.log(this.filteredUsers) 
     });
-    console.log(this.filteredUsers)
   }
 
 }

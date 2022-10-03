@@ -5,6 +5,33 @@
     <br />
     <v-container class="text-center">
       <v-date-picker v-model="picker"  color="#8c090e" type="month"></v-date-picker>
+
+      <v-textarea
+        label="Why did the Schedule Change?"
+        type="text"
+        v-model="monthly.whyOne"
+        required>
+      </v-textarea>
+      <v-textarea
+        label="Why 2?"
+        type="text"
+        v-model="monthly.whyTwo">
+      </v-textarea>
+      <v-textarea
+        label="Why 3?"
+        type="text"
+        v-model="monthly.whyThree">
+      </v-textarea>
+      <v-textarea
+        label="Why 4?"
+        type="text"
+        v-model="monthly.whyFour">
+      </v-textarea>
+      <v-textarea
+        label="Why 5?"
+        type="text"
+        v-model="monthly.whyFive">
+      </v-textarea>
       <v-btn
         class="text-decoration-none text-center"
         color="#8c090e"
@@ -13,19 +40,9 @@
         @click="addMonthly(picker)"
         >Confirm</v-btn
       >
-    <!-- <v-container row  v-show="displayMonthly">
-      CENTER BUTTONS
-      <h2 class="text-center">Same as last Month?</h2>
-      LOOKS LIKE SHIT, FIX LATER
-      <v-checkbox label="Yes"></v-checkbox>
-      <v-checkbox v-model="sameAsLastMonth" label="No">No</v-checkbox>
-    </v-container> -->
-
-    <!-- <v-container v-show="sameAsLastMonth">
-      <monthly-schedule :monthlyId="id"/>
-    </v-container> -->
+    </v-container>
   
-    
+    <v-container>
       <br /><br />
         <router-link
           class="text-decoration-none"
@@ -53,6 +70,15 @@ export default {
   components: {},
   data() {
     return {
+      monthly: {
+        date: this.picker,
+        projectId: this.$store.state.project.id,
+        whyOne: '',
+        whyTwo: '',
+        whyThree: '',
+        whyFour: '',
+        whyFive: '',
+      },
       picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),

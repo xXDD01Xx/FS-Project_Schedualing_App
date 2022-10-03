@@ -1,6 +1,6 @@
 <template>
   <v-app v-show="populated">
-    <v-container
+    <v-container 
       v-for="item in monthlyItems"
       :key="item.id"
       id="item-container"

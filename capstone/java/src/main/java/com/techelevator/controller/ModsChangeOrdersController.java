@@ -26,7 +26,7 @@ public abstract class ModsChangeOrdersController
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping(path="/")
-    public void addToModsCO(@PathVariable int id)
+    public void addToModsCO(@RequestParam int id)
     {
 
     }

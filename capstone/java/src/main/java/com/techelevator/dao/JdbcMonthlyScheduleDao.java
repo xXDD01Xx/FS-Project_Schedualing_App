@@ -148,6 +148,29 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
         jdbcTemplate.update(sql, id);
     }
 
+    @Override
+    public void updateMonthlySchedule(MonthlySchedule monthlySchedule) {
+        String sql = "UPDATE monthly_schedule " +
+                "SET month_year = ?, " +
+                "schedule_notes = ?, " +
+                "pct_complete = ?, " +
+                "sched_prod_idx = ?, " +
+                "same_prev_month = ?, " +
+                "why_one = ?, " +
+                "why_two = ?, " +
+                "why_three = ?, " +
+                "why_four =  ?, " +
+                "why_five = ?, " +
+                "tasks_substantial = ?, " +
+                "tasks_construction = ? " +
+                "WHERE project_id = ?; ";
+        jdbcTemplate.update(sql, monthlySchedule.getMonthYear(), monthlySchedule.getScheduleNotes(),
+                monthlySchedule.getPctComplete(), monthlySchedule.getScheduleProdIdx(), monthlySchedule.isSamePrevMonth(),
+                monthlySchedule.getWhyOne(), monthlySchedule.getWhyTwo(), monthlySchedule.getWhyThree(),
+                monthlySchedule.getWhyFour(), monthlySchedule.getWhyFive(), monthlySchedule.getTasksSubstantial(),
+                monthlySchedule.getTasksConstruction(), monthlySchedule.getProjectId());
+    }
+
 
     private MonthlyPhaseItem mapRowToMonthlyPhaseItems(SqlRowSet rs) {
         MonthlyPhaseItem monthlyPhaseItem = new MonthlyPhaseItem();

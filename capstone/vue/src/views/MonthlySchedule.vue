@@ -103,7 +103,7 @@
         monthYear: "",
         phase: "",
         project: this.$store.state.project,
-        monthly: '',
+        monthly: {},
         monthlyItems: [],
         filteredMonthlyItems: [],
         flipper: '',

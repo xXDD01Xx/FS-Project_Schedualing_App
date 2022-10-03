@@ -55,12 +55,20 @@ public class MonthlyScheduleController {
         monthlyScheduleDao.updateMonthlyScheduleItem(monthlyPhaseItem);
     }
 
+
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @DeleteMapping(path = "/monthlyschedule/delete")
     public void deleteMonthlyScheduleItem(@PathVariable int id) {
         monthlyScheduleDao.deleteMonthlyScheduleItem(id);
     }
 
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PutMapping(path = "/monthlyschedule/update/{monthlySchedId}")
+    public void updateMonthlySchedule(@RequestBody MonthlySchedule monthlySchedule) {
+        monthlyScheduleDao.updateMonthlySchedule(monthlySchedule);
+    }
 
 }
 

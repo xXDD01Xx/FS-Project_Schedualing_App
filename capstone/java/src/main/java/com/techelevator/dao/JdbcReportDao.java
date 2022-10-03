@@ -32,7 +32,10 @@ public class JdbcReportDao implements ReportDao {
                 "item_tasks, " +
                 "month_year, " +
                 "phase, " +
-                "item_description "+
+                "item_description, "+
+                "schedule_notes, " +
+                "pct_complete, " +
+                "sched_prod_idx " +
                 "FROM current_items_vw;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -94,6 +97,9 @@ public class JdbcReportDao implements ReportDao {
         }
         statusReport.setPhase(rs.getString("phase"));
         statusReport.setItemDescription(rs.getString("item_description"));
+        statusReport.setSchedule_notes(rs.getString("schedule_notes"));
+        statusReport.setPct_complete(rs.getInt("pct_complete"));
+        statusReport.setSchedProdIdx(rs.getFloat("sched_prod_idx"));
         return statusReport;
     }
 

@@ -20,7 +20,7 @@ public class ReportController {
     @Autowired
     ReportDao reportDao;
 
-    @GetMapping(path = "/statusreport/")
+    @GetMapping(path = "/statusreport")
     public List<StatusReport> listStatusReport() {
         return reportDao.listStatusReport();
     }

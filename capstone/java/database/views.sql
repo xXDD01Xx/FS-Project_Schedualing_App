@@ -17,13 +17,13 @@ JOIN phase_items pi ON pi.id = mi.phase_item
 ORDER BY p.project_name, m.month_year, mi.item_date);
 
 CREATE OR REPLACE VIEW all_items_vw AS
-select c.contract_name, p.contract_id, p.project_name, p.id as project_id, phase_item, item_date, item_tasks, '2000-01-01' as month_year, pi.phase, pi.item_description
+select c.contract_name, p.contract_id, p.project_name, p.id as project_id, phase_item, item_date, item_tasks, '2000-01-01' as month_year, pi.phase, pi.item_description, '' as schedule_notes, 0 as pct_complete, 0.0 as sched_prod_idx
 from baseline_sched_items bi
 join project p ON p.id = bi.project_id
 join contract c ON c.id = p.contract_id
 join phase_items pi ON pi.id = bi.phase_item
 union all
-select c.contract_name, p.contract_id, p.project_name, m.project_id, phase_item, item_date, item_tasks, month_year, pi.phase, pi.item_description
+select c.contract_name, p.contract_id, p.project_name, m.project_id, phase_item, item_date, item_tasks, month_year, pi.phase, pi.item_description, m.schedule_notes, m.pct_complete, m.sched_prod_idx 
 from project p
 join contract c ON c.id = p.contract_id
 join monthly_schedule m on p.id=m.project_id

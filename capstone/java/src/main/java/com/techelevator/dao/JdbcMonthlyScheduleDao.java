@@ -30,6 +30,7 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "month_year, " +
                 "schedule_notes, " +
                 "pct_complete, " +
+                "sched_prod_idx " +
                 "same_prev_month, " +
                 "why_one, " +
                 "why_two, " +
@@ -54,6 +55,7 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "month_year, " +
                 "schedule_notes, " +
                 "pct_complete, " +
+                "sched_prod_idx " +
                 "same_prev_month, " +
                 "why_one, " +
                 "why_two, " +
@@ -171,6 +173,7 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
         }
         monthlySchedule.setScheduleNotes(rs.getString("schedule_notes"));
         monthlySchedule.setPctComplete(rs.getInt("pct_complete"));
+        monthlySchedule.setScheduleProdIdx(rs.getFloat("sched_prod_idx"));
         monthlySchedule.setSamePrevMonth(rs.getBoolean("same_prev_month"));
         monthlySchedule.setWhyOne(rs.getString("why_one"));
         monthlySchedule.setWhyTwo(rs.getString("why_two"));

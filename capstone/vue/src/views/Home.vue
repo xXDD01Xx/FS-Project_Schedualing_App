@@ -56,8 +56,17 @@
               >Monthly Update</v-btn>
               </router-link>
            </v-container>
+           <v-container>
+             <router-link class="text-decoration-none" :to="{path: '/log-mod-co'}">
+             <v-btn class="button"
+              color=#8c090e
+              elevation="2"
+              outlined
+            >Log Modification/Change Order</v-btn>
+             </router-link>
+           </v-container>
            <v-container id="pending-mod-co-container" class="my-2">
-             <router-link class="text-decoration-none" :to="{path: '/mods-co'}">
+             <router-link class="text-decoration-none" :to="{path: '/pending-mods-co'}">
              <v-btn class="button"
               color=#8c090e
               elevation="2"

@@ -22,6 +22,10 @@ import ListBaselineByID from '../views/ListBaselineByID.vue'
 import Baseline from '../views/Baseline.vue'
 import MonthlyUpdateById from '../views/MonthlyUpdateById.vue'
 import MonthlySchedule from "../views/MonthlySchedule.vue";
+import ModCOForm from '../views/ModCOForm.vue'
+import ModCOFormByID from '../views/ModCOFormByID.vue'
+
+
 
 Vue.use(Router)
 
@@ -119,9 +123,25 @@ const router = new Router({
       },
     },
     {
-      path: "/mods-co",
+      path: "/pending-mods-co",
       name: "ModsChangeOrders",
       component: ModsChangeOrders,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/log-mod-co",
+      name: "ModCOForm",
+      component: ModCOForm,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/log-mod-co/:id",
+      name: "ModCOFormByID",
+      component: ModCOFormByID,
       meta: {
         requiresAuth: true,
       },

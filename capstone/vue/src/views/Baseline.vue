@@ -20,13 +20,13 @@
             {{ project.projectName }}
           </td>
           <td>
-            {{ project.dateReceived }}
+            {{ new Date(project.dateReceived + " 05:00:00").toLocaleDateString(`en-US`, {dateStyle:"short"}) }}
           </td>
           <td>
-            {{ project.lastModified }}
+            {{ new Date(project.lastModified).toLocaleString(`en-US`, opts) }}
           </td>
           <td>
-            {{ project.budget }}
+            {{ project.budget.toLocaleString("en-US", {style:"currency", currency:"USD"}) }}
           </td>
           <td>
             {{ project.tasksConstruction }}

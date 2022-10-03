@@ -63,7 +63,7 @@
         </div>
       </v-container>
       <br>
-      <router-link :to="{ name: 'login' }">
+      <router-link class="text-decoration-none" :to="{ name: 'login' }">
         <v-btn class="button"
             color=#8c090e
             elevation="2"

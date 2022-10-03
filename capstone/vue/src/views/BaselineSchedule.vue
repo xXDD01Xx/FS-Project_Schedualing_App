@@ -64,7 +64,7 @@
         >Home
         </v-btn>
       </router-link>
-      <v-btn @click="check">click</v-btn>
+      <!-- <v-btn @click="check">click</v-btn> -->
     </div>
   </v-app>
 </template>

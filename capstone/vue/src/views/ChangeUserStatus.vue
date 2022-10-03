@@ -64,7 +64,7 @@
       </v-btn>
       <br><br>
     </div>
-    <v-btn @click="check">click</v-btn>
+    <!-- <v-btn @click="check">click</v-btn> -->
     <div class="text-center">
     <router-link :to="{ path: '/home' }" class="text-decoration-none">
       <v-btn color="#8c090e"

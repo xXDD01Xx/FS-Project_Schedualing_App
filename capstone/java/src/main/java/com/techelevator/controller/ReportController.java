@@ -21,7 +21,7 @@ public class ReportController {
     ReportDao reportDao;
 
     @GetMapping(path = "/statusreport/")
-    public List<StatusReport> listMonthlyScheduleItems() {
+    public List<StatusReport> listStatusReport() {
         return reportDao.listStatusReport();
     }
 

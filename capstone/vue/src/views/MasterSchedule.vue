@@ -1,12 +1,15 @@
 <template>
   <v-app>
+    <!-- <gantt-elastic :options="getOptions" :tasks="getTasks">
+      <gantt-header slot="header" :options="getOptions"></gantt-header>
+    </gantt-elastic> -->
     <v-container class="text-center">
       <router-link class="text-decoration-none" :to="{ path: '/home' }">
         <v-btn class="button" color="#8c090e" elevation="2" outlined
           >Home</v-btn
         >
       </router-link>
-      <v-simple-table>
+      <!-- <v-simple-table>
         <thead>
           <th>Contract</th>
           <th>Project</th>
@@ -25,44 +28,29 @@
             <td>{{ sched.durationDays }}</td>
           </tr>
         </tbody>
-      </v-simple-table>
+      </v-simple-table> -->
     </v-container>
-    <gantt-elastic :options="getOptions" :tasks="getTasks">
-      <gantt-header slot="header" :options="getOptions"></gantt-header>
-    </gantt-elastic>
+    <master-gantt></master-gantt>
   </v-app>
 </template>
 
 <script>
   import ReportService from "../services/ReportService";
-  import GanttElastic from "gantt-elastic";
-  import GanttHeader from "gantt-elastic-header";
+  // import GanttElastic from "gantt-elastic";
+  // import GanttHeader from "gantt-elastic-header";
+  import masterGantt from "../components/MasterGantt.vue";
 
   export default {
     name: "master-schedule",
     components: {
-      GanttElastic,
-      GanttHeader,
+      // GanttElastic,
+      // GanttHeader,
+      masterGantt,
     },
     data() {
       return {
         masterSchedules: [],
-        displaySchedules: [
-          // {
-          //   id: Number,
-          //   parentId: Number,
-          //   start: Date,
-          //   label: String,
-          //   duration: Number,
-          //   progress: Number,
-          //   type: String,
-          //   style: {
-          //     base: {
-          //       fill: String,
-          //     },
-          //   },
-          // },
-        ],
+        displaySchedules: [],
         options: {
           times: {
             timeZoom: 22,
@@ -130,7 +118,7 @@
           {
             id: 2,
             parentId: 29,
-            start: new Date(2022, 9, 1, 0, 0, 0).getTime(),
+            start: new Date("2022-10-01").getTime(),
             label: "Design",
             duration: 20 * 24 * 60 * 60 * 1000,
             progress: 0,
@@ -177,39 +165,47 @@
         ],
       };
     },
-    computed: {
-      getOptions() {
-        return this.options;
-      },
-      getTasks() {
-        return this.tasks;
-      },
-    },
+    // computed: {
+    //   getOptions() {
+    //     return this.options;
+    //   },
+    //   getTasks() {
+    //     return this.displaySchedules;
+    //   },
+    // },
     methods: {},
     created() {
       ReportService.getMaster().then((results) => {
         this.masterSchedules = results.data.filter((r) => r.start !== null);
-        console.log(this.masterSchedules);
-        let idx = Math.max(...this.masterSchedules.map((e)=>e.projectId));
+        // console.log(this.masterSchedules);
+        // this.tasks=[];
+        let idx = Math.max(...this.masterSchedules.map((e) => e.projectId));
+
+        // this.displaySchedules=[];
+        // console.log("Display sched:");
+        // console.log(this.displaySchedules);
+
         this.masterSchedules.forEach((e) => {
           // if (e.phase === "Project") {
           //   this.displaySchedules.id = e.projectId;
           // }
           const displayObj = {
-            id: Number,
-            parentId: Number,
-            start: Date,
-            label: String,
-            duration: Number,
-            progress: Number,
-            type: String,
+            id: 0,
+            parentId: 0,
+            start: 0,
+            label: "",
+            duration: 0,
+            progress: 0,
+            type: "",
             style: {
               base: {
-                fill: String,
+                fill: "",
               },
             },
           };
           idx++;
+          displayObj.start = new Date(e.start).getTime();
+          displayObj.duration = e.durationDays * 24 * 60 * 60 * 1000;
           if (e.phase === "Project") {
             displayObj.id = e.projectId;
             displayObj.label = e.projectName;
@@ -231,12 +227,12 @@
                 ? "purple"
                 : "";
           }
-          displayObj.start = e.start;
-          displayObj.duration = e.durationDays;
           this.displaySchedules.push(displayObj);
+          // console.log(displayObj);
+          // console.log(this.displaySchedules);
         });
-
-        console.log(this.displaySchedules);
+        this.$store.dispatch("SET_MASTER_SCHEDULE", this.displaySchedules);
+        this.tasks = this.displaySchedules;
       });
     },
   };

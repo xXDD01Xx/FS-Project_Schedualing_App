@@ -50,7 +50,7 @@ public class ModsChangeOrdersController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping(path = "/modco/getModCO/{id}")
+    @GetMapping(path = "/modco/getModCO/{id}")
     public ModChangeOrder getSingleModCO(@PathVariable int id) {
         return modsChangeOrdersDao.getSingleModCO(id);
     }

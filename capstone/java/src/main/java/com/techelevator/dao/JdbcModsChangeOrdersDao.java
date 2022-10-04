@@ -66,7 +66,7 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
                 "why_two, " +
                 "why_three, " +
                 "why_four, " +
-                "why_five, " +
+                "why_five " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         Integer modCoId = 0;
         try {

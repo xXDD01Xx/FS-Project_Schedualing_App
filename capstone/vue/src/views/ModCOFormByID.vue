@@ -145,6 +145,7 @@
 </template>
 
 <script>
+import ModCOService from '../services/ModCOService.js';
 import ProjectService from "../services/ProjectService.js";
 
   export default {
@@ -163,6 +164,7 @@ import ProjectService from "../services/ProjectService.js";
         budgetImpacted: '',
         name: '',
         project: {
+          id: '',
           projectName: "",
           dateReceived: "",
           budget: "",
@@ -171,6 +173,7 @@ import ProjectService from "../services/ProjectService.js";
         },
         mod_co: {
             name: '',
+            projectId: '',
             courtDate: '',
             scheduleImpacted: '',
             scheduleWhy: '',
@@ -190,7 +193,17 @@ import ProjectService from "../services/ProjectService.js";
     },
     methods: {
         logModCO(){
-            //
+            const id = this.project.id;
+            this.mod_co.projectId = id;
+            console.log(this.mod_co)
+            ModCOService.addModCO(this.mod_co).then((response) => {
+                if (response.status == 200 || response.status == 201){
+                    //
+                }
+            })
+            .catch((error) => {
+                alert(error)
+            })
         },
         setModCoScheduleImpact(){
             if (this.scheduleImpacted == "Yes"){

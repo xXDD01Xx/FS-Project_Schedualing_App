@@ -39,7 +39,7 @@
         <v-container>
             <v-form ref="form" lazy-validation>
                 <v-text-field
-                    v-model="mod_co.name"
+                    v-model="mod_co.modCoName"
                     label="Mod/CO Name"
                     required
                 ></v-text-field>
@@ -51,24 +51,31 @@
                 ></v-text-field>
 
                 <v-select
+                    v-model="mod_co.type"
+                    type="text"
+                    :items="type"
+                    label="Type"
+                    required
+                ></v-select>
+
+                <v-select
                     v-model="scheduleImpacted"
                     type="boolean"
                     :items="yesAndNo"
                     label="Will the Schedule be Impacted?"
                     required
                     @change="setModCoScheduleImpact"
-                    
                 ></v-select>
 
                 <v-textarea v-show="mod_co.scheduleImpacted"
                     label="How will the Schedule be Impacted?"
                     type="text"
-                    v-model="mod_co.scheduleHow"
+                    v-model="mod_co.howSchedImpact"
                 ></v-textarea>
                 <v-textarea v-show="mod_co.scheduleImpacted"
                     label="Why will the Schedule be Impacted?"
                     type="text"
-                    v-model="mod_co.scheduleWhy"
+                    v-model="mod_co.whySchedImpact"
                 ></v-textarea>
 
                 <v-select
@@ -84,12 +91,12 @@
                 <v-textarea v-show="mod_co.budgetImpacted"
                     label="How will the Budget be Impacted?"
                     type="text"
-                    v-model="mod_co.budgetHow"
+                    v-model="mod_co.howBudgetImpact"
                 ></v-textarea>
                 <v-textarea v-show="mod_co.budgetImpacted"
                     label="Why will the Budget be Impacted?"
                     type="text"
-                    v-model="mod_co.scheduleWhy"
+                    v-model="mod_co.whyBudgetImpact"
                 ></v-textarea>
 
 
@@ -160,6 +167,10 @@ import ProjectService from "../services/ProjectService.js";
             'Yes',
             'No'
         ],
+        type: [
+            'Modification',
+            'Change Order'
+        ],
         scheduleImpacted: '',
         budgetImpacted: '',
         name: '',
@@ -173,15 +184,15 @@ import ProjectService from "../services/ProjectService.js";
           //TODO Add contract Name? Add substantial/construction tasks
         },
         mod_co: {
-            name: '',
+            modCoName: '',
             projectId: '',
             courtDate: '',
             scheduleImpacted: '',
-            scheduleWhy: '',
-            scheduleHow: '',
+            whySchedImpact: '',
+            howSchedImpact: '',
             budgetImpacted: '',
-            budgetWhy: '',
-            budgetHow: '',
+            whyBudgetImpact: '',
+            howBudgetImpact: '',
             whySubmit: '',
             whyTwo: '',
             whyThree: '',
@@ -200,6 +211,7 @@ import ProjectService from "../services/ProjectService.js";
              ModCOService.addModCO(this.mod_co).then((response) => {
                 if (response.status == 200 || response.status == 201){
                     this.placeholder = response.data
+                    this.$router.push({name: 'home'})
                 }
             })
             .catch((error) => {

@@ -1,9 +1,6 @@
 <template>
   <v-container>
-    <gantt-elastic
-      :options="options"
-      :tasks="tasks"
-    >
+    <gantt-elastic :options="options" :tasks="tasks">
       <gantt-header slot="header" :options="options"></gantt-header>
     </gantt-elastic>
     <v-simple-table>
@@ -16,10 +13,7 @@
         <th>Duration</th>
       </thead>
       <tbody>
-        <tr
-          v-for="(task, index) in tasks"
-          :key="index"
-        >
+        <tr v-for="(task, index) in tasks" :key="index">
           <td>{{ task.contractName }}</td>
           <td>{{ task.projectName }}</td>
           <td>{{ task.phase }}</td>
@@ -107,13 +101,19 @@
             "Display task list": "Task list",
           },
         },
+        taskList: [],
       };
     },
-    computed:{
-        tasks(){
-            return this.$store.getters.getSched;
-        }
-    }
+    computed: {
+      tasks() {
+        return this.$store.getters.getSched;
+      },
+    },
+    mounted() {
+      console.log("getsched: ", this.$store.getters.getSched);
+      this.taskList = this.$store.getters.getSched;
+      console.log("tasks: ",this.tasks);
+    },
   };
 </script>
 

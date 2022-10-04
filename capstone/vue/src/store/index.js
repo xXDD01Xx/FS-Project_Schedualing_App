@@ -18,57 +18,57 @@ if (currentToken != null) {
 }
 
 export default new Vuex.Store({
-  state: {
-    token: currentToken || "",
-    user: currentUser || {},
-    users: [],
-    project: currentProject || {},
-    masterSchedule: [],
-    schedLoaded: false,
-  },
-  mutations: {
-    SET_AUTH_TOKEN(state, token) {
-      state.token = token;
-      localStorage.setItem("token", token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    state: {
+        token: currentToken || "",
+        user: currentUser || {},
+        users: [],
+        project: currentProject || {},
+        masterSchedule: [],
+        schedLoaded: false,
     },
-    ADD_ALL_USERS(state, user) {
-      state.users = user;
-    },
-    SET_USER(state, user) {
-      state.user = user;
-      localStorage.setItem("user", JSON.stringify(user));
-    },
-    LOGOUT(state) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      state.token = "";
-      state.user = {};
-      axios.defaults.headers.common = {};
-    },
-    SET_PROJECT(state, project) {
-      state.project = project;
-      localStorage.setItem("project", JSON.stringify(project));
-    },
+    mutations: {
+        SET_AUTH_TOKEN(state, token) {
+            state.token = token;
+            localStorage.setItem("token", token);
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        },
+        ADD_ALL_USERS(state, user) {
+            state.users = user;
+        },
+        SET_USER(state, user) {
+            state.user = user;
+            localStorage.setItem("user", JSON.stringify(user));
+        },
+        LOGOUT(state) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            state.token = "";
+            state.user = {};
+            axios.defaults.headers.common = {};
+        },
+        SET_PROJECT(state, project) {
+            state.project = project;
+            localStorage.setItem("project", JSON.stringify(project));
+        },
 
-    EMPTY_PROJECT(state) {
-      state.project = {};
-    },
+        EMPTY_PROJECT(state) {
+            state.project = {};
+        },
 
-    SET_MASTER_SCHEDULE(state, sched) {
-      state.masterSchedule = sched;
-      state.schedLoaded = true;
+        SET_MASTER_SCHEDULE(state, sched) {
+            state.masterSchedule = sched;
+            state.schedLoaded = true;
+        },
     },
-  },
-  getters: {
-    getSched(state) {
-      return state.masterSchedule;
+    getters: {
+        getSched(state) {
+            return state.masterSchedule;
+        },
     },
-  },
-  actions: {
-    SET_MASTER_SCHEDULE({ commit }) {
-      commit('SET_MASTER_SCHEDULE');
+    actions: {
+        SET_MASTER_SCHEDULE({ commit }) {
+            commit('SET_MASTER_SCHEDULE');
+        },
     },
-  },
   strict: true,
 });

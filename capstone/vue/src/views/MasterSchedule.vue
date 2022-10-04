@@ -176,7 +176,7 @@
     methods: {},
     created() {
       ReportService.getMaster().then((results) => {
-        this.masterSchedules = results.data.filter((r) => r.start !== null);
+        this.masterSchedules = results.data.filter((r) => r.start !== null && r.projectId===1);
         // console.log(this.masterSchedules);
         // this.tasks=[];
         let idx = Math.max(...this.masterSchedules.map((e) => e.projectId));
@@ -231,8 +231,8 @@
           // console.log(displayObj);
           // console.log(this.displaySchedules);
         });
-        this.$store.dispatch("SET_MASTER_SCHEDULE", this.displaySchedules);
-        this.tasks = this.displaySchedules;
+        this.$store.commit("SET_MASTER_SCHEDULE", this.displaySchedules);
+        // this.tasks = this.displaySchedules;
       });
     },
   };

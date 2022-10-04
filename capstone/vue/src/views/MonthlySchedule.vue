@@ -39,11 +39,11 @@
           :readonly="true"
         ></v-text-field>
 
-        <v-radio-group row v-model="flipper">
+        <!-- <v-radio-group row v-model="flipper">
           <h3>Same as Last Month?</h3>
           <v-radio label="Yes" value=true @click="flipTheFlipper"></v-radio>
           <v-radio label="No" value=false @click="flipTheFlipper"></v-radio>
-        </v-radio-group>
+        </v-radio-group> -->
 
       </v-form>
     </v-container>

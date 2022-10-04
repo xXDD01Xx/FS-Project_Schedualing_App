@@ -31,7 +31,7 @@ join monthly_sched_items mi ON mi.monthly_sched_id = m.id
 join phase_items pi ON pi.id = mi.phase_item;
 
 CREATE OR REPLACE VIEW schedule_vw AS
-select contract_name, contract_id, project_name, project_id, phase, min(item_date) as start_dt, max(item_date) as end_dt, max(item_date)-min(item_date)+1 as duration_days
+select contract_name, contract_id, project_name, project_id, phase, min(item_date) as start_dt, max(item_date) as end_dt, max(item_date)-min(item_date)+1 as duration_days, max(pct_complete) as pct_complete
 from all_items_vw a
 where month_year = (select max(month_year) from all_items_vw sq where sq.project_id=a.project_id and sq.phase_item=a.phase_item)
 and phase != 'TNR Hold'

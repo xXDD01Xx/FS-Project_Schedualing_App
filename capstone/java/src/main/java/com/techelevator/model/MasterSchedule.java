@@ -11,6 +11,7 @@ public class MasterSchedule {
     private LocalDate start;
     private LocalDate end;
     private int durationDays;
+    private int pctComplete;
 
     public String getContractName() {
         return contractName;
@@ -74,5 +75,13 @@ public class MasterSchedule {
 
     public void setDurationDays(int durationDays) {
         this.durationDays = durationDays;
+    }
+
+    public int getPctComplete() {
+        return pctComplete;
+    }
+
+    public void setPctComplete(int pctComplete) {
+        this.pctComplete = pctComplete;
     }
 }

@@ -26,9 +26,9 @@ public class ModsChangeOrdersController
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping(path="/modco/new")
-    public void addToModsCO(@RequestParam int projectId)
+    public void addToModsCO(@RequestBody ModChangeOrder modChangeOrder)
     {
-        modsChangeOrdersDao.addToModsCO(projectId);
+        modsChangeOrdersDao.addToModsCO(modChangeOrder);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -43,5 +43,19 @@ public class ModsChangeOrdersController
     public void deleteModsCO(@PathVariable int id)
     {
         modsChangeOrdersDao.deleteModsChangeCO(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping(path="/modco/changeStatus")
+    public boolean changeApprovedStatus(@PathVariable int id, boolean status)
+    {
+        return modsChangeOrdersDao.changeApprovedStatus(id, status);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping(path="/modco/getModCO")
+    public ModChangeOrder getSingleModCO(@PathVariable int id)
+    {
+        return modsChangeOrdersDao.getSingleModCO(id);
     }
 }

@@ -64,7 +64,8 @@ public class JdbcReportDao implements ReportDao {
                 "phase, " +
                 "start_dt, " +
                 "end_dt, " +
-                "duration_days " +
+                "duration_days, " +
+                "pct_complete " +
                 "FROM schedule_vw " +
                 "UNION ALL " +
                 "SELECT contract_name, " +
@@ -74,12 +75,14 @@ public class JdbcReportDao implements ReportDao {
                 "'Project', " +
                 "MIN(start_dt), " +
                 "MAX(end_dt), " +
-                "SUM(duration_days) " +
+                "SUM(duration_days), " +
+                "pct_complete " +
                 "FROM schedule_vw " +
                 "GROUP BY contract_name, " +
                 "contract_id, " +
                 "project_name, " +
-                "project_id;";
+                "project_id, " +
+                "pct_complete;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             masterSchedules.add(mapRowToMasterSchedule(results));
@@ -101,6 +104,7 @@ public class JdbcReportDao implements ReportDao {
             masterSchedule.setEnd(rs.getDate("end_dt").toLocalDate());
         }
         masterSchedule.setDurationDays(rs.getInt("duration_days"));
+        masterSchedule.setPctComplete(rs.getInt("pct_complete"));
         return masterSchedule;
     }
 

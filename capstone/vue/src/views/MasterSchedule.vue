@@ -47,7 +47,22 @@
     data() {
       return {
         masterSchedules: [],
-        displaySchedules: [],
+        displaySchedules: [
+          // {
+          //   id: Number,
+          //   parentId: Number,
+          //   start: Date,
+          //   label: String,
+          //   duration: Number,
+          //   progress: Number,
+          //   type: String,
+          //   style: {
+          //     base: {
+          //       fill: String,
+          //     },
+          //   },
+          // },
+        ],
         options: {
           times: {
             timeZoom: 22,
@@ -117,7 +132,6 @@
             parentId: 29,
             start: new Date(2022, 9, 1, 0, 0, 0).getTime(),
             label: "Design",
-            user: "",
             duration: 20 * 24 * 60 * 60 * 1000,
             progress: 0,
             type: "milestone",
@@ -130,7 +144,6 @@
             parentId: 29,
             start: new Date(2022, 9, 21, 0, 0, 0).getTime(),
             label: "Pre-Construction",
-            user: "",
             duration: 20 * 24 * 60 * 60 * 1000,
             progress: 0,
             type: "milestone",
@@ -143,7 +156,6 @@
             parentId: 29,
             start: new Date(2022, 10, 11, 0, 0, 0).getTime(),
             label: "Construction",
-            user: "",
             duration: 20 * 24 * 60 * 60 * 1000,
             progress: 0,
             type: "milestone",
@@ -155,7 +167,6 @@
             id: 29,
             start: new Date(2022, 9, 1, 0, 0, 0).getTime(),
             label: "Project 1",
-            user: "",
             duration: 60 * 24 * 60 * 60 * 1000,
             progress: 50,
             type: "project",
@@ -178,15 +189,55 @@
     created() {
       ReportService.getMaster().then((results) => {
         this.masterSchedules = results.data.filter((r) => r.start !== null);
-      });
-      this.masterSchedules.forEach((e) => {
-        // if (e.phase === "Project") {
-        //   this.displaySchedules.id = e.projectId;
-        // }
-        this.displaySchedules.id = (e.phase === "Project")?e.projectId:e.index;
-      });
+        console.log(this.masterSchedules);
+        let idx = Math.max(...this.masterSchedules.map((e)=>e.projectId));
+        this.masterSchedules.forEach((e) => {
+          // if (e.phase === "Project") {
+          //   this.displaySchedules.id = e.projectId;
+          // }
+          const displayObj = {
+            id: Number,
+            parentId: Number,
+            start: Date,
+            label: String,
+            duration: Number,
+            progress: Number,
+            type: String,
+            style: {
+              base: {
+                fill: String,
+              },
+            },
+          };
+          idx++;
+          if (e.phase === "Project") {
+            displayObj.id = e.projectId;
+            displayObj.label = e.projectName;
+            displayObj.progress = e.pctComplete;
+            displayObj.type = "project";
+            displayObj.style.base.fill = "red";
+          } else {
+            displayObj.id = idx;
+            displayObj.parentId = e.projectId;
+            displayObj.label = e.phase;
+            displayObj.progress = 0;
+            displayObj.type = "milestone";
+            displayObj.style.base.fill =
+              e.phase === "Design"
+                ? "blue"
+                : e.phase === "Pre-Construction"
+                ? "orange"
+                : e.phase === "Construction"
+                ? "purple"
+                : "";
+          }
+          displayObj.start = e.start;
+          displayObj.duration = e.durationDays;
+          this.displaySchedules.push(displayObj);
+        });
 
-      console.log(this.displaySchedules);
+        console.log(this.displaySchedules);
+      });
     },
   };
 </script>

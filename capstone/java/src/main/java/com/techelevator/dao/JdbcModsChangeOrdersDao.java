@@ -105,6 +105,14 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
         jdbcTemplate.update(sql, id);
     }
 
+    @Override
+    public boolean changeApprovedStatus(int id, boolean status)
+    {
+       String updateModCoSql = "UPDATE mods_change SET approved = ?, approv_datetm = current_timestamp;";
+       return jdbcTemplate.update(updateModCoSql, status, id) == 1;
+    }
+
+
     private ModChangeOrder mapRowToModsCO(SqlRowSet rs) {
         ModChangeOrder modChangeOrder = new ModChangeOrder();
         modChangeOrder.setId(rs.getInt("id"));

@@ -44,4 +44,11 @@ public class ModsChangeOrdersController
     {
         modsChangeOrdersDao.deleteModsChangeCO(id);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping(path="/modco/changeStatus")
+    public boolean changeApprovedStatus(@PathVariable int id, boolean status)
+    {
+        return modsChangeOrdersDao.changeApprovedStatus(id, status);
+    }
 }

@@ -78,7 +78,7 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
                     modChangeOrder.getWhyThree(), modChangeOrder.getWhyFour(), modChangeOrder.getWhyFive(),
                     modChangeOrder.isApproved(), modChangeOrder.getApproveDateTm());
             sql = "SELECT MAX(id) FROM mods_changes WHERE project_id = ? ;";
-            modCoId = jdbcTemplate.queryForObject(sql, Integer.class);
+            modCoId = jdbcTemplate.queryForObject(sql, Integer.class, modChangeOrder.getProjectId());
         } catch (NullPointerException e) {
             System.out.println("Unable to retrieve new modification or change order...");
         } catch (DataAccessException e) {

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-// import ReportService from "../services/ReportService";
 
 Vue.use(Vuex);
 
@@ -59,16 +58,6 @@ export default new Vuex.Store({
         SET_MASTER_SCHEDULE(state, sched) {
             state.masterSchedule = sched;
             state.schedLoaded = true;
-        },
-    },
-    getters: {
-        getSched(state) {
-            return state.masterSchedule;
-        },
-    },
-    actions: {
-        SET_MASTER_SCHEDULE({ commit }) {
-            commit('SET_MASTER_SCHEDULE');
         },
     },
   strict: true,

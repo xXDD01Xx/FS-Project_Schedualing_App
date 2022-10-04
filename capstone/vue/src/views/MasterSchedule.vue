@@ -1,34 +1,11 @@
 <template>
   <v-app>
-    <!-- <gantt-elastic :options="getOptions" :tasks="getTasks">
-      <gantt-header slot="header" :options="getOptions"></gantt-header>
-    </gantt-elastic> -->
     <v-container class="text-center">
       <router-link class="text-decoration-none" :to="{ path: '/home' }">
         <v-btn class="button" color="#8c090e" elevation="2" outlined
           >Home</v-btn
         >
       </router-link>
-      <!-- <v-simple-table>
-        <thead>
-          <th>Contract</th>
-          <th>Project</th>
-          <th>Phase</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Duration</th>
-        </thead>
-        <tbody>
-          <tr v-for="(sched, index) in masterSchedules" :key="index">
-            <td>{{ sched.contractName }}</td>
-            <td>{{ sched.projectName }}</td>
-            <td>{{ sched.phase }}</td>
-            <td>{{ sched.start }}</td>
-            <td>{{ sched.end }}</td>
-            <td>{{ sched.durationDays }}</td>
-          </tr>
-        </tbody>
-      </v-simple-table> -->
     </v-container>
     <master-gantt></master-gantt>
   </v-app>
@@ -36,15 +13,11 @@
 
 <script>
   import ReportService from "../services/ReportService";
-  // import GanttElastic from "gantt-elastic";
-  // import GanttHeader from "gantt-elastic-header";
   import masterGantt from "../components/MasterGantt.vue";
 
   export default {
     name: "master-schedule",
     components: {
-      // GanttElastic,
-      // GanttHeader,
       masterGantt,
     },
     data() {
@@ -165,14 +138,6 @@
         ],
       };
     },
-    // computed: {
-    //   getOptions() {
-    //     return this.options;
-    //   },
-    //   getTasks() {
-    //     return this.displaySchedules;
-    //   },
-    // },
     methods: {},
     created() {
       ReportService.getMaster().then((results) => {

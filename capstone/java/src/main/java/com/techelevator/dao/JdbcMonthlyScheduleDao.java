@@ -131,7 +131,13 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
         String sql = "INSERT INTO monthly_sched_items " +
                 "(monthly_sched_id, phase_item, item_date, item_tasks) " +
                 "VALUES (?,?,?,?);";
-        jdbcTemplate.update(sql, monthlyPhaseItem.getMonthlyScheduleId(), monthlyPhaseItem.getPhaseItemId(), monthlyPhaseItem.getItemDate(), monthlyPhaseItem.getItemTasks());
+        try {
+            jdbcTemplate.update(sql, monthlyPhaseItem.getMonthlyScheduleId(), monthlyPhaseItem.getPhaseItemId(), monthlyPhaseItem.getItemDate(), monthlyPhaseItem.getItemTasks());
+        }catch(NullPointerException e){
+            System.out.println("Unable to retrieve monthly schedule item...");
+        }catch(DataAccessException e){
+            System.out.println("Unable to access data...");
+        }
     }
 
     @Override

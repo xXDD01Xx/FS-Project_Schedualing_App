@@ -2,12 +2,14 @@
   <v-app>
     <v-container>
       <v-simple-table v-show="!populated">
-        <thead>
+        <thead style="display:table-header-group;" >
+        <tr>
           <th>Name</th>
           <th>Court Date</th>
           <th>Schedule Impacted?</th>
           <th>Budget Impacted?</th>
           <th>View Details</th>
+        </tr>
         </thead>
         <tbody>
           <tr v-for="mod in filteredMods" :key="mod.id">

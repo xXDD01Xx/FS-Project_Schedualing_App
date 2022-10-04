@@ -1,8 +1,8 @@
 <template>
   <v-app
-    ><br />
-    <h2 class="text-center">Select a Month</h2>
-    <br />
+  ><div><br></div>
+    <h2 class="text-center">Monthly Update</h2>
+    <div><br></div>
     <v-container class="text-center">
       <v-date-picker
         v-model="monthly.monthYear"
@@ -10,11 +10,13 @@
         type="month"
       ></v-date-picker>
       <!-- <v-btn @click="check">click</v-btn> -->
+      <br>
       <v-radio-group row v-model="flipper" mandatory>
-        <h3>Same as Last Month?</h3>
+        <h3>Same as Last Month?</h3><v-tab></v-tab>
         <v-radio label="Yes" value="true" @click="flipTheFlipper"></v-radio>
         <v-radio label="No" value="false" @click="flipTheFlipper"></v-radio>
       </v-radio-group>
+      <br>
       <v-textarea
         label="Schedule Notes"
         type="text"
@@ -60,7 +62,7 @@
       </v-textarea>
       <v-textarea label="Why 5?" type="text" v-model="monthly.whyFive">
       </v-textarea>
-
+<br>
       <v-btn
         class="text-decoration-none text-center"
         color="#8c090e"
@@ -71,15 +73,13 @@
       >
     </v-container>
 
-    <v-container>
+    <v-container class="text-center">
       <br /><br />
       <router-link
         class="text-decoration-none"
-        :to="{ path: '/monthlyUpdate' }"
-      >
+        :to="{ path: '/monthlyUpdate' }">
         <v-btn class="button" color="#8c090e" elevation="2" outlined
-          >Back</v-btn
-        >
+          >Back</v-btn>
       </router-link>
       <router-link class="text-decoration-none" :to="{ path: '/home' }">
         <v-btn class="button" color="#8c090e" elevation="2" outlined

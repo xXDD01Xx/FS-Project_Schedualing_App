@@ -1,8 +1,12 @@
 <template>
   <v-app>
-
+<div><br><br></div>
+    <br />
+    <h2 class="text-center">Status Report</h2>
+    <br /><br />
     <v-simple-table>
-      <thead>
+      <thead style="display:table-header-group;" >
+      <tr>
         <th>Contract</th>
         <th>Project</th>
         <th>Phase</th>
@@ -10,6 +14,7 @@
         <th>Percent Complete</th>
         <th>SPI</th>
         <th>Project Notes</th>
+      </tr>
       </thead>
       <tbody>
         <tr v-for="(stat, index) in statusReport" :key="index">
@@ -25,6 +30,12 @@
     </v-simple-table>
     <div class="text-center">
       <br><br>
+      <router-link
+          class="text-decoration-none"
+          :to="{ path: '/home' }">
+        <v-btn class="button" color="#8c090e" elevation="2" outlined
+        >Back</v-btn>
+      </router-link>
       <router-link class="text-decoration-none" :to="{ path: '/home' }">
         <v-btn class="button" color="#8c090e" elevation="2" outlined
         >Home</v-btn

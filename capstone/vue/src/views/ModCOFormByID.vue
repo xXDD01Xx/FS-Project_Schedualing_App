@@ -137,16 +137,26 @@
                 elevation="2"
                 outlined
                 @click="logModCO"
-                >Submit Mod/CO</v-btn
+                >Submit Modification/Change Order</v-btn
             ></div>
             <div v-show="addProjectSuccess">{{ addProjectSuccessMessage }}</div>
             <div v-show="addProjectFailure">{{ addProjectFailureMessage }}</div>
         
             <div class="text-center">
-                <br><br>
-            <router-link class="text-decoration-none" :to="{ path: '/home' }">
-                <v-btn class="button" color="#8c090e" elevation="2" outlined>Home</v-btn>
-            </router-link>
+              <v-container class="text-center">
+                <br /><br />
+                <router-link
+                    class="text-decoration-none"
+                    :to="{ path: '/viewProjects' }">
+                  <v-btn class="button" color="#8c090e" elevation="2" outlined
+                  >Back</v-btn>
+                </router-link>
+                <router-link class="text-decoration-none" :to="{ path: '/home' }">
+                  <v-btn class="button" color="#8c090e" elevation="2" outlined
+                  >Home</v-btn
+                  >
+                </router-link>
+              </v-container>
         </div>
     </v-app>
 </template>

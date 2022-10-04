@@ -129,7 +129,7 @@ export default {
   border-top: 4px;
 }
 
-td{
-  align-content: right;
-}
+/*td{*/
+/*  align-content: flex-end;*/
+/*}*/
 </style>

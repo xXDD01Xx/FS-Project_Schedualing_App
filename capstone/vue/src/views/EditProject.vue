@@ -1,7 +1,8 @@
 <template>
   <v-app>
+    <div><br><br></div>
     <v-container>
-      <h2>{{ this.$store.state.project.projectName }}</h2>
+      <h2 class="text-center">{{ this.$store.state.project.projectName }}</h2><br>
       <v-text-field type="text" label="Name"
       v-model="project.projectName"
       required></v-text-field>
@@ -20,9 +21,9 @@
 
       <v-text-field type="text" label="Substantial Tasks" 
       v-model="project.tasksSubstantial"
-      required></v-text-field>
+      required></v-text-field><br>
+      <div class="text-center">
     <v-btn
-
     class="button" color="#76a1c0" elevation="2"
     outlined type="submit" @click="updateProject"
     >Submit Changes</v-btn>
@@ -41,8 +42,10 @@
     class="button" color="#76a1c0" elevation="2"
     outlined type="submit" @click="toggleDelete"
     >Cancel</v-btn>
-
+      <br><br>
+      </div>
     </v-container>
+    <div class="text-center">
     <router-link class="text-decoration-none" :to="{path: '/home'}">
       <v-btn class="button"
             color=#8c090e
@@ -50,6 +53,7 @@
             outlined
       >Home</v-btn>
     </router-link>
+    </div>
   </v-app>
 </template>
 

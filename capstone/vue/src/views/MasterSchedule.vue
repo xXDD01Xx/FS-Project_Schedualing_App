@@ -47,9 +47,10 @@
     data() {
       return {
         masterSchedules: [],
+        displaySchedules: [],
         options: {
-          times:{
-            timeZoom:22
+          times: {
+            timeZoom: 22,
           },
           title: {
             label: "Master Schedule",
@@ -112,20 +113,8 @@
         },
         tasks: [
           {
-            id: 1,
-            start: new Date(2022, 9, 1, 0, 0, 0).getTime(),
-            label: "Project 1",
-            user: "",
-            duration: 60 * 24 * 60 * 60 * 1000,
-            progress: 50,
-            type: "project",
-            style: {
-              base: { fill: "red" },
-            }
-          },
-          {
             id: 2,
-            parentId: 1,
+            parentId: 29,
             start: new Date(2022, 9, 1, 0, 0, 0).getTime(),
             label: "Design",
             user: "",
@@ -134,11 +123,11 @@
             type: "milestone",
             style: {
               base: { fill: "blue" },
-            }
+            },
           },
           {
             id: 3,
-            parentId: 1,
+            parentId: 29,
             start: new Date(2022, 9, 21, 0, 0, 0).getTime(),
             label: "Pre-Construction",
             user: "",
@@ -147,11 +136,11 @@
             type: "milestone",
             style: {
               base: { fill: "orange" },
-            }
+            },
           },
           {
             id: 4,
-            parentId: 1,
+            parentId: 29,
             start: new Date(2022, 10, 11, 0, 0, 0).getTime(),
             label: "Construction",
             user: "",
@@ -160,7 +149,19 @@
             type: "milestone",
             style: {
               base: { fill: "purple" },
-            }
+            },
+          },
+          {
+            id: 29,
+            start: new Date(2022, 9, 1, 0, 0, 0).getTime(),
+            label: "Project 1",
+            user: "",
+            duration: 60 * 24 * 60 * 60 * 1000,
+            progress: 50,
+            type: "project",
+            style: {
+              base: { fill: "red" },
+            },
           },
         ],
       };
@@ -176,8 +177,16 @@
     methods: {},
     created() {
       ReportService.getMaster().then((results) => {
-        this.masterSchedules = results.data;
+        this.masterSchedules = results.data.filter((r) => r.start !== null);
       });
+      this.masterSchedules.forEach((e) => {
+        // if (e.phase === "Project") {
+        //   this.displaySchedules.id = e.projectId;
+        // }
+        this.displaySchedules.id = (e.phase === "Project")?e.projectId:e.index;
+      });
+
+      console.log(this.displaySchedules);
     },
   };
 </script>

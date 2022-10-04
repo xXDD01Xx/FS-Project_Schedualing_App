@@ -32,7 +32,7 @@ public class JdbcReportDao implements ReportDao {
                 "item_tasks, " +
                 "month_year, " +
                 "phase, " +
-                "item_description, "+
+                "item_description, " +
                 "schedule_notes, " +
                 "pct_complete, " +
                 "sched_prod_idx " +
@@ -57,6 +57,29 @@ public class JdbcReportDao implements ReportDao {
                 "end_dt, " +
                 "duration_days " +
                 "FROM schedule_vw;";
+        sql = "SELECT contract_name, " +
+                "contract_id, " +
+                "project_name, " +
+                "project_id, " +
+                "phase, " +
+                "start_dt, " +
+                "end_dt, " +
+                "duration_days " +
+                "FROM schedule_vw " +
+                "UNION ALL " +
+                "SELECT contract_name, " +
+                "contract_id, " +
+                "project_name, " +
+                "project_id, " +
+                "'Project', " +
+                "MIN(start_dt), " +
+                "MAX(end_dt), " +
+                "SUM(duration_days) " +
+                "FROM schedule_vw " +
+                "GROUP BY contract_name, " +
+                "contract_id, " +
+                "project_name, " +
+                "project_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             masterSchedules.add(mapRowToMasterSchedule(results));
@@ -81,7 +104,7 @@ public class JdbcReportDao implements ReportDao {
         return masterSchedule;
     }
 
-    private StatusReport mapRowToStatusReport(SqlRowSet rs){
+    private StatusReport mapRowToStatusReport(SqlRowSet rs) {
         StatusReport statusReport = new StatusReport();
         statusReport.setContractName(rs.getString("contract_name"));
         statusReport.setContractId(rs.getInt("contract_id"));

@@ -135,6 +135,7 @@ export default {
     methods: {
         approve(id){
             const status = true;
+            console.log(status)
             ModCOService.changeStatus(id, status).then((response) =>{
                 if (response.status == 200 || response.status == 201){
                     this.$router.push({name: 'home'})
@@ -167,8 +168,6 @@ export default {
        }else if (this.mod_co.budgetImpacted == false){
            this.budget = 'No'
        }
-       console.log(this.sched)
-       console.log(this.budget)
        })
     }
 

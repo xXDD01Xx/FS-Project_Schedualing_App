@@ -44,8 +44,10 @@ public class ModsChangeOrdersController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PutMapping(path = "/modco/{id}/changeStatus")
-    public boolean changeApprovedStatus(@PathVariable int id, @RequestBody boolean status) {
+    @PutMapping(path = "/modco/changeStatus")
+    public boolean changeApprovedStatus(
+            @RequestParam boolean status,
+            @RequestParam int id) {
         return modsChangeOrdersDao.changeApprovedStatus(id, status);
     }
 

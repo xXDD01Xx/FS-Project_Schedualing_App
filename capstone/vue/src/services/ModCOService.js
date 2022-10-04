@@ -14,7 +14,7 @@ export default {
     },
 
     changeStatus(id, status){
-        return axios.put(`/modco/${id}/changeStatus`, status)
+        return axios.put(`/modco/changeStatus?id=${id}&status=${status}`)
     }
 
 

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container>
-      <v-simple-table>
+      <v-simple-table v-show="!populated">
         <thead>
           <th>Name</th>
           <th>Court Date</th>
@@ -10,7 +10,7 @@
           <th>View Details</th>
         </thead>
         <tbody>
-          <tr v-for="mod in modList" :key="mod.id">
+          <tr v-for="mod in filteredMods" :key="mod.id">
             <td>{{mod.modCoName}}</td>
             <td>{{mod.courtDate}}</td>
             <td>{{mod.scheduleImpacted}}</td>
@@ -26,6 +26,7 @@
           </tr>
         </tbody>
       </v-simple-table>
+      <h1 class="text-center" v-if="populated">No Pending Mod/COs</h1>
     </v-container>
     <router-link class="text-decoration-none" :to="{path: '/home'}">
       <v-btn class="button"
@@ -59,9 +60,14 @@ export default {
         this.modList = response.data;
       }
       this.filteredMods = this.modList.filter((each) => {
-        return each.approveDateTm === null;
+        return each.approveDateTm == null;
       })
     })
+  },
+  computed: {
+    populated(){
+      return this.filteredMods.length <= 0;
+    }
   }
 
 }

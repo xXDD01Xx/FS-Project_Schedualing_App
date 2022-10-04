@@ -7,8 +7,8 @@ export default {
     );
   },
 
-  updateMonthly(id, monthly){
-    return axios.put(`/monthlyschedule/update/${id}`, monthly)
+  updateMonthly(monthly){
+    return axios.put(`/monthlyschedule/update`, monthly)
   },
 
   getMonthly(id) {
@@ -20,6 +20,6 @@ export default {
   },
   
   updateMonthlyItem(item) {
-    return axios.put(`/monthlyschedule/update`, item);
+    return axios.put(`/monthlyschedule/items/update/`, item);
   },
 };

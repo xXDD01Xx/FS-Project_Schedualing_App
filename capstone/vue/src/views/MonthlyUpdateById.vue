@@ -29,6 +29,17 @@
         v-model="monthly.scheduleProdIdx"
         required
       ></v-text-field>
+      <v-text-field
+        label="Substantial Tasks"
+        type="text"
+        v-model="monthly.tasksSubstantial"
+        required
+      ></v-text-field><v-text-field
+        label="Construction Tasks"
+        type="text"
+        v-model="monthly.tasksConstruction"
+        required
+      ></v-text-field>
       <v-textarea
         label="Why did the Schedule Change?"
         type="text"
@@ -60,7 +71,7 @@
         color="#8c090e"
         elevation="2"
         outlined
-        @click="addMonthly(monthly)"
+        @click="addMonthly()"
         >Confirm</v-btn
       >
     </v-container>
@@ -95,6 +106,7 @@ export default {
     return {
       flipper: '',
       monthly: {
+        id: '',
         monthYear: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -102,6 +114,8 @@ export default {
         scheduleNotes: '',
         pctComplete: '',
         scheduleProdIdx: '',
+        tasksSubstantial: '',
+        tasksConstruction: '',
         samePrevMonth: '',
         whyOne: '',
         whyTwo: '',
@@ -128,24 +142,27 @@ export default {
           this.monthly.samePrevMonth = false;
         }
       },
-    addMonthly(monthly) {
+    addMonthly() {
       const projId = this.monthly.projectId
-      const time = this.monthly.date + '-01';
+      const time = this.monthly.monthYear + '-01';
+      this.monthly.monthYear = time;
+      console.log('this',this.monthly)
+      console.log('param')
       MonthlyService.addMonthly(time, projId).then(
         (response) => {
           if (response.status == 200 || response.status == 201) {
             // console.log(response.data)
-            this.id = response.data;
-            console.log(this.id)
+            this.monthly.id = response.data;
+            console.log(this.monthly.id)
           }
-          console.log(this.id)
-          MonthlyService.updateMonthly(this.id, monthly).then((response) => {
+          // console.log(this.id)
+          MonthlyService.updateMonthly(this.monthly).then((response) => {
             if (response.status == 200 || response.status == 201){
-              this.$router.push({name: 'MonthlySchedule', params: {id: this.id}})
+              this.$router.push({name: 'MonthlySchedule', params: {id: this.monthly.id}})
             }
           })
           .catch((error) => {
-            alert(error.state.data)
+            alert(error)
           })
         })
       .catch((error) => {

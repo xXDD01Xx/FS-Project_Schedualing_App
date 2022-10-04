@@ -28,6 +28,7 @@
           type="text"
           v-model="monthly.scheduleNotes"
           required
+          :readonly="true"
         ></v-text-field>
 
         <v-text-field
@@ -35,6 +36,7 @@
           type="text"
           v-model="monthly.pctComplete"
           required
+          :readonly="true"
         ></v-text-field>
 
         <v-radio-group row v-model="flipper">

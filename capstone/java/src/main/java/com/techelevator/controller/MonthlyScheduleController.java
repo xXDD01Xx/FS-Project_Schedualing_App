@@ -50,7 +50,7 @@ public class MonthlyScheduleController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PutMapping(path = "/monthlyschedule/update")
+    @PutMapping(path = "/monthlyschedule/items/update")
     public void updateMonthlyScheduleItem(@RequestBody MonthlyPhaseItem monthlyPhaseItem) {
         monthlyScheduleDao.updateMonthlyScheduleItem(monthlyPhaseItem);
     }
@@ -62,7 +62,7 @@ public class MonthlyScheduleController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PutMapping(path = "/monthlyschedule/update/{monthlySchedId}")
+    @PutMapping(path = "/monthlyschedule/update")
     public void updateMonthlySchedule(@RequestBody MonthlySchedule monthlySchedule) {
         monthlyScheduleDao.updateMonthlySchedule(monthlySchedule);
     }

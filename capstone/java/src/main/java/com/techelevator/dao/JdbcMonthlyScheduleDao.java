@@ -163,12 +163,12 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
                 "why_five = ?, " +
                 "tasks_substantial = ?, " +
                 "tasks_construction = ? " +
-                "WHERE project_id = ?; ";
+                "WHERE id = ?; ";
         jdbcTemplate.update(sql, monthlySchedule.getMonthYear(), monthlySchedule.getScheduleNotes(),
                 monthlySchedule.getPctComplete(), monthlySchedule.getScheduleProdIdx(), monthlySchedule.isSamePrevMonth(),
                 monthlySchedule.getWhyOne(), monthlySchedule.getWhyTwo(), monthlySchedule.getWhyThree(),
                 monthlySchedule.getWhyFour(), monthlySchedule.getWhyFive(), monthlySchedule.getTasksSubstantial(),
-                monthlySchedule.getTasksConstruction(), monthlySchedule.getProjectId());
+                monthlySchedule.getTasksConstruction(), monthlySchedule.getId());
     }
 
 

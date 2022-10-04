@@ -26,9 +26,10 @@ public class ModsChangeOrdersController
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping(path="/modco/new")
-    public void addToModsCO(@RequestBody ModChangeOrder modChangeOrder)
+    public int addToModsCO(@RequestBody ModChangeOrder modChangeOrder)
     {
-        modsChangeOrdersDao.addToModsCO(modChangeOrder);
+       return modsChangeOrdersDao.addToModsCO(modChangeOrder);
+
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
@@ -36,6 +37,7 @@ public class ModsChangeOrdersController
     public void updateModsCO(@RequestBody ModChangeOrder modChangeOrder)
     {
         modsChangeOrdersDao.updateModsCO(modChangeOrder);
+
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")

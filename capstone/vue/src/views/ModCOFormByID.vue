@@ -163,6 +163,7 @@ import ProjectService from "../services/ProjectService.js";
         scheduleImpacted: '',
         budgetImpacted: '',
         name: '',
+        placeholder: '',
         project: {
           id: '',
           projectName: "",
@@ -196,14 +197,15 @@ import ProjectService from "../services/ProjectService.js";
             const id = this.project.id;
             this.mod_co.projectId = id;
             console.log(this.mod_co)
-            ModCOService.addModCO(this.mod_co).then((response) => {
+             ModCOService.addModCO(this.mod_co).then((response) => {
                 if (response.status == 200 || response.status == 201){
-                    //
+                    this.placeholder = response.data
                 }
             })
             .catch((error) => {
                 alert(error)
             })
+            console.log('out',this.placeholder)
         },
         setModCoScheduleImpact(){
             if (this.scheduleImpacted == "Yes"){

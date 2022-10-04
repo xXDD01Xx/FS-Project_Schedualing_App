@@ -38,14 +38,14 @@ public class ModsChangeOrdersController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping(path = "/modco/delete")
+    @DeleteMapping(path = "/modco/delete")
     public void deleteModsCO(@PathVariable int id) {
         modsChangeOrdersDao.deleteModsChangeCO(id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping(path = "/modco/changeStatus")
-    public boolean changeApprovedStatus(@PathVariable int id, boolean status) {
+    @PutMapping(path = "/modco/{id}/changeStatus")
+    public boolean changeApprovedStatus(@PathVariable int id, @RequestBody boolean status) {
         return modsChangeOrdersDao.changeApprovedStatus(id, status);
     }
 

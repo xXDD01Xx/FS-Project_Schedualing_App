@@ -44,7 +44,8 @@ export default {
   components: {},
   data(){
     return {
-      modList: ''
+      modList: [],
+      filteredMods: [],
     }
   },
   methods: {
@@ -57,6 +58,9 @@ export default {
       if (response.status == 200 || response.status == 201){
         this.modList = response.data;
       }
+      this.filteredMods = this.modList.filter((each) => {
+        return each.approveDateTm === null;
+      })
     })
   }
 

@@ -123,7 +123,8 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
     @Override
     public boolean changeApprovedStatus(int id, boolean status)
     {
-       String updateModCoSql = "UPDATE mods_changes SET approved = ?, approv_datetm = current_timestamp;";
+       String updateModCoSql = "UPDATE mods_changes SET approved = ?, approv_datetm = current_timestamp " +
+               "WHERE id = ?;";
        return jdbcTemplate.update(updateModCoSql, status, id) == 1;
     }
 

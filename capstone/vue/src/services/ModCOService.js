@@ -11,7 +11,12 @@ export default {
 
     getModCO(id){
         return axios.get(`/modco/getModCO/${id}`)
+    },
+
+    changeStatus(id, status){
+        return axios.put(`/modco/${id}/changeStatus`, status)
     }
+
 
 
 };

@@ -78,7 +78,7 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
                     modChangeOrder.getWhyThree(), modChangeOrder.getWhyFour(), modChangeOrder.getWhyFive(),
                     modChangeOrder.isApproved(), modChangeOrder.getApproveDateTm());
             sql = "SELECT MAX(id) FROM mods_changes WHERE project_id = ? ;";
-            modCoId = jdbcTemplate.queryForObject(sql, Integer.class, modChangeOrder.getProjectId());
+            modCoId = jdbcTemplate.queryForObject(sql, Integer.class, modChangeOrder.getId());
         } catch (NullPointerException e) {
             System.out.println("Unable to retrieve new modification or change order...");
         } catch (DataAccessException e) {
@@ -168,13 +168,17 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
         modChangeOrder.setModCoName(rs.getString("mod_co_name"));
         modChangeOrder.setProjectId(rs.getInt("project_id"));
         modChangeOrder.setType(rs.getString("type"));
-        modChangeOrder.setCourtDate(rs.getDate("court_date").toLocalDate());
+        if (rs.getDate("court_date") != null) {
+           modChangeOrder.setCourtDate(rs.getDate("court_date").toLocalDate());
+        }
         modChangeOrder.setScheduleImpacted(rs.getBoolean("schedule_impacted"));
         modChangeOrder.setWhySchedImpact(rs.getString("why_sched_impact"));
         modChangeOrder.setHowSchedImpact(rs.getString("how_sched_impact"));
         modChangeOrder.setBudgetImpacted(rs.getBoolean("budget_impacted"));
         modChangeOrder.setWhyBudgetImpact(rs.getString("why_budget_impact"));
-        modChangeOrder.setHowBudgetImpact(rs.getString("why_submit"));
+        modChangeOrder.setHowBudgetImpact(rs.getString("how_budget_impact"));
+        modChangeOrder.setWhySubmit(rs.getString("why_submit"));
+        modChangeOrder.setWhyTwo(rs.getString("why_two"));
         modChangeOrder.setWhyThree(rs.getString("why_three"));
         modChangeOrder.setWhyFour(rs.getString("why_four"));
         modChangeOrder.setWhyFive(rs.getString("why_five"));

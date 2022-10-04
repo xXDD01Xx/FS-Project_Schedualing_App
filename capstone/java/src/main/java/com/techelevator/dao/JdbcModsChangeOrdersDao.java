@@ -134,14 +134,22 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
     {
         String sql = "SELECT id, " +
                 "mod_co_name, " +
+                "project_id, " +
                 "type, " +
                 "court_date, " +
                 "schedule_impacted, " +
+                "why_sched_impact, " +
+                "how_sched_impact, " +
                 "budget_impacted, " +
-                "why, " +
+                "why_budgt_impact, " +
+                "how_budgt_impact, " +
+                "why_submit, " +
+                "why_two, " +
+                "why_three, " +
+                "why_four, " +
+                "why_five, " +
                 "approved, " +
                 "approv_datetm " +
-                "project_id " +
                 "FROM mods_changes " +
                 "WHERE id = ?;";
         SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, id);

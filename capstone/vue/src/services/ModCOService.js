@@ -7,5 +7,11 @@ export default {
 
     addModCO(mod){
         return axios.post('/modco/new', mod)
+    },
+
+    getModCO(id){
+        return axios.get(`/modco/getModCO/${id}`)
     }
+
+
 };

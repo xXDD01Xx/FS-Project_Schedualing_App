@@ -67,16 +67,14 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
                 "why_three, " +
                 "why_four, " +
                 "why_five, " +
-                "approved, approv_datetm) " +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         Integer modCoId = 0;
         try {
             jdbcTemplate.update(sql,modChangeOrder.getModCoName(), modChangeOrder.getProjectId(), modChangeOrder.getType(),
                     modChangeOrder.getCourtDate(), modChangeOrder.isScheduleImpacted(), modChangeOrder.getWhySchedImpact(),
                     modChangeOrder.getHowSchedImpact(), modChangeOrder.isBudgetImpacted(), modChangeOrder.getWhyBudgetImpact(),
                     modChangeOrder.getHowBudgetImpact(), modChangeOrder.getWhySubmit(), modChangeOrder.getWhyTwo(),
-                    modChangeOrder.getWhyThree(), modChangeOrder.getWhyFour(), modChangeOrder.getWhyFive(),
-                    modChangeOrder.isApproved(), modChangeOrder.getApproveDateTm());
+                    modChangeOrder.getWhyThree(), modChangeOrder.getWhyFour(), modChangeOrder.getWhyFive());
             sql = "SELECT MAX(id) FROM mods_changes WHERE project_id = ? ;";
             modCoId = jdbcTemplate.queryForObject(sql, Integer.class, modChangeOrder.getProjectId());
         } catch (NullPointerException e) {
@@ -175,16 +173,16 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
         modChangeOrder.setWhySchedImpact(rs.getString("why_sched_impact"));
         modChangeOrder.setHowSchedImpact(rs.getString("how_sched_impact"));
         modChangeOrder.setBudgetImpacted(rs.getBoolean("budget_impacted"));
-        modChangeOrder.setWhyBudgetImpact(rs.getString("why_budget_impact"));
-        modChangeOrder.setHowBudgetImpact(rs.getString("how_budget_impact"));
+        modChangeOrder.setWhyBudgetImpact(rs.getString("why_budgt_impact"));
+        modChangeOrder.setHowBudgetImpact(rs.getString("how_budgt_impact"));
         modChangeOrder.setWhySubmit(rs.getString("why_submit"));
         modChangeOrder.setWhyTwo(rs.getString("why_two"));
         modChangeOrder.setWhyThree(rs.getString("why_three"));
         modChangeOrder.setWhyFour(rs.getString("why_four"));
         modChangeOrder.setWhyFive(rs.getString("why_five"));
         modChangeOrder.setApproved(rs.getBoolean("approved"));
-        if (rs.getTimestamp("aprrov_datetm") != null) {
-            modChangeOrder.setApproveDateTm(rs.getTimestamp("last_modified").toLocalDateTime());
+        if (rs.getTimestamp("approv_datetm") != null) {
+            modChangeOrder.setApproveDateTm(rs.getTimestamp("approv_datetm").toLocalDateTime());
         }
         return modChangeOrder;
     }

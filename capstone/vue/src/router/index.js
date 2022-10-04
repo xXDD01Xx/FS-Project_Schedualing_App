@@ -24,6 +24,7 @@ import MonthlyUpdateById from '../views/MonthlyUpdateById.vue'
 import MonthlySchedule from "../views/MonthlySchedule.vue";
 import ModCOForm from '../views/ModCOForm.vue'
 import ModCOFormByID from '../views/ModCOFormByID.vue'
+import ProcessModCO from '../views/ProcessModCO.vue'
 
 
 
@@ -126,6 +127,14 @@ const router = new Router({
       path: "/pending-mods-co",
       name: "ModsChangeOrders",
       component: ModsChangeOrders,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/process-mod-co/:id",
+      name: "ProcessModCO",
+      component: ProcessModCO,
       meta: {
         requiresAuth: true,
       },

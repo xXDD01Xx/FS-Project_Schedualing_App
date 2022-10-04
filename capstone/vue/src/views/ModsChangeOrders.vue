@@ -2,28 +2,29 @@
   <v-app>
     <v-container>
       <v-simple-table>
-        <tr>
+        <thead>
           <th>Name</th>
-          <th>Project</th>
           <th>Court Date</th>
           <th>Schedule Impacted?</th>
           <th>Budget Impacted?</th>
-        </tr>
-        <tr v-for="mod in modList" :key="mod.id">
-          <td>{{mod.name}}</td>
-          <!-- <td>{{mod.projectName}}</td> -->
-          <td>{{mod.courtDate}}</td>
-          <td>{{mod.scheduleImpacted}}</td>
-          <td>{{mod.budgetImpacted}}</td>
-          <td>
-            <router-link>
-              <!-- FINISH ROUTER LINK -->
-              <v-btn>
-                View Details
+          <th>View Details</th>
+        </thead>
+        <tbody>
+          <tr v-for="mod in modList" :key="mod.id">
+            <td>{{mod.modCoName}}</td>
+            <td>{{mod.courtDate}}</td>
+            <td>{{mod.scheduleImpacted}}</td>
+            <td>{{mod.budgetImpacted}}</td>
+            <td>
+              <v-btn
+              elevation="2"
+              class="text-decoration-none"
+              @click="viewModCo(mod)">
+                View
               </v-btn>
-            </router-link>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        </tbody>
       </v-simple-table>
     </v-container>
     <router-link class="text-decoration-none" :to="{path: '/home'}">
@@ -44,6 +45,11 @@ export default {
   data(){
     return {
       modList: ''
+    }
+  },
+  methods: {
+    viewModCo(mod){
+      this.$router.push({name: 'ProcessModCO', params: {id: mod.id}})
     }
   },
   created(){

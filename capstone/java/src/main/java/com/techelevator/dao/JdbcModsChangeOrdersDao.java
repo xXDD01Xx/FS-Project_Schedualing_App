@@ -112,6 +112,30 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
        return jdbcTemplate.update(updateModCoSql, status, id) == 1;
     }
 
+    @Override
+    public ModChangeOrder getSingleModCO(int id)
+    {
+        String sql = "SELECT id, " +
+                "mod_co_name, " +
+                "type, " +
+                "court_date, " +
+                "schedule_impacted, " +
+                "budget_impacted, " +
+                "why, " +
+                "approved, " +
+                "approv_datetm " +
+                "project_id " +
+                "FROM mods_changes " +
+                "WHERE id = ?;";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, id);
+        ModChangeOrder modChangeOrder = new ModChangeOrder();
+        if(rs.next())
+        {
+            modChangeOrder = mapRowToModsCO(rs);
+        }
+        return modChangeOrder;
+    }
+
 
     private ModChangeOrder mapRowToModsCO(SqlRowSet rs) {
         ModChangeOrder modChangeOrder = new ModChangeOrder();

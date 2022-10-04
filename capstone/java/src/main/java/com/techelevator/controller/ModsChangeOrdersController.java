@@ -51,4 +51,11 @@ public class ModsChangeOrdersController
     {
         return modsChangeOrdersDao.changeApprovedStatus(id, status);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping(path="/modco/getModCO")
+    public ModChangeOrder getSingleModCO(@PathVariable int id)
+    {
+        return modsChangeOrdersDao.getSingleModCO(id);
+    }
 }

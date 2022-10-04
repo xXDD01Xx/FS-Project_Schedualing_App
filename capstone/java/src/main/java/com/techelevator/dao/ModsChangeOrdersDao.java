@@ -12,4 +12,5 @@ public interface ModsChangeOrdersDao
     void deleteModsChangeCO(int id);
 
     boolean changeApprovedStatus(int id, boolean status);
+    ModChangeOrder getSingleModCO(int id);
 }

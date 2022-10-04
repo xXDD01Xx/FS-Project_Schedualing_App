@@ -3,7 +3,7 @@
     <gantt-elastic :options="options" :tasks="tasks">
       <gantt-header slot="header" :options="options"></gantt-header>
     </gantt-elastic>
-    <v-simple-table>
+    <!-- <v-simple-table>
       <thead>
         <th>Contract</th>
         <th>Project</th>
@@ -14,16 +14,17 @@
       </thead>
       <tbody>
         <tr v-for="(task, index) in tasks" :key="index">
-          <td>{{ task.contractName }}</td>
-          <td>{{ task.projectName }}</td>
+          <td>{{ task.parentId }}</td>
+          <td>{{ task.label }}</td>
           <td>{{ task.phase }}</td>
           <td>{{ task.start }}</td>
-          <td>{{ task.end }}</td>
-          <td>{{ task.durationDays }}</td>
+          <td>{{ task.milestone }}</td>
+          <td>{{ task.duration }}</td>
         </tr>
       </tbody>
-    </v-simple-table>
+    </v-simple-table> -->
   </v-container>
+  
 </template>
 
 <script>
@@ -106,13 +107,18 @@
     },
     computed: {
       tasks() {
-        return this.$store.getters.getSched;
+        return this.$store.state.masterSchedule;
       },
+      scheduleLoaded(){
+          return this.$store.state.scheduleLoaded;
+      }
     },
     mounted() {
+        console.log(this.$store.state.scheduleLoaded);
+    //   this.$store.dispatch("SET_MASTER_SCHEDULE");
       console.log("getsched: ", this.$store.getters.getSched);
       this.taskList = this.$store.getters.getSched;
-      console.log("tasks: ",this.tasks);
+      console.log("taskList: ", this.taskList);
     },
   };
 </script>

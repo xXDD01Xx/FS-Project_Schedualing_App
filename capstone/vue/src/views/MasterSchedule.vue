@@ -176,22 +176,18 @@
     methods: {},
     created() {
       ReportService.getMaster().then((results) => {
-        this.masterSchedules = results.data.filter((r) => r.start !== null && r.projectId===1);
-        // console.log(this.masterSchedules);
-        // this.tasks=[];
+        this.masterSchedules = results.data.filter(
+          (r) => r.start !== null
+        );
+
         let idx = Math.max(...this.masterSchedules.map((e) => e.projectId));
 
-        // this.displaySchedules=[];
-        // console.log("Display sched:");
-        // console.log(this.displaySchedules);
 
         this.masterSchedules.forEach((e) => {
-          // if (e.phase === "Project") {
-          //   this.displaySchedules.id = e.projectId;
-          // }
+
           const displayObj = {
             id: 0,
-            parentId: 0,
+            // parentId: 0,
             start: 0,
             label: "",
             duration: 0,
@@ -228,11 +224,8 @@
                 : "";
           }
           this.displaySchedules.push(displayObj);
-          // console.log(displayObj);
-          // console.log(this.displaySchedules);
         });
         this.$store.commit("SET_MASTER_SCHEDULE", this.displaySchedules);
-        // this.tasks = this.displaySchedules;
       });
     },
   };

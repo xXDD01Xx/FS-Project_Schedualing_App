@@ -177,7 +177,7 @@ public class JdbcModsChangeOrdersDao implements ModsChangeOrdersDao {
         modChangeOrder.setBudgetImpacted(rs.getBoolean("budget_impacted"));
         modChangeOrder.setWhyBudgetImpact(rs.getString("why_budget_impact"));
         modChangeOrder.setHowBudgetImpact(rs.getString("how_budget_impact"));
-        modChangeOrder.setHowBudgetImpact(rs.getString("why_submit"));
+        modChangeOrder.setWhySubmit(rs.getString("why_submit"));
         modChangeOrder.setWhyTwo(rs.getString("why_two"));
         modChangeOrder.setWhyThree(rs.getString("why_three"));
         modChangeOrder.setWhyFour(rs.getString("why_four"));

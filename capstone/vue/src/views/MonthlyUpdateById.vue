@@ -123,11 +123,7 @@
         flipper: "",
         monthly: {
           id: "",
-          monthYear: new Date(
-            Date.now() - new Date().getTimezoneOffset() * 60000
-          )
-            .toISOString()
-            .substr(0, 10),
+          monthYear: new Date(new Date().setDate(1)).toISOString().substr(0, 7),
           projectId: this.$store.state.project.id,
           scheduleNotes: "",
           pctComplete: "",
@@ -165,14 +161,14 @@
         const projId = this.monthly.projectId;
         const time = this.monthly.monthYear + "-01";
         this.monthly.monthYear = time;
-        console.log("this", this.monthly);
-        console.log("param");
+        // console.log("this", this.monthly);
+        // console.log("param");
         MonthlyService.addMonthly(time, projId)
           .then((response) => {
             if (response.status == 200 || response.status == 201) {
               // console.log(response.data)
               this.monthly.id = response.data;
-              console.log(this.monthly.id);
+              // console.log(this.monthly.id);
             }
             // console.log(this.id)
             MonthlyService.updateMonthly(this.monthly)

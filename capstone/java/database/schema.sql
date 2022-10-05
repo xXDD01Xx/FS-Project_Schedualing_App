@@ -82,7 +82,7 @@ CREATE TABLE monthly_schedule (
     schedule_notes TEXT,
     pct_complete INTEGER,
 	sched_prod_idx DECIMAL,
-    same_prev_month BOOLEAN NOT NULL,
+    same_prev_month BOOLEAN,
     why_one TEXT,
     why_two TEXT,
     why_three TEXT,

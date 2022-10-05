@@ -75,7 +75,7 @@ public class JdbcReportDao implements ReportDao {
                 "'Project', " +
                 "MIN(start_dt), " +
                 "MAX(end_dt), " +
-                "MAX(end_dt) - MIN(start_dt), " +
+                "MAX(end_dt) - MIN(start_dt) + 1, " +
                 "pct_complete " +
                 "FROM schedule_vw " +
                 "GROUP BY contract_name, " +

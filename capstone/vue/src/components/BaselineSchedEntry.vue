@@ -14,40 +14,30 @@
       </v-row>
 
       <v-row dense="true">
-          <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
         <v-col cols="12" sm="2">
-          <v-text-field
-            style="width:38%"
-            v-model="item.itemDate"
-            v-bind:style="{
-              backgroundColor: item.itemDate ? 'lightgreen' : '',
-              height: '12px',
-              opacity: '80%',
-            }"
-            label="Date"
-            type="date"
-            required
-            @blur="saveBaselineItem(item)"
-          >
-          </v-text-field>
+            <v-text-field
+              v-model="item.itemDate"
+              label="Date"
+              type="date"
+              required
+              @blur="saveBaselineItem(item)"
+            >
+            </v-text-field>
         </v-col>
 
-        <v-col cols="12" sm="2">
-          <v-text-field
-            style="width:35%"
-            v-model="item.itemTasks"
-            v-bind:style="{
-              backgroundColor: item.itemTasks ? 'lightgreen' : '',
-              height: '12px',
-              opacity: '80%',
-            }"
-            type="text"
-            label="Number of Tasks"
-            required
-            @blur="saveBaselineItem(item)"
-          ></v-text-field>
-        </v-col>
-          <v-spacer></v-spacer>
+
+          <v-col cols="12" sm="2">
+            <v-text-field
+              v-model="item.itemTasks"
+              type="text"
+              label="Number of Tasks"
+              required
+              @blur="saveBaselineItem(item)"
+            ></v-text-field>
+          </v-col>
+
+        <v-spacer></v-spacer>
       </v-row>
     </v-container>
   </v-app>
@@ -84,6 +74,16 @@
             }
           });
       },
+      onChangeDate() {
+        const dateCol = document.getElementById("textcol1");
+        // dateCol.classlist.remove("changedata");
+        dateCol.classlist.add("changedata");
+      },
+      onChangeTask() {
+        const dateCol = document.getElementById("textcol2");
+        // dateCol.classlist.remove("changedata");
+        dateCol.classlist.add("changedata");
+      },
     },
     computed: {
       populated() {
@@ -111,5 +111,4 @@
   .changedata {
     animation: fadeOut 2.5s ease;
   }
-
 </style>

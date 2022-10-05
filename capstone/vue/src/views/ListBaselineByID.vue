@@ -5,23 +5,23 @@
     <v-container class=check-container>
       <v-checkbox
           label="Design" value="Design"
-          @click="updateBaseline, $event"
+          @click="updateBaseline"
           v-model="phase">
       </v-checkbox>
       <v-checkbox
           label="Pre Construction" value="Pre-Construction"
-          @click="updateBaseline, $event"
+          @click="updateBaseline"
           v-model="phase">
       </v-checkbox>
       <v-checkbox
           label="Construction" value="Construction"
-          @click="updateBaseline, $event"
+          @click="updateBaseline"
           v-model="phase">
       </v-checkbox>
       <br>
     </v-container>
     <div ><br>
-      <h4 class="text-center"
+      <h4 class="text-center" v-if="!this.phase"
       >Please Select a Phase</h4>
     </div>
     <div><h2 class="text-center">{{ phase }}</h2><br></div>
@@ -101,7 +101,7 @@ export default {
       if (response.status == 200 || response.status == 201)
       {
         this.baselineItems = response.data;
-        console.log(this.baselineItems)
+        // console.log(this.baselineItems)
       }
     })
         .catch((error) =>

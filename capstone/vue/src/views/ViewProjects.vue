@@ -51,12 +51,13 @@
     <div class="text-center"><br><br>
       <v-container class="text-center">
         <br /><br />
-        <router-link
+        <!-- <router-link
             class="text-decoration-none"
-            :to="{ path: '/home' }">
-          <v-btn class="button" color="#8c090e" elevation="2" outlined
-          >Back</v-btn>
-        </router-link>
+            :to="{ path: '/home' }"> -->
+          <v-btn class="button" color="#8c090e" elevation="2" outlined @click="$router.back()"
+          >Back
+          </v-btn>
+        <!-- </router-link> -->
         <router-link class="text-decoration-none" :to="{ path: '/home' }">
           <v-btn class="button" color="#8c090e" elevation="2" outlined
           >Home</v-btn

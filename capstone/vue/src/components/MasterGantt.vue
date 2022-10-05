@@ -4,7 +4,6 @@
       <gantt-header slot="header" :options="options"></gantt-header>
     </gantt-elastic>
   </v-container>
-  
 </template>
 
 <script>
@@ -20,7 +19,8 @@
       return {
         options: {
           times: {
-            timeZoom: 22,
+            timeZoom: 16,
+            timeScale: 60 * 25000,
           },
           title: {
             label: "Master Schedule",
@@ -33,7 +33,7 @@
           },
           calendar: {
             hour: {
-              display: true,
+              display: false,
             },
           },
           chart: {
@@ -88,13 +88,11 @@
       tasks() {
         return this.$store.state.masterSchedule;
       },
-      scheduleLoaded(){
-          return this.$store.state.scheduleLoaded;
-      }
+      scheduleLoaded() {
+        return this.$store.state.scheduleLoaded;
+      },
     },
-    mounted() {
-
-    },
+    mounted() {},
   };
 </script>
 

@@ -22,9 +22,9 @@
           <td>{{ stat.projectName }}</td>
           <td>{{ stat.phase }}</td>
           <td>{{ stat.monthYear }}</td>
-          <td>{{ stat.pctComplete }}</td>
+          <td>{{ stat.pct_complete }}%</td>
           <td>{{ stat.schedProdIdx }}</td>
-          <td>{{ stat.scheduleNotes }}</td>
+          <td>{{ stat.schedule_notes }}</td>
         </tr>
       </tbody>
     </v-simple-table>

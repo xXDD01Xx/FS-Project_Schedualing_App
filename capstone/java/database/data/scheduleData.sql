@@ -1,9 +1,9 @@
 begin;
 truncate baseline_sched_items, monthly_sched_items, monthly_schedule;
 insert into monthly_schedule
-(id, project_id, month_year, schedule_notes, pct_complete)
+(id, project_id, month_year, schedule_notes, pct_complete, same_prev_month)
 values
-(1,1,'2022-09-01','Test notes', 51);
+(1,1,'2022-09-01','Test notes', 51, TRUE);
 
 insert into monthly_sched_items
 (monthly_sched_id, phase_item, item_date, item_tasks)

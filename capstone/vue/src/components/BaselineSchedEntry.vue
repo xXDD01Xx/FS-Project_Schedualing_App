@@ -1,55 +1,53 @@
 <template>
   <v-app v-show="populated">
-    <v-container
+    <v-container dense
       v-for="item in baselineItems"
       :key="item.id"
       id="item-container"
-    ><br>
-      <v-row>
+      ><br />
+      <v-row dense="true">
         <v-col cols="6" sm="3"> </v-col>
         <v-col cols="6">
           <h4>{{ item.itemDescription }}</h4>
-
         </v-col>
         <v-col cols="6" sm="3"> </v-col>
       </v-row>
 
-      <v-row>
-        <v-col cols="12" sm="2"></v-col>
-        <v-col cols="12" sm="2"></v-col>
+      <v-row dense="true">
+          <v-spacer></v-spacer>
         <v-col cols="12" sm="2">
           <v-text-field
-              style="width:38%"
+            style="width:38%"
             v-model="item.itemDate"
-            v-bind:style="{backgroundColor: (item.itemDate ? 'lightgreen' : ''),
-           height: '12px',
-           opacity: '80%'           }"
+            v-bind:style="{
+              backgroundColor: item.itemDate ? 'lightgreen' : '',
+              height: '12px',
+              opacity: '80%',
+            }"
             label="Date"
             type="date"
             required
             @blur="saveBaselineItem(item)"
           >
           </v-text-field>
-          <br>
         </v-col>
 
         <v-col cols="12" sm="2">
           <v-text-field
-              style="width:35%"
+            style="width:35%"
             v-model="item.itemTasks"
-            v-bind:style="{backgroundColor: (item.itemTasks ? 'lightgreen' : ''),
-           height: '12px',
-           opacity: '80%'
-           }"
-
+            v-bind:style="{
+              backgroundColor: item.itemTasks ? 'lightgreen' : '',
+              height: '12px',
+              opacity: '80%',
+            }"
             type="text"
             label="Number of Tasks"
             required
             @blur="saveBaselineItem(item)"
           ></v-text-field>
-          <br><br><br>
         </v-col>
-        
+          <v-spacer></v-spacer>
       </v-row>
     </v-container>
   </v-app>
@@ -100,4 +98,18 @@
     max-width: 50%;
     width: 50%;
   }
+
+  @keyframes fadeOut {
+    0% {
+      background-color: green;
+    }
+    100% {
+      background-color: white;
+    }
+  }
+
+  .changedata {
+    animation: fadeOut 2.5s ease;
+  }
+
 </style>

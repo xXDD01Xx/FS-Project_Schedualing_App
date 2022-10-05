@@ -4,7 +4,7 @@
       <br>
       <h2 class="text-center">Add Project</h2>
       <br>
-      <v-form ref="form" lazy-validation>
+      <v-form ref="form">
         <v-text-field
           v-model="project.projectName"
           label="Project Name"
@@ -16,6 +16,7 @@
           :items="contracts"
           item-text="contractName"
           item-value="id"
+          required
           v-model="project.contractId"
         ></v-select>
 

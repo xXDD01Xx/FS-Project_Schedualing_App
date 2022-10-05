@@ -54,9 +54,10 @@ values
 (2,17,'2022-12-31',6);
 
 insert into baseline_sched_items
-(project_id, phase_item)
-select p.id, pi.id
+(project_id, phase_item, item_date)
+select p.id, pi.id, current_date - 180 + (p.id * 14) + (pi.id*7) as item_date
 from project p, phase_items pi
+where pi.id<=17
 group by p.id, pi.id
 having (select count(*) from baseline_sched_items b where b.project_id=p.id and b.phase_item=pi.id)<1
 order by p.id, pi.id;

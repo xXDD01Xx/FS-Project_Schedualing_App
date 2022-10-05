@@ -75,14 +75,15 @@ public class JdbcReportDao implements ReportDao {
                 "'Project', " +
                 "MIN(start_dt), " +
                 "MAX(end_dt), " +
-                "SUM(duration_days), " +
+                "MAX(end_dt) - MIN(start_dt), " +
                 "pct_complete " +
                 "FROM schedule_vw " +
                 "GROUP BY contract_name, " +
                 "contract_id, " +
                 "project_name, " +
                 "project_id, " +
-                "pct_complete;";
+                "pct_complete " +
+                "ORDER BY project_id, start_dt;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             masterSchedules.add(mapRowToMasterSchedule(results));

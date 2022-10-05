@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- <h2>{{tasks}}</h2> -->
     <gantt-elastic :options="options" :tasks="tasks">
       <gantt-header slot="header" :options="options"></gantt-header>
     </gantt-elastic>
@@ -9,6 +10,7 @@
 <script>
   import GanttElastic from "gantt-elastic";
   import GanttHeader from "gantt-elastic-header";
+  
   export default {
     name: "master-gantt",
     components: {
@@ -67,6 +69,16 @@
                 id: 3,
                 label: "Type",
                 value: "type",
+                width: 68,
+              },{
+                id: 4,
+                label: "Start",
+                value: task=>new Date(task.start).toLocaleDateString({dateStyle:"short"}),
+                width: 68,
+              },{
+                id: 5,
+                label: "End",
+                value: task=>new Date(task.endTime).toLocaleDateString({dateStyle:"short"}),
                 width: 68,
               },
             ],

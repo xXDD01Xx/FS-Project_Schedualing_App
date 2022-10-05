@@ -27,10 +27,10 @@
             </td>
           </tr>
         </tbody>
-      </v-simple-table>
-      <h1 class="text-center" v-if="populated">No Pending Mod/COs</h1>
-    </v-container>
-    <router-link class="text-decoration-none" :to="{path: '/home'}">
+      </v-simple-table><br><br>
+      <h1 class="text-center" v-if="populated">No Current Pending Modifications/Change Orders</h1>
+    </v-container><div><br><br></div>
+    <router-link class="text-decoration-none text-center" :to="{path: '/home'}">
       <v-btn class="button"
               color=#8c090e
               elevation="2"

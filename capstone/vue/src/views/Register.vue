@@ -51,6 +51,11 @@
           <input type="radio" 
           name="user-radio" 
           class="button" 
+          value="view"
+          v-model="user.role"> Viewer
+          <input type="radio" 
+          name="user-radio" 
+          class="button" 
           value="user"
           v-model="user.role"> User
           <input type="radio" 
@@ -58,7 +63,6 @@
           class="button" 
           value="admin"
           v-model="user.role"
-          @click="check"
           > Admin
         </div>
       </v-container>
@@ -113,9 +117,6 @@ export default {
     this.showButtons();
   },
   methods: {
-    check(){
-      console.log(this.user);
-    },
     showButtons()
     {
       if(this.$store.state.token)

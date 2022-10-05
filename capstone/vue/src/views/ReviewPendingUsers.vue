@@ -9,14 +9,15 @@
           <thead>
           <tr class="trow">
             <th class="text-center">Username</th>
+            <th id="status" class="text-center">Role</th>
             <th id="status" class="text-center">Status</th>
-            <th class="text-center">Approve</th>
-            <th class="text-center">Deny</th>
+            <th class="text-center">Approve/Deny</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="user in filteredUsers" :key="user.username" class="trow">
             <td class="text-center">{{ user.username }}</td>
+            <td class="text-center">{{ user.authorities[0].name.substr(5) }}</td>
             <td class="text-center">{{user.status}}</td>
             <v-radio-group v-model="user.status" row>
                 <v-radio label="Approve User" value="Active" ></v-radio>

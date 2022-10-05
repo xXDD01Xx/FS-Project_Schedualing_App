@@ -1,6 +1,6 @@
 <template>
   <v-app v-show="populated">
-    <v-container dense
+    <v-container
       v-for="item in baselineItems"
       :key="item.id"
       id="item-container"

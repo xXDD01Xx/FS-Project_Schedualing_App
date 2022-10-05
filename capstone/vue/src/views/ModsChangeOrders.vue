@@ -1,6 +1,9 @@
 <template>
   <v-app>
     <v-container>
+      <br />
+      <h2 class="text-center">Pending Modifications / Change Orders</h2>
+      <br /><br />
       <v-simple-table v-show="!populated">
         <thead style="display:table-header-group;" >
         <tr>
@@ -22,21 +25,27 @@
               elevation="2"
               class="text-decoration-none"
               @click="viewModCo(mod)">
-                View
+                View/Edit
               </v-btn>
             </td>
           </tr>
         </tbody>
       </v-simple-table><br><br>
       <h1 class="text-center" v-if="populated">No Current Pending Modifications/Change Orders</h1>
-    </v-container><div><br><br></div>
-    <router-link class="text-decoration-none text-center" :to="{path: '/home'}">
-      <v-btn class="button"
-              color=#8c090e
-              elevation="2"
-              outlined
-              >Home</v-btn>
+    </v-container>
+    <div class="text-center">
+    <br><br>
+    <router-link
+        class="text-decoration-none"
+        :to="{ path: '/home' }">
+      <v-btn class="button" color="#8c090e" elevation="2" outlined
+      >Back</v-btn>
     </router-link>
+    <router-link class="text-decoration-none" :to="{ path: '/home' }">
+      <v-btn class="button" color="#8c090e" elevation="2" outlined
+      >Home</v-btn>
+    </router-link>
+    </div>
   </v-app>
 </template>
 

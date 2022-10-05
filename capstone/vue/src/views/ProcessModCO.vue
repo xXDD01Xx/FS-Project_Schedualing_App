@@ -1,6 +1,9 @@
 <template>
   <v-app>
     <v-container>
+      <br />
+      <h2 class="text-center">Edit Modification / Change Order</h2>
+      <br /><br />
             <v-form ref="form" lazy-validation>
                 <v-text-field
                     v-model="mod_co.modCoName"
@@ -99,23 +102,29 @@
                     v-model="mod_co.whyFive"
                     :readonly="true"
                 ></v-textarea>
+              <br>
             </v-form>
         </v-container>
-        <v-container>
-            <v-btn class="text-decoration-none" color="#8c090e" elevation="2" outlined
+        <v-container class="text-center">
+            <v-btn class="text-decoration-none mx-2" color="#8c090e" elevation="2" outlined
             @click="approve(mod_co.id)"
             >Approve</v-btn>
-            <v-btn class="text-decoration-none" color="#8c090e" elevation="2" outlined
+            <v-btn class="text-decoration-none mx-2" color="#8c090e" elevation="2" outlined
             @click="deny(mod_co.id)"
             >Deny</v-btn>
-
         </v-container>
 
     <div class="text-center">
+      <br><br>
+      <router-link
+          class="text-decoration-none"
+          :to="{ path: '/home' }">
+        <v-btn class="button" color="#8c090e" elevation="2" outlined
+        >Back</v-btn>
+      </router-link>
       <router-link class="text-decoration-none" :to="{ path: '/home' }">
         <v-btn class="button" color="#8c090e" elevation="2" outlined
-          >Home</v-btn
-        >
+        >Home</v-btn>
       </router-link>
     </div>
   </v-app>

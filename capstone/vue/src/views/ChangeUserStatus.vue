@@ -32,8 +32,7 @@
             </tr>
           </tbody>
 
-          <div v-if="submitError">{{ submitErrorMessage }}</div>
-          <div v-if="submitSuccess">{{ submitSuccessMessage }}</div>
+
         </template>
       </v-simple-table>
     </v-container>
@@ -48,6 +47,8 @@
       >
         Submit
       </v-btn>
+      <div class="submitMessage" v-if="submitError">{{ submitErrorMessage }}</div>
+      <div v-if="submitSuccess">{{ submitSuccessMessage }}</div>
       <br /><br />
     </div>
     <!-- <v-btn @click="check">click</v-btn> -->
@@ -116,5 +117,8 @@
   .trow {
     border-right: 4px;
     border-top: 4px;
+  }
+  .submitMessage {
+    color: greenyellow;
   }
 </style>

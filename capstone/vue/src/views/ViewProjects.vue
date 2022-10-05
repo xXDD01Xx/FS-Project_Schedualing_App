@@ -50,7 +50,7 @@
     </v-container>
     <div class="text-center"><br><br>
       <v-container class="text-center">
-        <br /><br />
+        <br />
         <!-- <router-link
             class="text-decoration-none"
             :to="{ path: '/home' }"> -->

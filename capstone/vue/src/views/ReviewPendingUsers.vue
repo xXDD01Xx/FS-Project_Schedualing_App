@@ -48,10 +48,10 @@
         </template>
       </v-simple-table>
     </v-container>
-    <br>
+    <div><br></div>
     <div class="text-center">
       <v-btn @click="submitAll">Submit Changes</v-btn>
-      <div v-if="submitError">{{ submitErrorMessage }}</div>
+      <div v-if="submitError">{{ submitErrorMessage }} </div>
       <div v-if="submitSuccess">{{ submitSuccessMessage }}</div>
 
 
@@ -63,7 +63,7 @@
       >Change User Status</v-btn>
     </router-link> -->
     </div>
-    <br><br>
+    <div><br><br></div>
     <div class="text-center">
       <router-link class="text-decoration-none" :to="{path: '/home'}">
       <v-btn class="button"

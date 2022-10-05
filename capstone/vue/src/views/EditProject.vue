@@ -46,13 +46,14 @@
       </div>
     </v-container>
     <div class="text-center">
-    <router-link class="text-decoration-none" :to="{path: '/home'}">
-      <v-btn class="button"
-            color=#8c090e
-            elevation="2"
-            outlined
-      >Home</v-btn>
-    </router-link>
+      <v-btn class="button" color="#8c090e" elevation="2" outlined @click="$router.back()"
+      >Back
+      </v-btn>
+      <router-link class="text-decoration-none" :to="{ path: '/home' }">
+        <v-btn class="button" color="#8c090e" elevation="2" outlined
+        >Home</v-btn
+        >
+      </router-link>
     </div>
   </v-app>
 </template>

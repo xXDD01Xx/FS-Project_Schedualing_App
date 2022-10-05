@@ -25,7 +25,7 @@
       >Please Select a Phase</h4>
     </div>
     <div><h2 class="text-center">{{ phase }}</h2><br></div>
-    <v-simple-table >
+    <v-simple-table v-if="this.phase">
       <thead style="display:table-header-group;" >
       <tr>
         <th class="desc" >Item</th>

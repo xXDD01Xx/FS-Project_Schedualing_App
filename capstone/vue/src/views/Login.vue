@@ -61,7 +61,6 @@
           elevation="2"
           outlined
           type="submit"
-          @click="check"
       >Sign in</v-btn>
     </form>
     <br>

@@ -25,6 +25,8 @@ import MonthlySchedule from "../views/MonthlySchedule.vue";
 import ModCOForm from '../views/ModCOForm.vue'
 import ModCOFormByID from '../views/ModCOFormByID.vue'
 import ProcessModCO from '../views/ProcessModCO.vue'
+import ModCOHistory from '../views/ModCOHistory.vue'
+import ModCODetails from '../views/ModCODetails.vue'
 
 
 
@@ -143,6 +145,22 @@ const router = new Router({
       path: "/log-mod-co",
       name: "ModCOForm",
       component: ModCOForm,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/history-mods-co",
+      name: "ModCOHistory",
+      component: ModCOHistory,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/details-mods-co/:id",
+      name: "ModCODetails",
+      component: ModCODetails,
       meta: {
         requiresAuth: true,
       },

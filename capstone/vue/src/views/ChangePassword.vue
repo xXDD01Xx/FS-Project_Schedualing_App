@@ -73,7 +73,7 @@
           if (response.status === 200) {
             this.showSuccess = true;
           } else {
-            console.log(response);
+            //
           }
         });
       },

@@ -84,9 +84,7 @@
             if (response.status == 200 || response.status == 201) {
               this.addProjectSuccess = true
               pro = response.data;
-              console.log('pro', pro)
               this.$store.commit('SET_PROJECT', pro);
-              console.log('store project',this.$store.state.project)
               this.project = {};
               this.$router.push({name: 'BaselineSchedule', params: {id: this.$store.state.project.id}});
             }
@@ -108,7 +106,6 @@
     created() {
       ProjectService.getContracts().then((response) => {
         this.contracts = response.data;
-        console.log(this.contracts);
       });
     },
   };

@@ -217,7 +217,6 @@ import ProjectService from "../services/ProjectService.js";
         logModCO(){
             const id = this.project.id;
             this.mod_co.projectId = id;
-            console.log(this.mod_co)
              ModCOService.addModCO(this.mod_co).then((response) => {
                 if (response.status == 200 || response.status == 201){
                     this.placeholder = response.data
@@ -227,7 +226,6 @@ import ProjectService from "../services/ProjectService.js";
             .catch((error) => {
                 alert(error)
             })
-            console.log('out',this.placeholder)
         },
         setModCoScheduleImpact(){
             if (this.scheduleImpacted == "Yes"){
@@ -246,13 +244,11 @@ import ProjectService from "../services/ProjectService.js";
      },
     created() {
         this.project = this.$store.state.project;
-        console.log(this.project)
         ProjectService.getContracts().then((response) => {
             this.contract = response.data.filter((each) =>{
                 return each.id == this.project.contractId
             })
             this.name = this.contract[0].contractName;
-            console.log(this.name)
       });
     },
   }

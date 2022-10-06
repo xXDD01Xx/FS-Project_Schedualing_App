@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <br />
-      <h2 class="text-center">Edit Modification / Change Order</h2>
+      <h2 class="text-center">View Modification / Change Order Details</h2>
       <br /><br />
             <v-form ref="form" lazy-validation>
                 <v-text-field
@@ -105,20 +105,20 @@
               <br>
             </v-form>
         </v-container>
-        <v-container class="text-center">
+        <!-- <v-container class="text-center">
             <v-btn class="text-decoration-none mx-2" color="#8c090e" elevation="2" outlined
             @click="approve(mod_co.id)"
             >Approve</v-btn>
             <v-btn class="text-decoration-none mx-2" color="#8c090e" elevation="2" outlined
             @click="deny(mod_co.id)"
             >Deny</v-btn>
-        </v-container>
+        </v-container> -->
 
     <div class="text-center">
       <br><br>
       <router-link
           class="text-decoration-none"
-          :to="{ path: '/home' }">
+          :to="{ path: '/history-mods-co' }">
         <v-btn class="button" color="#8c090e" elevation="2" outlined
         >Back</v-btn>
       </router-link>

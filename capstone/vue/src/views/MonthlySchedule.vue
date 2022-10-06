@@ -129,18 +129,14 @@
         this.filteredMonthlyItems = this.monthlyItems.filter((each) => {
           return this.phase === each.phaseDescription;
         });
-        console.log(this.filteredMonthlyItems)
       },
     },
     created() {
       const monthlyId = this.$route.params.id;
-      console.log("id", monthlyId);
       MonthlyService.getMonthly(monthlyId)
         .then((response) => {
           if (response.status == 200 || response.status == 201) {
             this.monthly = response.data;
-            // this.monthly.samePrevMonth = true;
-            console.log('mon sched', this.monthly)
           }
         })
         .catch((error) => {
@@ -153,7 +149,6 @@
         .then((response) => {
           if (response.status == 200 || response.status == 201) {
             this.monthlyItems = response.data;
-            console.log('month items',this.monthlyItems)
           }
         })
         .catch((error) => {

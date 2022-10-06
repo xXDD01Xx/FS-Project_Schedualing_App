@@ -57,9 +57,6 @@
     },
     props: ["baselineItems"],
     methods: {
-      check() {
-        console.log(this.baselineItems);
-      },
       saveBaselineItem(item) {
         ScheduleService.updateBaselineItem(item)
           .then((response) => {
@@ -70,7 +67,7 @@
           .catch((error) => {
             const response = error.response;
             if (response.status == 400) {
-              console.log(response.data.message);
+              //
             }
           });
       },

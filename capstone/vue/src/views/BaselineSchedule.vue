@@ -64,16 +64,11 @@
         >Home
         </v-btn>
       </router-link>
-      <!-- <v-btn @click="check">click</v-btn> -->
     </div>
   </v-app>
 </template>
 
 <script>
-// import ProjectService from "@/services/ProjectService";
-// import PhaseDesignEntry from "@/components/PhaseDesignEntry";
-// import PhasePreConstructionEntry from "@/components/PhasePreConstructionEntry";
-// import PhaseConstructionEntry from "@/components/PhaseConstructionEntry";
 import ScheduleService from '../services/ScheduleService.js'
 import ProjectService from '../services/ProjectService.js'
 import BaselineSchedEntry from '../components/BaselineSchedEntry.vue'
@@ -99,10 +94,6 @@ export default {
     };
   },
   methods: {
-    check(){
-      console.log('reg',this.baselineItems)
-      console.log('filter',this.filteredBaseline)
-    },
     allDone(){
       alert('Changes Saved')
     },
@@ -114,11 +105,9 @@ export default {
   },
   created(){
         const baseID = this.$route.params.id
-        console.log('id',baseID)
         ScheduleService.listBaselineItems(baseID).then((response) =>{
             if (response.status == 200 || response.status == 201){
                 this.baselineItems = response.data;
-                console.log(this.baselineItems)
             }
         })
         .catch((error) => {

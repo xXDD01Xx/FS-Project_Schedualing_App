@@ -84,8 +84,6 @@ export default {
     },
     deleteProject(){
       let id = this.project.id;
-      console.log(this.project)
-      console.log(this.project.id)
       ProjectService.deleteProject(id).then((response) =>{
         if (response.status == 200 || response.status == 204){
           this.$store.commit('EMPTY_PROJECT');

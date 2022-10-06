@@ -51,7 +51,6 @@
       <div v-if="submitSuccess">{{ submitSuccessMessage }}</div>
       <br /><br />
     </div>
-    <!-- <v-btn @click="check">click</v-btn> -->
     <div class="text-center">
       <router-link :to="{ path: '/home' }" class="text-decoration-none">
         <v-btn color="#8c090e" elevation="2" outlined>
@@ -77,9 +76,6 @@
       };
     },
     methods: {
-      check() {
-        console.log(this.users);
-      },
       submitAll() {
         let u = this.users;
         AuthService.saveChangeUserStatus(u).then((response) => {
@@ -95,7 +91,6 @@
       if (this.$store.state.users.length === 0) {
         AuthService.getAllUsers().then((response) => {
           if (response.status == 200 || response.status == 201) {
-            console.log(response.data);
             this.users = response.data.filter(
               (u) => u.username !== this.user.username
             );

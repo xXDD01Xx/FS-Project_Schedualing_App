@@ -115,9 +115,6 @@
           this.registerBtn = true;
         }
       },
-      check(){
-        // console.log(this.user)
-      },
       login() {
         authService
           .login(this.user)

@@ -71,7 +71,7 @@ import MonthlyService from "../services/MonthlyService.js";
         .catch((error) => {
           const response = error.response;
           if (response.status == 400) {
-            console.log(response.data.message);
+            //
           } 
           })
       }

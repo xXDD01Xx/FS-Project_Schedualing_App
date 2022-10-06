@@ -9,7 +9,6 @@
         color="#8c090e"
         type="month"
       ></v-date-picker>
-      <!-- <v-btn @click="check">click</v-btn> -->
       <br />
       <v-radio-group row v-model="flipper" mandatory>
         <h3>Same as Last Month?</h3>
@@ -147,9 +146,6 @@
       };
     },
     methods: {
-      check() {
-        console.log(this.monthly.date);
-      },
       flipTheFlipper() {
         if (this.flipper == "true") {
           this.monthly.samePrevMonth = true;
@@ -161,16 +157,11 @@
         const projId = this.monthly.projectId;
         const time = this.monthly.monthYear + "-01";
         this.monthly.monthYear = time;
-        // console.log("this", this.monthly);
-        // console.log("param");
         MonthlyService.addMonthly(time, projId)
           .then((response) => {
             if (response.status == 200 || response.status == 201) {
-              // console.log(response.data)
               this.monthly.id = response.data;
-              // console.log(this.monthly.id);
             }
-            // console.log(this.id)
             MonthlyService.updateMonthly(this.monthly)
               .then((response) => {
                 if (response.status == 200 || response.status == 201) {
@@ -191,23 +182,7 @@
           .catch((error) => {
             alert(error);
           });
-        // MonthlyService.updateMonthly(this.id, monthly).then((response) => {
-        //   if (response.status == 200 || response.status == 201){
-        //     this.$router.push({name: 'monthlySchedule', params: {id: this.id}})
-        //   }
-        // })
-        // .catch((error) => {
-        //   alert(error)
-        // })
-      },
-      // loadMonthly(id){
-      //   MonthlyService.getMonthly(id).then((response) => {
-      //     if (response.status == 200 || response.status == 201){
-      //       console.log(response.data)
-      //       this.displayMonthly = true;
-      //     }
-      //   })
-      // }
+      }
     },
   };
 </script>

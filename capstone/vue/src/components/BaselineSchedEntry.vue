@@ -4,22 +4,41 @@
       v-for="item in baselineItems"
       :key="item.id"
       id="item-container"
-    >
-      <h4>{{ item.itemDescription }}</h4>
-      <v-text-field
-        v-model="item.itemDate"
-        label="Date"
-        type="date"
-        required
-        @blur="saveBaselineItem(item)"
-      ></v-text-field>
-      <v-text-field
-        v-model="item.itemTasks"
-        type="text"
-        label="No. of Tasks"
-        required
-        @blur="saveBaselineItem(item)"
-      ></v-text-field>
+      ><br />
+      <v-row dense="true">
+        <v-col cols="6" sm="3"> </v-col>
+        <v-col cols="6">
+          <h4>{{ item.itemDescription }}</h4>
+        </v-col>
+        <v-col cols="6" sm="3"> </v-col>
+      </v-row>
+
+      <v-row dense="true">
+        <v-spacer></v-spacer>
+        <v-col cols="12" sm="2">
+            <v-text-field
+              v-model="item.itemDate"
+              label="Date"
+              type="date"
+              required
+              @blur="saveBaselineItem(item)"
+            >
+            </v-text-field>
+        </v-col>
+
+
+          <v-col cols="12" sm="2">
+            <v-text-field
+              v-model="item.itemTasks"
+              type="text"
+              label="Number of Tasks"
+              required
+              @blur="saveBaselineItem(item)"
+            ></v-text-field>
+          </v-col>
+
+        <v-spacer></v-spacer>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -38,9 +57,6 @@
     },
     props: ["baselineItems"],
     methods: {
-      check() {
-        console.log(this.baselineItems);
-      },
       saveBaselineItem(item) {
         ScheduleService.updateBaselineItem(item)
           .then((response) => {
@@ -51,9 +67,19 @@
           .catch((error) => {
             const response = error.response;
             if (response.status == 400) {
-              console.log(response.data.message);
+              //
             }
           });
+      },
+      onChangeDate() {
+        const dateCol = document.getElementById("textcol1");
+        // dateCol.classlist.remove("changedata");
+        dateCol.classlist.add("changedata");
+      },
+      onChangeTask() {
+        const dateCol = document.getElementById("textcol2");
+        // dateCol.classlist.remove("changedata");
+        dateCol.classlist.add("changedata");
       },
     },
     computed: {
@@ -68,5 +94,18 @@
   .item-container {
     max-width: 50%;
     width: 50%;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      background-color: green;
+    }
+    100% {
+      background-color: white;
+    }
+  }
+
+  .changedata {
+    animation: fadeOut 2.5s ease;
   }
 </style>

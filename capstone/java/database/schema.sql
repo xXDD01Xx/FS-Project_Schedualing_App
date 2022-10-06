@@ -21,8 +21,8 @@ CREATE TABLE users (
 
 CREATE TABLE phase_items (
     id SERIAL NOT NULL,
-    phase VARCHAR(20),
-    item_description VARCHAR(50),
+    phase VARCHAR(20) NOT NULL,
+    item_description VARCHAR(50) NOT NULL,
     CONSTRAINT phase_items_pkey PRIMARY KEY (id)
 );
 
@@ -34,11 +34,11 @@ CREATE TABLE contract (
 
 CREATE TABLE project (
     id SERIAL NOT NULL,
-    project_name VARCHAR(100),
+    project_name VARCHAR(100) NOT NULL,
     contract_id INTEGER REFERENCES contract (id) ON DELETE CASCADE,
-    date_received date,
-    budget BIGINT,
-    last_modified TIMESTAMP WITHOUT TIME ZONE,
+    date_received date NOT NULL,
+    budget BIGINT NOT NULL,
+    last_modified TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     tasks_substantial INTEGER,
     tasks_construction INTEGER,
     CONSTRAINT project_pkey PRIMARY KEY (id)
@@ -46,13 +46,21 @@ CREATE TABLE project (
 
 CREATE TABLE mods_changes (
     id SERIAL NOT NULL,
-    mod_co_name VARCHAR(20),
+    mod_co_name VARCHAR(20) NOT NULL,
     project_id INTEGER REFERENCES project (id) ON DELETE CASCADE,
     type VARCHAR(20),
-    court_date date,
-    schedule_impacted BOOLEAN,
-    budget_impacted BOOLEAN,
-    why VARCHAR(255),
+    court_date date NOT NULL,
+    schedule_impacted BOOLEAN NOT NULL,
+    why_sched_impact TEXT,
+	how_sched_impact TEXT,
+	budget_impacted BOOLEAN NOT NULL,
+	why_budgt_impact TEXT,
+	how_budgt_impact TEXT,
+	why_submit TEXT,
+	why_two TEXT,
+	why_three TEXT,
+	why_four TEXT,
+	why_five TEXT,
     approved BOOLEAN,
     approv_datetm TIMESTAMP WITHOUT TIME ZONE,
     CONSTRAINT mods_changes_pkey PRIMARY KEY (id)
@@ -70,18 +78,20 @@ CREATE TABLE baseline_sched_items (
 CREATE TABLE monthly_schedule (
     id SERIAL NOT NULL,
     project_id INTEGER REFERENCES project (id) ON DELETE CASCADE,
-    month_year date,
-    schedule_notes VARCHAR(255),
+    month_year date NOT NULL,
+    schedule_notes TEXT,
     pct_complete INTEGER,
+	sched_prod_idx DECIMAL,
     same_prev_month BOOLEAN,
-    why_one VARCHAR(255),
-    why_two VARCHAR(255),
-    why_three VARCHAR(255),
-    why_four VARCHAR(255),
-    why_five VARCHAR(255),
+    why_one TEXT,
+    why_two TEXT,
+    why_three TEXT,
+    why_four TEXT,
+    why_five TEXT,
     tasks_substantial INTEGER,
     tasks_construction INTEGER,
-    CONSTRAINT monthly_schedule_pkey PRIMARY KEY (id)
+    CONSTRAINT monthly_schedule_pkey PRIMARY KEY (id),
+	UNIQUE (project_id, month_year)
 );
 
 CREATE TABLE monthly_sched_items (

@@ -41,12 +41,12 @@
           <div v-if="user.authorities[0].name !== 'ROLE_VIEW'">
             <h2>Schedule Management</h2>
             <v-container id="schedule-container" class="my-2">
-              <router-link class="text-decoration-none" :to="{path: '/baselineSchedule'}">
+              <router-link class="text-decoration-none" :to="{path: '/baseline'}">
               <v-btn class="button"
               color=#8c090e
               elevation="2"
               outlined
-              >Baseline Schedule</v-btn>
+              >Edit Baseline Schedule</v-btn>
               </router-link>
               <router-link class="text-decoration-none" :to="{path: '/monthlyUpdate'}">
               <v-btn class="button"
@@ -56,13 +56,27 @@
               >Monthly Update</v-btn>
               </router-link>
            </v-container>
-           <v-container id="pending-mod-co-container" class="my-2">
-             <router-link class="text-decoration-none" :to="{path: '/mods-co'}">
+           <v-container class="modco-container">
+             <router-link class="text-decoration-none" :to="{path: '/log-mod-co'}">
              <v-btn class="button"
               color=#8c090e
               elevation="2"
               outlined
-            >Pending Modifications/Change Orders</v-btn>
+            >Log Mod/CO</v-btn>
+             </router-link>
+             <router-link class="text-decoration-none" :to="{path: '/pending-mods-co'}">
+             <v-btn class="button"
+              color=#8c090e
+              elevation="2"
+              outlined
+            >Pending Mod/CO</v-btn>
+             </router-link>
+             <router-link class="text-decoration-none" :to="{path: '/history-mods-co'}">
+             <v-btn class="button"
+              color=#8c090e
+              elevation="2"
+              outlined
+            >Mod/CO History</v-btn>
              </router-link>
           </v-container>
           <v-container id="add-project-container" class="my-2">
@@ -113,26 +127,40 @@
 </template>
 
 <script>
+// import PendingSnackbar from '../components/PendingSnackbar.vue'
+import AuthService from '../services/AuthService.js'
+
 export default {
   name: "home",
   components: {},
 
   data(){
     return {
-      user: this.$store.state.user
+      user: this.$store.state.user,
+      filteredUsers: [],
+      // pending: false,
     }
   },
-  methods: {}
+  methods: {},
+  created(){
+    if (this.$store.state.user.authorities[0].name === 'ROLE_ADMIN'){
+      AuthService.getAllUsers().then((response) =>{
+          if (response.status == 200 || response.status == 201){
+            this.filteredUsers = response.data.filter((user) =>{
+              return user.status == "Needs Approval";
+            })
+          }
+          if (this.filteredUsers.length > 0){
+            alert('Pending Users Need Review')
+        } 
+        });
+    }
+    }
 };
 </script>
 
 
 <style scoped>
-/*#home-container{*/
-/*  display: flexbox;*/
-/*  flex-direction: column;*/
-/*  justify-content: center;*/
-/*}*/
 .button {
     margin: 10px;
 }

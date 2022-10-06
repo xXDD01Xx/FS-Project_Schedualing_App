@@ -4,7 +4,7 @@
       <br>
       <h2 class="text-center">Add Project</h2>
       <br>
-      <v-form ref="form" lazy-validation>
+      <v-form ref="form">
         <v-text-field
           v-model="project.projectName"
           label="Project Name"
@@ -16,6 +16,7 @@
           :items="contracts"
           item-text="contractName"
           item-value="id"
+          required
           v-model="project.contractId"
         ></v-select>
 
@@ -83,9 +84,7 @@
             if (response.status == 200 || response.status == 201) {
               this.addProjectSuccess = true
               pro = response.data;
-              console.log('pro', pro)
               this.$store.commit('SET_PROJECT', pro);
-              console.log('store project',this.$store.state.project)
               this.project = {};
               this.$router.push({name: 'BaselineSchedule', params: {id: this.$store.state.project.id}});
             }
@@ -107,7 +106,6 @@
     created() {
       ProjectService.getContracts().then((response) => {
         this.contracts = response.data;
-        console.log(this.contracts);
       });
     },
   };

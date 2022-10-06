@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <br />
-      <h2 class="text-center">Pending Modifications / Change Orders</h2>
+      <h2 class="text-center">Modifications / Change Orders History</h2>
       <br /><br />
       <v-simple-table v-show="!populated">
         <thead style="display:table-header-group;" >
@@ -11,6 +11,8 @@
           <th>Court Date</th>
           <th>Schedule Impacted?</th>
           <th>Budget Impacted?</th>
+          <th>Approved?</th>
+          <th>Date</th>
           <th>View Details</th>
         </tr>
         </thead>
@@ -20,18 +22,20 @@
             <td>{{mod.courtDate}}</td>
             <td>{{mod.scheduleImpacted}}</td>
             <td>{{mod.budgetImpacted}}</td>
+            <td>{{mod.approved}}</td>
+            <td>{{new Date(mod.approveDateTm).toLocaleString()}}</td>
             <td>
               <v-btn
               elevation="2"
               class="text-decoration-none"
               @click="viewModCo(mod)">
-                View/Edit
+                View
               </v-btn>
             </td>
           </tr>
         </tbody>
       </v-simple-table><br><br>
-      <h1 class="text-center" v-if="populated">No Current Pending Modifications/Change Orders</h1>
+      <h1 class="text-center" v-if="populated">No Current Modifications/Change Orders</h1>
     </v-container>
     <div class="text-center">
     <br><br>
@@ -62,7 +66,7 @@ export default {
   },
   methods: {
     viewModCo(mod){
-      this.$router.push({name: 'ProcessModCO', params: {id: mod.id}})
+      this.$router.push({name: 'ModCODetails', params: {id: mod.id}})
     }
   },
   created(){
@@ -71,7 +75,7 @@ export default {
         this.modList = response.data;
       }
       this.filteredMods = this.modList.filter((each) => {
-        return each.approveDateTm == null;
+        return each.approveDateTm != null;
       })
     })
   },

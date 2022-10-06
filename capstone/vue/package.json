@@ -15,7 +15,10 @@
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
     "vuetify": "^2.6.0",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "gantt-elastic": "^1.0.0",
+    "gantt-elastic-header": "^0.1.11",
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.11",

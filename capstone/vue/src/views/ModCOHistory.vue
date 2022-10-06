@@ -11,6 +11,8 @@
           <th>Court Date</th>
           <th>Schedule Impacted?</th>
           <th>Budget Impacted?</th>
+          <th>Approved?</th>
+          <th>Date</th>
           <th>View Details</th>
         </tr>
         </thead>
@@ -20,6 +22,8 @@
             <td>{{mod.courtDate}}</td>
             <td>{{mod.scheduleImpacted}}</td>
             <td>{{mod.budgetImpacted}}</td>
+            <td>{{mod.approved}}</td>
+            <td>{{new Date(mod.approveDateTm).toLocaleString()}}</td>
             <td>
               <v-btn
               elevation="2"
@@ -31,7 +35,7 @@
           </tr>
         </tbody>
       </v-simple-table><br><br>
-      <h1 class="text-center" v-if="populated">No Current Pending Modifications/Change Orders</h1>
+      <h1 class="text-center" v-if="populated">No Current Modifications/Change Orders</h1>
     </v-container>
     <div class="text-center">
     <br><br>

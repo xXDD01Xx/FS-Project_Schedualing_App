@@ -6,6 +6,7 @@
     <v-container class="text-center">
       <v-date-picker
         v-model="monthly.monthYear"
+        :allowed-dates="allowedMonths"
         color="#8c090e"
         type="month"
       ></v-date-picker>
@@ -143,7 +144,19 @@
         displayMonthly: false,
         sameAsLastMonth: false,
         monthlyItems: [],
+        hasMonthReports: [],
       };
+    },
+    created() {
+      MonthlyService.getMonthlyList(this.$store.state.project.id)
+        .then((response) => {
+          if (response.status === 200 || response.status === 201) {
+            this.hasMonthReports = response.data.map((e) =>
+              e.monthYear.substr(0, 7)
+            );
+          }
+        })
+        .catch((error) => alert(error));
     },
     methods: {
       flipTheFlipper() {
@@ -182,7 +195,10 @@
           .catch((error) => {
             alert(error);
           });
-      }
+      },
+      allowedMonths(val) {
+        return !this.hasMonthReports.includes(val);
+      },
     },
   };
 </script>

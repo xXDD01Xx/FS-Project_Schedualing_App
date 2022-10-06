@@ -22,4 +22,8 @@ export default {
   updateMonthlyItem(item) {
     return axios.put(`/monthlyschedule/items/update/`, item);
   },
+
+  getMonthlyList(id){
+    return axios.get(`/monthlybyproject/${id}`);
+  }
 };

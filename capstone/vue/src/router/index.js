@@ -27,7 +27,7 @@ import ModCOFormByID from '../views/ModCOFormByID.vue'
 import ProcessModCO from '../views/ProcessModCO.vue'
 import ModCOHistory from '../views/ModCOHistory.vue'
 import ModCODetails from '../views/ModCODetails.vue'
-
+import MonthlyList from '../views/MonthlyList.vue'
 
 
 Vue.use(Router)
@@ -249,6 +249,14 @@ const router = new Router({
       path: `/monthlySchedule/:id`,
       name: "MonthlySchedule",
       component: MonthlySchedule,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: `/monthlylist/:id`,
+      name: "MonthlyList",
+      component: MonthlyList,
       meta: {
         requiresAuth: true,
       },

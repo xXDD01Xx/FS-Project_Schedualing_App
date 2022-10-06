@@ -10,6 +10,8 @@ public interface MonthlyScheduleDao {
 
     List<MonthlySchedule> listAllMonthlySchedule();
 
+    List<MonthlySchedule> listAllById(int projectId);
+
     MonthlySchedule listMonthlySchedule(int projectId);
 
     List<MonthlyPhaseItem> listMonthlyScheduleItems(int monthlyScheduleId);

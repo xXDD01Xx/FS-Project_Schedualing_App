@@ -14,6 +14,7 @@
             <th>Construction Tasks</th>
             <th>Substantial Tasks</th>
             <th>Add Monthly Update</th>
+            <th>View Monthly Updates</th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +52,14 @@
                 class="text-decoration-none"
                 @click="monthlyUpdate(project)"
                 >Add Update</v-btn
+              >
+            </td>
+            <td>
+            <v-btn
+                elevation="2"
+                class="text-decoration-none"
+                @click="monthlyList(project)"
+                >View Updates</v-btn
               >
             </td>
           </tr>
@@ -97,6 +106,13 @@
         this.$store.commit("SET_PROJECT", project);
         this.$router.push({
           name: "MonthlyUpdateById",
+          params: { id: project.id },
+        });
+      },
+      monthlyList(project) {
+        this.$store.commit("SET_PROJECT", project);
+        this.$router.push({
+          name: "MonthlyList",
           params: { id: project.id },
         });
       },

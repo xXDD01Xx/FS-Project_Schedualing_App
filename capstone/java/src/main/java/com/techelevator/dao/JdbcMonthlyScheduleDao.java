@@ -49,6 +49,32 @@ public class JdbcMonthlyScheduleDao implements MonthlyScheduleDao {
     }
 
     @Override
+    public List<MonthlySchedule> listAllById(int projectId) {
+        String sql = "SELECT id, " +
+                "project_id, " +
+                "month_year, " +
+                "schedule_notes, " +
+                "pct_complete, " +
+                "sched_prod_idx, " +
+                "same_prev_month, " +
+                "why_one, " +
+                "why_two, " +
+                "why_three, " +
+                "why_four, " +
+                "why_five, " +
+                "tasks_substantial, " +
+                "tasks_construction " +
+                "FROM monthly_schedule " +
+                "WHERE project_id = ?;";
+        SqlRowSet rs = this.jdbcTemplate.queryForRowSet(sql, projectId);
+        List<MonthlySchedule> monthlySchedules = new ArrayList<>();
+        while (rs.next()) {
+            monthlySchedules.add(mapRowToMonthlySchedule(rs));
+        }
+        return monthlySchedules;
+    }
+
+    @Override
     public MonthlySchedule listMonthlySchedule(int monthlySchedId) {
         String sql = "SELECT id, " +
                 "project_id, " +
